@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 12:18:19 by lusokol           #+#    #+#             */
-/*   Updated: 2019/11/22 18:56:12 by lusokol          ###   ########.fr       */
+/*   Created: 2019/11/22 19:36:52 by lusokol           #+#    #+#             */
+/*   Updated: 2019/11/22 19:44:26 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-# include "get_next_line.h"
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+# ifndef GET_NEXT_LINE_H
+#  define GET_NEXT_LINE_H
+#  include "get_next_line.h"
+#  include <sys/types.h>
+#  include <sys/uio.h>
+#  include <sys/stat.h>
+#  include <fcntl.h>
+#  include <unistd.h>
+#  include <stdio.h>
+#  include <stdlib.h>
 
 typedef struct		s_gnl
 {
@@ -42,4 +44,5 @@ int					ft_check(int fd, t_gnl *lst);
 t_gnl				*ft_lstnew(int content);
 void				ft_lstadd_back(t_gnl **alst, t_gnl *new);
 
+# endif
 #endif

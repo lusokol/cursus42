@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 11:51:58 by lusokol           #+#    #+#             */
-/*   Updated: 2019/11/22 19:10:37 by lusokol          ###   ########.fr       */
+/*   Updated: 2019/11/22 19:58:13 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int			ft_check(int fd, t_gnl *lst)
 {
-	//printf("test\n");
 	while (lst)
 	{
-		//printf("fd : %d\tlst->fd : %d\n", fd, lst->fd);
 		if (lst->fd == fd)
 			return (1);
 		lst = lst->next;
@@ -25,7 +23,7 @@ int			ft_check(int fd, t_gnl *lst)
 	return (0);
 }
 
-void		ft_reset(t_gnl *lst)
+void		ft_free(t_gnl *lst)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	int		i;
@@ -33,28 +31,21 @@ void		ft_reset(t_gnl *lst)
 	i = 0;
 	while (i <= BUFFER_SIZE)
 		buffer[i++] = '\0';
+	lst->ret = read((lst->fd), buffer, BUFFER_SIZE);
+	if (lst->buffer)
+		free(lst->buffer);
+	lst->buffer = ft_strdup(buffer);
+	lst->index = 0;
+}
+
+void		ft_reset(t_gnl *lst)
+{
 	if ((lst->index) >= (BUFFER_SIZE))
-	{
-		//if (lst->buffer)
-		//	free((lst->buffer));
-		lst->ret = read((lst->fd), buffer, BUFFER_SIZE);
-		if (lst->buffer)
-			free(lst->buffer);
-		lst->buffer = ft_strdup(buffer);
-		lst->index = 0;
-		//printf("test\n");
-	}
+		ft_free(lst);
 	else if (lst->buffer)
-	{
-		if ((lst->buffer)[(lst->index)] == '\0' && (lst->ret > (lst->index) || lst->fd == 0))
-		{
-			lst->ret = read((lst->fd), buffer, BUFFER_SIZE);
-			if (lst->buffer)
-				free(lst->buffer);
-			lst->buffer = ft_strdup(buffer);
-			lst->index = 0;
-		}
-	}
+		if ((lst->buffer)[(lst->index)] == '\0'
+				&& (lst->ret > (lst->index) || lst->fd == 0))
+			ft_free(lst);
 }
 
 int			ft_create(t_gnl *lst)
@@ -63,8 +54,6 @@ int			ft_create(t_gnl *lst)
 	int		i;
 
 	i = 0;
-	//if (lst->ligne)
-	//	free((lst->ligne));
 	ft_reset(lst);
 	while (i <= BUFFER_SIZE)
 		buffer[i++] = '\0';
@@ -76,7 +65,7 @@ int			ft_create(t_gnl *lst)
 			free(lst->buffer);
 		lst->buffer = ft_strdup(buffer);
 	}
-	while((lst->buffer)[(lst->index)] != '\n' && (lst->buffer)[(lst->index)])
+	while ((lst->buffer)[(lst->index)] != '\n' && (lst->buffer)[(lst->index)])
 	{
 		lst->ligne = ft_strjoin((lst->ligne), (lst->buffer)[(lst->index)++]);
 		ft_reset(lst);
@@ -85,7 +74,6 @@ int			ft_create(t_gnl *lst)
 		lst->fin = 0;
 	if ((lst->buffer)[lst->index] != '\0')
 		lst->index = lst->index + 1;
-	//printf("index : %d\n", (lst->index));
 	return (1);
 }
 
@@ -109,8 +97,6 @@ int			get_next_line(int fd, char **line)
 	if (tmp->fin)
 		if (ft_create(tmp) == -1)
 			return (-1);
-	if (!(tmp->ligne))
-		tmp->ligne = ft_strdup("");
 	*line = tmp->ligne;
 	if (!(tmp->fin))
 		tmp->fd = -1;
@@ -118,24 +104,3 @@ int			get_next_line(int fd, char **line)
 		free(tmp->buffer);
 	return ((tmp->fin));
 }
-
-/*int		main(int argc, char **argv)
-{
-	char    *line;
-	int        fd;
-	int     i = 0;;
-
-	(void)argc;
-	//(void)argv;
-	fd = open(argv[1], O_RDONLY);
-	//fd = 0;
-	while ((i = get_next_line(fd, &line)) > 0)
-	{
-		printf("|%s\n", line);
-		free(line);
-		//break;
-	}
-	printf("|%s\n", line);
-	free(line);
-	return (0);
-}*/
