@@ -16,6 +16,9 @@
 # include "./libft/libft.h"
 # include <stdarg.h>
 # include <unistd.h>
+
+int g_count;
+
 typedef struct	s_info
 {
 	int			precision;

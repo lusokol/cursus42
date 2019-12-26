@@ -24,7 +24,7 @@ t_info	ft_init_info(void)
 	return (info);
 }
 
-int	ft_take_arg(va_list *arg, char *type, int i)
+void	ft_take_arg(va_list *arg, char *type, int i)
 {
 	int nbr;
 
@@ -54,22 +54,25 @@ t_info	ft_arg_i_d(va_list *arg, char *type)
 			info.zeros = 1;
 	if (type[i] != '.')
 	{
-		info.largeur = ft_take_arg(arg, type, i);
-		if (type[i] == '*')
-			i++;
-		else while (ft_isdigit(type[i]))
-			i++;
+		info.largeur = ft_take_arg(*arg, type, i);
+		while
 	}
-	if (type[i] == '.')
+	while (type[i])
 	{
-		i++;
-		info.precision = ft_take_arg(arg, type, i);
 		if (type[i] == '*')
+		{
+//			printf("type[i] : %c", type[i]);
+			if (type[i - 1] != '.')
+				info.largeur = va_arg(*arg, int);
+			else if (type[i - 1] == '.')
+				info.precision = va_arg(*arg, int);
+			else
+				va_arg(*arg, int);
 			i++;
-		else while (ft_isdigit(type[i]))
-			i++;
+		}
+		i++;
 	}
-	//printf("\np =\t\t%d\nl =\t\t%d\n", info.precision, info.largeur);
+//	printf("\np =\t\t%d\nl =\t\t%d\n", info.precision, info.largeur);
 	nbr = va_arg(*arg, int);
 	ft_disp_arg(info.precision, info.largeur, ft_itoa(nbr), 1);
 	return (info);

@@ -15,23 +15,31 @@
 /* 1 = int, 2 = char */
 void	ft_disp_arg(int precision, int largeur, char *toDisp, int type)
 {
-	(void)type;
-	(void)toDisp;
-	printf("\nprecision :\t%d\nlargeur : \t%d\n", precision, largeur);
-//	int calc;
-//	int len;
-/*
+//	printf("\nprecision :\t%d\nlargeur : \t%d\n", precision, largeur);
+	int calc;
+	int len;
+
 	len = ft_strlen(toDisp);
 	calc = largeur - precision;
 	while (calc-- > 0)
+	{
 		ft_putchar(' ');
+		g_count++;
+	}
 	if (type == 1)
 		while (precision-- - len > 0)
+		{
 			ft_putchar('0');
+			g_count++;
+		}
 	else
 		while (precision-- - len > 0)
+		{
 			ft_putchar(' ');
-	ft_putstr(toDisp);*/
+			g_count++;
+		}
+	g_count += ft_strlen(toDisp);
+	ft_putstr(toDisp);
 }
 
 int		ft_print_arg(va_list *arg, char *type)
@@ -84,7 +92,7 @@ char	*ft_search_arg(const char *str)
 	return (type);
 }
 
-void	ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	arg;
 	char	*type;
@@ -92,6 +100,8 @@ void	ft_printf(const char *str, ...)
 	int		j;
 
 /**********************************************************************************
+
+A FAIRE : VERIFIER LA VARIABLE GLOBALE, VALEUR DE RETOUR, ET "INT" FT_PRINTFT
 
   1 = int
   2 = char
@@ -114,13 +124,17 @@ largeur : nombre de char a aff
 precision : nombre min de char de l'arg a afficher“
 
 **********************************************************************************/
+	g_count = 0;
 	i = 0;
 	va_start(arg, str);
 	while (str[i])
 	{
 		j = 0;
 		while (str[i] != '%' && str[i])
+		{
 			ft_putchar(str[i++]);
+			g_count++;
+		}
 		//ft_putstr("test1");
 		if (str[i] == '%')
 		{
@@ -134,4 +148,5 @@ precision : nombre min de char de l'arg a afficher“
 			i++;
 	}
 	va_end(arg); 
+	return (g_count);
 }

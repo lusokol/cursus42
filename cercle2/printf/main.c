@@ -18,10 +18,11 @@ void	ft_printf(const char *test, ...);
 int main(int ac, char **av)
 {
 	(void)ac;
-	char *str = "chiffre 15 : |%*.*d|\nchiffre2 123456 : |%*.*d|\n";
+	char *str = "chiffre 15 : |%*.*d|\n";
+	printf("precision : 10, largeur : 15\n");
 	printf("printf :\n");
-	printf(str, 5, 10, 15, 15, 20, 123456);
+	printf(str, 15, 10, 15);
 	printf("ft_printf :\n");
-	ft_printf(str, 5, 10, 15, 15, 20, 123456);
+	ft_printf(str, 15, 10, 15);
 	return 0;
 }
