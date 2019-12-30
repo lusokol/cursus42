@@ -12,36 +12,6 @@
 
 #include "libftprintf.h"
 
-/* 1 = int, 2 = char */
-void	ft_disp_arg(int precision, int largeur, char *toDisp, int type)
-{
-//	printf("\nprecision :\t%d\nlargeur : \t%d\n", precision, largeur);
-	int calc;
-	int len;
-
-	len = ft_strlen(toDisp);
-	calc = largeur - precision;
-	while (calc-- > 0)
-	{
-		ft_putchar(' ');
-		g_count++;
-	}
-	if (type == 1)
-		while (precision-- - len > 0)
-		{
-			ft_putchar('0');
-			g_count++;
-		}
-	else
-		while (precision-- - len > 0)
-		{
-			ft_putchar(' ');
-			g_count++;
-		}
-	g_count += ft_strlen(toDisp);
-	ft_putstr(toDisp);
-}
-
 int		ft_print_arg(va_list *arg, char *type)
 {
 	int	len;
@@ -60,7 +30,7 @@ int		ft_print_arg(va_list *arg, char *type)
 	else if (type[len] == 'p') // adresse en hexa
 		ft_putstr(va_arg(*arg, char *));
 	else if (type[len] == 'u') // valeur absolue
-		ft_putstr(va_arg(*arg, char *));
+		ft_arg_u(arg, type);
 	return (1);
 }
 
@@ -148,5 +118,6 @@ precision : nombre min de char de l'arg a afficher“
 			i++;
 	}
 	va_end(arg); 
+	//printf("g_count : %d\n", g_count);
 	return (g_count);
 }

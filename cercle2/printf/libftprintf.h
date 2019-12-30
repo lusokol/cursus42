@@ -29,6 +29,10 @@ typedef struct	s_info
 t_info	ft_arg_i_d(va_list *arg, char *type);
 int		ft_istype(char a);
 int		ft_check_flag(char a);
-void	ft_disp_arg(int largeur, int precision, char *toDisp, int type);
+void	ft_disp_arg(t_info info, char *toDisp);
+void	ft_aff_zeroes(int a);
+void	ft_aff_spaces(int a);
+void	ft_aff_nbr(t_info info, char *nbr);
+t_info	ft_arg_u(va_list *arg, char *type);
 
 #endif

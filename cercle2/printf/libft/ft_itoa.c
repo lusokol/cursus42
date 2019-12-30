@@ -26,14 +26,12 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int long long n)
 {
 	char	*str;
 
 	if (!(str = (char *)malloc(sizeof(char) * 2)))
 		return (NULL);
-	if (n == -2147483648)
-		return (ft_strcpy(str, "-2147483648"));
 	if (n < 0)
 	{
 		str[0] = '-';

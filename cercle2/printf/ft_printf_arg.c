@@ -39,6 +39,56 @@ int	ft_take_arg(va_list *arg, char *type, int i)
 	return (nbr);
 }
 
+int		ft_take_flags(t_info *info, char *type)
+{
+	int i;
+
+	i = 0;
+	while (ft_check_flag(type[i]))
+	{
+		if (type[i] == '-')
+			info->moins = 1;
+		if (type[i] == '0')
+			info->zeros = 1;
+		i++;
+	}
+	return (i);
+}
+
+int		ft_take_largeur(t_info *info, char *type, int i,  va_list *arg)
+{
+	int add;
+
+	add = 0;
+	if (type[i + add] != '.' && (ft_isdigit(type[i + add]) || type[i + add] == '*'))
+	{
+		info->largeur = ft_take_arg(arg, type, i + add);
+		if (type[i + add] == '*')
+			add++;
+		else while (ft_isdigit(type[i + add]))
+			add++;
+	}
+	return (add);
+}
+
+int		ft_take_precision(t_info *info, char *type, int i,  va_list *arg)
+{
+	int add;
+
+	add = 0;
+	if (type[i + add] == '.')
+	{
+		add++;
+		info->precision = ft_take_arg(arg, type, i + add);
+		if (type[i + add] == '*')
+			add++;
+		else while (ft_isdigit(type[i + add]))
+			add++;
+		info->zeros = 0;
+	}
+	return (add);
+}
+
 t_info	ft_arg_i_d(va_list *arg, char *type)
 {
 	int		nbr;
@@ -47,30 +97,39 @@ t_info	ft_arg_i_d(va_list *arg, char *type)
 
 	i = 0;
 	info = ft_init_info();
-	while (ft_check_flag(type[i]))
-		if (type[i++] == '-')
-			info.moins = 1;
-		else
-			info.zeros = 1;
-	if (type[i] != '.')
-	{
-		info.largeur = ft_take_arg(arg, type, i);
-		if (type[i] == '*')
-			i++;
-		else while (ft_isdigit(type[i]))
-			i++;
-	}
-	if (type[i] == '.')
-	{
-		i++;
-		info.precision = ft_take_arg(arg, type, i);
-		if (type[i] == '*')
-			i++;
-		else while (ft_isdigit(type[i]))
-			i++;
-	}
-	//printf("\np =\t\t%d\nl =\t\t%d\n", info.precision, info.largeur);
+	i += ft_take_flags(&info, type);
+	i += ft_take_largeur(&info, type, i, arg);
+	i += ft_take_precision(&info, type, i, arg);
 	nbr = va_arg(*arg, int);
-	ft_disp_arg(info.precision, info.largeur, ft_itoa(nbr), 1);
+	if (nbr != 0 || info.precision != 0)
+		ft_aff_nbr(info, ft_itoa(nbr));
+	return (info);
+}
+
+t_info	ft_arg_u(va_list *arg, char *type)
+{
+	int long long		nbr;
+	//unsigned int		unbr;
+	int					i;
+	t_info				info;
+
+	i = 0;
+	info = ft_init_info();
+	i += ft_take_flags(&info, type);
+	i += ft_take_largeur(&info, type, i, arg);
+	i += ft_take_precision(&info, type, i, arg);
+	nbr = va_arg(*arg, int);
+	//printf("nbr : %lld\n", nbr);
+	//unbr = (unsigned int)nbr;
+	//else
+	//		test = nbr;
+	//printf("unbr :\t");
+	if (nbr < 0)
+		nbr = (4294967296) - -nbr;
+	//nbr = unbr;
+	//printf("\n%lld\n", nbr);
+	//ft_putnbr(unbr);
+	if (nbr != 0 || info.precision != 0)
+		ft_aff_nbr(info, ft_itoa(nbr));
 	return (info);
 }

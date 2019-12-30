@@ -17,12 +17,13 @@ void	ft_printf(const char *test, ...);
 
 int main(int ac, char **av)
 {
+	int a = -123;
+	printf("|%u|\n", -1001234);
+	ft_printf("|%u|\n", -1001234);
 	(void)ac;
-	char *str = "chiffre 15 : |%*.*d|\n";
-	printf("precision : 10, largeur : 15\n");
-	printf("printf :\n");
-	printf(str, 15, 10, 15);
-	printf("ft_printf :\n");
-	ft_printf(str, 15, 10, 15);
+	//char *str = "|%010d|";
+	//printf(str, -741);
+	//printf("\n");
+	//ft_printf(str, -741);
 	return 0;
 }
