@@ -20,17 +20,19 @@ int		ft_print_arg(va_list *arg, char *type)
 	if (type[len] == 'd' || type[len] == 'i')
 		ft_arg_i_d(arg, type);
 	else if (type[len] == 'c')
-		ft_putchar(va_arg(*arg, int));
+		ft_arg_c(arg, type);
 	else if (type[len] == 's')
-		ft_putstr(va_arg(*arg, char *));
-	else if (type[len] == 'x') // hexa em minuscule
-		ft_putstr(va_arg(*arg, char *));
-	else if (type[len] == 'X') // hexa en majuscule
-		ft_putstr(va_arg(*arg, char *));
+		ft_arg_s(arg, type);
+	else if (type[len] == 'x')
+		ft_arg_xX(arg, type, 1);
+	else if (type[len] == 'X')
+		ft_arg_xX(arg, type, 2);
 	else if (type[len] == 'p') // adresse en hexa
-		ft_putstr(va_arg(*arg, char *));
-	else if (type[len] == 'u') // valeur absolue
+		ft_arg_p(arg, type);
+	else if (type[len] == 'u')
 		ft_arg_u(arg, type);
+	else if (type[len] == '%')
+		ft_arg_percent(arg, type);
 	return (1);
 }
 
@@ -69,31 +71,6 @@ int	ft_printf(const char *str, ...)
 	int		i;
 	int		j;
 
-/**********************************************************************************
-
-A FAIRE : VERIFIER LA VARIABLE GLOBALE, VALEUR DE RETOUR, ET "INT" FT_PRINTFT
-
-  1 = int
-  2 = char
-  3 = string
-  4 = ....
-
-flags :
-  %-d
-  %0d
-
-largeur :
-  %8d
-  %*d -> cherche avec va_arg
-
-precision :
-  %.6d
-  %.*d -> chercher avec va_arg
-
-largeur : nombre de char a aff
-precision : nombre min de char de l'arg a afficher“
-
-**********************************************************************************/
 	g_count = 0;
 	i = 0;
 	va_start(arg, str);
@@ -105,19 +82,16 @@ precision : nombre min de char de l'arg a afficher“
 			ft_putchar(str[i++]);
 			g_count++;
 		}
-		//ft_putstr("test1");
 		if (str[i] == '%')
 		{
 			type = ft_search_arg(str);
 			ft_print_arg(&arg, type);
 		}
-		//j = ft_printf_type(&arg, type);
 		while (!ft_istype(str[i]) && str[i])
 			i++;
 		if (str[i])
 			i++;
 	}
 	va_end(arg); 
-	//printf("g_count : %d\n", g_count);
 	return (g_count);
 }

@@ -15,15 +15,12 @@
 
 void	ft_printf(const char *test, ...);
 
-int main(int ac, char **av)
+int main(void)
 {
-	int a = -123;
-	printf("|%u|\n", -1001234);
-	ft_printf("|%u|\n", -1001234);
-	(void)ac;
-	//char *str = "|%010d|";
-	//printf(str, -741);
-	//printf("\n");
-	//ft_printf(str, -741);
+	char *str = "salut";
+	//printf("printf :\t|%s|\n", str);
+	//ft_printf("ft_printf :\t|%s|\n", str);
+	printf("printf :\t|%10.5%|\n");
+	ft_printf("ft_printf :\t|%10.5%|\n");
 	return 0;
 }
