@@ -61,6 +61,8 @@ void	ft_aff_nbrstr(char *nbr, t_info *info)
 	int i;
 
 	i = (nbr[0] == '-' && info->str == 0) ? 1 : 0;
+	if (info->str == 1 && nbr[0] == '\0')
+		ft_putchar(0);
 	while (nbr[i])
 	{
 		if (info->str > 0 && i >= info->precision && info->precision != -1)
@@ -89,10 +91,7 @@ int		ft_nbr_espace(t_info *info, char *nbr, int zero)
 
 	espace = info->largeur - ft_strlen(nbr) - zero;
 	if (info->str == 1 && nbr[0] == '\0')
-	{
 		espace--;
-		ft_putchar(0);
-	}
 	if (info->str == 2 && info->precision != -1)
 	{
 		if (info->precision < ft_strlen(nbr))
@@ -103,33 +102,6 @@ int		ft_nbr_espace(t_info *info, char *nbr, int zero)
 	espace = (espace < 0) ? 0 : espace;
 	return (espace);
 }
-/*int		ft_nbr_espace(t_info *info, char *nbr)
-{
-	int espace;
-	int zero;
-
-	espace = 0;
-	zero = 0;
-	if (info->precision < info->largeur)
-	{
-		if (info->precision == -1)
-			espace = info->largeur - ((ft_strlen(nbr) > 0) ? ft_strlen(nbr) : 0);
-		else if (info->str != 2)
-			espace = info->largeur - ((ft_strlen(nbr) > info->precision) ? ft_strlen(nbr) : info->precision);
-		else
-			espace = info->largeur - ((ft_strlen(nbr) > info->precision) ? info->precision : ft_strlen(nbr));
-		if (info->precision > ft_strlen(nbr))
-			zero = info->precision - ft_strlen(nbr) + ((nbr[0] == '-')  ? 1 : 0);
-	}
-	else if (info->str == 2)
-			espace = info->largeur - ((ft_strlen(nbr) > info->precision) ? info->precision : ft_strlen(nbr));
-	if (info->str == 1 && nbr[0] == '\0')
-			espace--;
-	if (info->str == 1 && nbr[0] == '\0')
-			ft_putchar(0);
-	espace = (espace < 0) ? 0 : espace;
-	return (espace);
-}*/
 
 void	ft_aff_nbr(t_info info, char *nbr)
 {
@@ -138,8 +110,6 @@ void	ft_aff_nbr(t_info info, char *nbr)
 
 	zero = ft_nbr_zero(&info, nbr);
 	espace = ft_nbr_espace(&info, nbr, zero);
-	//if (nbr[0] == '-' && info.precision > ft_strlen(nbr))
-	//		espace -= (espace > 0) ? 1 : 0;
 	if (info.str == 1)
 		espace += zero;
 	if (info.str == 1)
@@ -148,11 +118,13 @@ void	ft_aff_nbr(t_info info, char *nbr)
 		ft_aff_spaces(espace);
 	if (info.moins == 0 && info.zeros == 1)
 	{
-		ft_aff_moins(nbr);
+		if (info.str == 0)
+			ft_aff_moins(nbr);
 		ft_aff_zeroes(espace);
 	}
 	else
-		ft_aff_moins(nbr);
+		if (info.str == 0)
+			ft_aff_moins(nbr);
 	ft_aff_zeroes(zero);
 	ft_aff_nbrstr(nbr, &info);
 	if (info.moins == 1)

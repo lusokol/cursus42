@@ -139,6 +139,8 @@ t_info	ft_arg_u(va_list *arg, char *type)
 		nbr = (4294967296) - -nbr;
 	if (nbr != 0 || info.precision != 0)
 		ft_aff_nbr(info, ft_itoa(nbr));
+	else
+		ft_aff_nbr(info, ft_strdup(""));
 	return (info);
 }
 
@@ -156,8 +158,10 @@ t_info	ft_arg_xX(va_list *arg, char *type, int a)
 	nbr = va_arg(*arg, int);
 	if ((nbr != 0 || info.precision != 0) && a == 1)
 		ft_aff_nbr(info, ft_convert_base(nbr, "0123456789abcdef"));
-	if ((nbr != 0 || info.precision != 0) && a == 2)
+	else if ((nbr != 0 || info.precision != 0) && a == 2)
 		ft_aff_nbr(info, ft_convert_base(nbr, "0123456789ABCDEF"));
+	else
+		ft_aff_nbr(info, ft_strdup(""));
 	return (info);
 }
 

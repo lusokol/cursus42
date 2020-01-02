@@ -17,9 +17,15 @@ void	ft_printf(const char *test, ...);
 
 int main(void)
 {
-	char *str = "-abc";
-	printf("\"|%%-4s|\"\n");
-	printf("printf \t\t: |%.*s|\n", -4, str);
-	ft_printf("ft_printf \t: |%.*s|\n", -4, str);
+	//char *str = "-abc";
+	int a = -1;
+	printf("\"|%%-1.0s|\"\n");
+	while (a < 5)
+	{
+		printf("a : %d\n", a);
+		printf("printf \t\t: |%*c|\n", a, 0);
+		ft_printf("ft_printf \t: |%*c|\n", a, 0);
+		a++;
+	}
 	return 0;
 }
