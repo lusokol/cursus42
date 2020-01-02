@@ -17,10 +17,9 @@ void	ft_printf(const char *test, ...);
 
 int main(void)
 {
-	char *str = "salut";
-	//printf("printf :\t|%s|\n", str);
-	//ft_printf("ft_printf :\t|%s|\n", str);
-	printf("printf :\t|%10.5%|\n");
-	ft_printf("ft_printf :\t|%10.5%|\n");
+	char *str = "-abc";
+	printf("\"|%%-4s|\"\n");
+	printf("printf \t\t: |%.*s|\n", -4, str);
+	ft_printf("ft_printf \t: |%.*s|\n", -4, str);
 	return 0;
 }

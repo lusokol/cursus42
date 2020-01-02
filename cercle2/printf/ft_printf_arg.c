@@ -18,7 +18,7 @@ t_info	ft_init_info(void)
 	t_info info;
 
 	info.precision = -1;
-	info.largeur = -1;
+	info.largeur = 0;
 	info.moins = 0;
 	info.zeros = 0;
 	info.str = 0;
@@ -69,6 +69,11 @@ int		ft_take_largeur(t_info *info, char *type, int i,  va_list *arg)
 		else while (ft_isdigit(type[i + add]))
 			add++;
 	}
+	if (info->largeur < 0)
+	{
+			info->moins = 1;
+			info->largeur = -info->largeur;
+	}
 	return (add);
 }
 
@@ -85,10 +90,14 @@ int		ft_take_precision(t_info *info, char *type, int i,  va_list *arg)
 			add++;
 		else while (ft_isdigit(type[i + add]))
 			add++;
-		info->zeros = 0;
+		if (info->precision >= 0)
+			info->zeros = 0;
 	}
 	return (add);
 }
+
+//printf("largeur : %d, precision : %d, ", info.largeur, info.precision);
+//printf("zero : %d, moin : %d, ", info.zeros, info.moins);
 
 t_info	ft_arg_i_d(va_list *arg, char *type)
 {
@@ -104,6 +113,13 @@ t_info	ft_arg_i_d(va_list *arg, char *type)
 	nbr = va_arg(*arg, int);
 	if (nbr != 0 || info.precision != 0)
 		ft_aff_nbr(info, ft_itoa(nbr));
+	else
+			while (info.largeur > 0)
+			{
+				ft_putchar(' ');
+				g_count++;
+				info.largeur--;
+			}
 	return (info);
 }
 
@@ -216,12 +232,12 @@ t_info	ft_arg_percent(va_list *arg, char *type)
 
 	i = 0;
 	str = ft_strdup("%");
-	info.str = 3;
 	info = ft_init_info();
 	i += ft_take_flags(&info, type);
 	i += ft_take_largeur(&info, type, i, arg);
 	i += ft_take_precision(&info, type, i, arg);
-	ft_aff_str(info, str);
+	i += ft_take_flags(&info, type);
+	ft_aff_percent(info, str);
 	return (info);
 }
 

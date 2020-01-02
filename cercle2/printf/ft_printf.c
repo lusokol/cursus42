@@ -27,7 +27,7 @@ int		ft_print_arg(va_list *arg, char *type)
 		ft_arg_xX(arg, type, 1);
 	else if (type[len] == 'X')
 		ft_arg_xX(arg, type, 2);
-	else if (type[len] == 'p') // adresse en hexa
+	else if (type[len] == 'p')
 		ft_arg_p(arg, type);
 	else if (type[len] == 'u')
 		ft_arg_u(arg, type);
@@ -36,32 +36,26 @@ int		ft_print_arg(va_list *arg, char *type)
 	return (1);
 }
 
-char	*ft_search_arg(const char *str)
+char	*ft_search_arg(const char *str, int i)
 {
-	static int	index;
-	int			i;
-	int			j;
 	int			tmp;
 	char		*type;
 
-	j = 0;
-	i = 0;
-	if (!index)
-		index = 1;
-	while (index - i > 0 && str[j])
-	{
-		tmp = 0;
-		if (str[j] && str[j] == '%')
-		{
-			while (str[j + tmp] && !ft_istype(str[j + tmp]))
-				tmp++;
-			type = ft_substr(str + 1, j, tmp);
-			i++;
-		}
-		j++;
-	}
-	index++;
+	tmp = 1;
+	while (str[i + tmp] && !ft_istype(str[i + tmp]))
+		tmp++;
+	type = ft_substr(str + 1, i, tmp);
 	return (type);
+}
+
+int	ft_printchar(const char *str, int i)
+{
+	while (str[i] != '%' && str[i])
+	{
+		ft_putchar(str[i++]);
+		g_count++;
+	}
+	return (i);
 }
 
 int	ft_printf(const char *str, ...)
@@ -77,18 +71,13 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		j = 0;
-		while (str[i] != '%' && str[i])
-		{
-			ft_putchar(str[i++]);
-			g_count++;
-		}
+		i = ft_printchar(str, i);
 		if (str[i] == '%')
 		{
-			type = ft_search_arg(str);
+			type = ft_search_arg(str, i);
 			ft_print_arg(&arg, type);
+			i += ft_strlen(type);
 		}
-		while (!ft_istype(str[i]) && str[i])
-			i++;
 		if (str[i])
 			i++;
 	}

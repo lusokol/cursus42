@@ -34,6 +34,7 @@ void	ft_aff_zeroes(int a);
 void	ft_aff_spaces(int a);
 void	ft_aff_nbr(t_info info, char *nbr);
 void	ft_aff_str(t_info info, char *str);
+void	ft_aff_percent(t_info info, char *str);
 t_info	ft_arg_i_d(va_list *arg, char *type);
 t_info	ft_arg_u(va_list *arg, char *type);
 t_info	ft_arg_xX(va_list *arg, char *type,  int a);
