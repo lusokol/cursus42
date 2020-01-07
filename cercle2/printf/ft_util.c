@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:10:24 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 13:46:08 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 14:59:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ char		*ft_convert_base_add(unsigned long long int nbr, char *baseto)
 
 	i = 1;
 	j = 0;
-	len = ft_len_nbr(nbr, ft_strlen(baseto)) + 2;
+	len = ft_len_nbr(nbr, ft_strlen(baseto));
 	if (!(nb = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	nb[len] = '\0';
-	nb[0] = '0';
-	nb[1] = 'x';
 	while (nbr >= (unsigned long long int)ft_strlen(baseto))
 	{
 		nb[len - i] = baseto[nbr % ft_strlen(baseto)];

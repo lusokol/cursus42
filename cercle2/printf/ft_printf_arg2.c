@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:35:20 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 13:45:56 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 15:43:43 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,15 @@ t_info		ft_arg_p(va_list *arg, char *type)
 	i += ft_take_largeur(&info, type, i, arg);
 	i += ft_take_precision(&info, type, i, arg);
 	nbr = va_arg(*arg, unsigned long long int);
+	info.str = 4;
 	if (nbr != 0 || info.precision != 0)
-		ft_aff_nbr(info, ft_convert_base_add(nbr, "0123456789abcdef"));
+		ft_aff_str(info, ft_convert_base_add(nbr, "0123456789abcdef"));
+	else
+	{
+		ft_aff_spaces(info.largeur - 2);
+		ft_putstr("0x");
+		g_count += 2;
+	}
 	return (info);
 }
 

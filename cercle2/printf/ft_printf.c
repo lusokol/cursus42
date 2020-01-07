@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:49:13 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 13:41:58 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 16:54:09 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		ft_printf(const char *str, ...)
 			type = ft_search_arg(str, i);
 			ft_print_arg(&arg, type);
 			i += ft_strlen(type);
+			free(type);
 		}
 		if (str[i])
 			i++;

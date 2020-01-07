@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:37:53 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 13:54:55 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 15:03:03 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_info			ft_init_info(void);
 void			ft_aff_zeroes(int a);
 void			ft_aff_spaces(int a);
 int				ft_check_flag(char a);
-void			ft_aff_moins(char *nbr);
 void			ft_aff_nbr(t_info info, char *nbr);
 void			ft_aff_str(t_info info, char *str);
 t_info			ft_arg_u(va_list *arg, char *type);
@@ -42,6 +41,7 @@ t_info			ft_arg_s(va_list *arg, char *type);
 t_info			ft_arg_p(va_list *arg, char *type);
 int				ft_nbr_zero(t_info *info, char *nbr);
 t_info			ft_arg_i_d(va_list *arg, char *type);
+void			ft_aff_moins(char *nbr, t_info *info);
 void			ft_aff_nbrstr(char *nbr, t_info *info);
 void			ft_disp_arg(t_info info, char *todisp);
 void			ft_aff_percent(t_info info, char *str);

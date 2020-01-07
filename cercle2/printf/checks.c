@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 13:23:07 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 13:40:17 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 15:48:13 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@ int		ft_check_flag(char a)
 	return (0);
 }
 
-void	ft_aff_moins(char *nbr)
+void	ft_aff_moins(char *nbr, t_info *info)
 {
 	if (nbr[0] == '-')
 	{
 		ft_putchar('-');
 		g_count++;
+	}
+	if (info->str == 4)
+	{
+		ft_putstr("0x");
+		g_count += 2;
 	}
 }
 
@@ -37,7 +42,8 @@ void	ft_aff_nbrstr(char *nbr, t_info *info)
 		ft_putchar(0);
 	while (nbr[i])
 	{
-		if (info->str > 0 && i >= info->precision && info->precision != -1)
+		if (info->str > 0 && i >= info->precision && info->precision != -1
+				&& info->str != 4)
 			break ;
 		if (nbr[i] != '\0')
 		{
@@ -71,6 +77,8 @@ int		ft_nbr_espace(t_info *info, char *nbr, int zero)
 		else
 			espace = info->largeur - ft_strlen(nbr);
 	}
+	if (info->str == 4)
+		espace -= 2;
 	espace = (espace < 0) ? 0 : espace;
 	return (espace);
 }
