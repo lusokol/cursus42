@@ -6,7 +6,7 @@
 #    By: lusokol <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 20:53:32 by lusokol           #+#    #+#              #
-#    Updated: 2019/12/13 14:58:12 by lusokol          ###   ########.fr        #
+#    Updated: 2020/01/07 13:45:02 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,10 @@ SRCS = ft_atoi.c \
 
 PRINTF = ../ft_printf.o \
 		 ../ft_printf_arg.o \
+		 ../ft_printf_arg2.o \
 		 ../checks.o \
+		 ../ft_util.o \
+		 ../disp_util.o \
 
 FLAGS = -Wall -Wextra -Werror -g3
 

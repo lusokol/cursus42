@@ -6,11 +6,27 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:49:13 by lusokol           #+#    #+#             */
-/*   Updated: 2019/12/16 15:30:46 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 13:41:58 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+int		ft_take_flags(t_info *info, char *type)
+{
+	int i;
+
+	i = 0;
+	while (ft_check_flag(type[i]))
+	{
+		if (type[i] == '-')
+			info->moins = 1;
+		if (type[i] == '0')
+			info->zeros = 1;
+		i++;
+	}
+	return (i);
+}
 
 int		ft_print_arg(va_list *arg, char *type)
 {
@@ -24,9 +40,9 @@ int		ft_print_arg(va_list *arg, char *type)
 	else if (type[len] == 's')
 		ft_arg_s(arg, type);
 	else if (type[len] == 'x')
-		ft_arg_xX(arg, type, 1);
+		ft_arg_xx(arg, type, 1);
 	else if (type[len] == 'X')
-		ft_arg_xX(arg, type, 2);
+		ft_arg_xx(arg, type, 2);
 	else if (type[len] == 'p')
 		ft_arg_p(arg, type);
 	else if (type[len] == 'u')
@@ -48,7 +64,7 @@ char	*ft_search_arg(const char *str, int i)
 	return (type);
 }
 
-int	ft_printchar(const char *str, int i)
+int		ft_printchar(const char *str, int i)
 {
 	while (str[i] != '%' && str[i])
 	{
@@ -58,7 +74,7 @@ int	ft_printchar(const char *str, int i)
 	return (i);
 }
 
-int	ft_printf(const char *str, ...)
+int		ft_printf(const char *str, ...)
 {
 	va_list	arg;
 	char	*type;
@@ -81,6 +97,6 @@ int	ft_printf(const char *str, ...)
 		if (str[i])
 			i++;
 	}
-	va_end(arg); 
+	va_end(arg);
 	return (g_count);
 }

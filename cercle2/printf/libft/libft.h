@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:19:31 by lusokol           #+#    #+#             */
-/*   Updated: 2019/12/03 17:03:30 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 12:16:03 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 char				*ft_strcpy(char *dest, char *src);
 char				*ft_strncpy(char *dest, char *src, int n);
 
-void	ft_putnbr(int nb);
-void	ft_putchar(char a);
-void	ft_putstr(char *str);
+void				ft_putnbr(int nb);
+void				ft_putchar(char a);
+void				ft_putstr(char *str);
 #endif

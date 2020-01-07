@@ -2,7 +2,10 @@ NAME = libftprintf.a
 
 SRCS = ft_printf.c \
 	   ft_printf_arg.c \
+	   ft_printf_arg2.c \
 	   checks.c \
+	   ft_util.c \
+	   disp_util.c \
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -25,7 +28,7 @@ clean:
 fclean:
 	@echo "Suppression des .o"
 	@echo "Suppression des .a"
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(SRCS:.c=.o)
 	@(cd $(LIBFT_DIR) && $(MAKE) $@)
 
 re: fclean all
