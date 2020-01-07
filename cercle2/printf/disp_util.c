@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:20:06 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 13:45:43 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/07 14:57:09 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_aff_str(t_info info, char *str)
 	info.precision = (info.precision < -1) ? -1 : info.precision;
 	info.largeur = (info.largeur == 0) ? -1 : info.largeur;
 	espace = ft_nbr_espace(&info, str, 0);
-	if (info.zeros == 1 && info.str == 3)
+	if (info.zeros == 1 && (info.str == 3 || (info.str == 2 && info.moins == 0)))
 		ft_aff_zeroes(espace);
 	else if (info.moins == 0)
 		ft_aff_spaces(espace);
@@ -89,9 +89,7 @@ void	ft_aff_percent(t_info info, char *str)
 		ft_aff_spaces(espace);
 	ft_putchar('%');
 	g_count++;
-	if (info.zeros == 0 && info.moins == 1)
+	if (info.moins == 1)
 		ft_aff_spaces(espace);
-	if (info.zeros == 1 && info.moins == 1)
-		ft_aff_zeroes(espace);
 	free(str);
 }
