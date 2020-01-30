@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:09:33 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/29 16:00:35 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/30 13:29:43 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	ft_jouet(void *mlx_ptr, void *win_ptr, t_cub *all)
 
 void	test(void *mlx_ptr, void *win_ptr, t_cub *all)
 {
-	double posX = 12;
-	double posY = 13;
+	double posX = all->coord.x; //12
+	double posY = all->coord.y; //3
 
 	// vecteur de direction
 	double dirX = -1;
@@ -54,15 +54,15 @@ void	test(void *mlx_ptr, void *win_ptr, t_cub *all)
 	double cameraX;// position de la colonne par rapport au centre de l’écran
 	double rayPosX;// position de départ du rayon sur X
 	double rayPosY;// position de départ du rayon sur Y
-	int rayDirX;// direction du rayon sur X
-	int rayDirY;// direction du rayon sur Y
+	double rayDirX;// direction du rayon sur X
+	double rayDirY;// direction du rayon sur Y
 
 	double deltaDistX;
 	double deltaDistY;
 
 	while (x <= w)
 	{
-		cameraX = (2 * x / w) - 1;
+		cameraX = (2 * (double)x / w) - 1;
 		rayPosX = posX;
 		rayPosY = posY;
 		rayDirX = dirX + (planeX * cameraX);
@@ -80,14 +80,8 @@ void	test(void *mlx_ptr, void *win_ptr, t_cub *all)
 		double sideDistY;
 
 		//longueur rayon entre chaque intersection
-		if (rayDirX != 0)
-			deltaDistX = sqrt(1 + ((rayDirY * rayDirY) / (rayDirX * rayDirX)));
-		else
-			deltaDistX = 1;
-		if (rayDirY != 0)
-			deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
-		else
-			deltaDistY = 1;
+		deltaDistX = sqrt(1 + ((rayDirY * rayDirY) / (rayDirX * rayDirX)));
+		deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
 
 /*		printf("deltaDistX : %f\n", deltaDistX);
 		printf("deltaDistY : %f\n", deltaDistY);
@@ -147,11 +141,11 @@ void	test(void *mlx_ptr, void *win_ptr, t_cub *all)
 		} else {
 			perpWallDist = fabs(((mapY - rayPosY) + ((1 - stepY) / 2)) / rayDirY);
 		}
-		printf("perpwalldist : %f\n", perpWallDist);
-		printf("sideDistX : %f\n", sideDistX);
-		printf("sideDistY : %f\n", sideDistY);
-		printf("deltaDistX : %f\n", deltaDistX);
-		printf("deltaDistY : %f\n", deltaDistY);
+//		printf("perpwalldist : %f\n", perpWallDist);
+//		printf("sideDistX : %f\n", sideDistX);
+//		printf("sideDistY : %f\n", sideDistY);
+//		printf("deltaDistX : %f\n", deltaDistX);
+//		printf("deltaDistY : %f\n", deltaDistY);
 //		printf("raydirY      : %d\n", rayDirY);
 //		printf("raydirX      : %d\n", rayDirX);
 //		printf("mapX   : %d\n", mapX);
@@ -188,7 +182,15 @@ void	test(void *mlx_ptr, void *win_ptr, t_cub *all)
 //
 		// tracer la colonne
 		int y=drawStart;
+		int ceilling;
+		int floor;
 
+		ceilling = 0;
+		floor = drawEnd;
+		while (ceilling < drawStart)
+			mlx_pixel_put(mlx_ptr, win_ptr, (int)x, ceilling++, 16711680);
+		while (floor < h)
+			mlx_pixel_put(mlx_ptr, win_ptr, (int)x, floor++, 16777215);
 		while (y < drawEnd) {
 			double color = 65280;// couleur du pixel pour un mur Nord/Sud
 		if (side == 1) {
@@ -200,6 +202,21 @@ void	test(void *mlx_ptr, void *win_ptr, t_cub *all)
 		printf("x : %d\n", x);
 		x++;
 	}
+	printf("Done !\n");
+}
+
+int		deal_key(int key, void *param)
+{
+	t_cub	*all;
+
+	all = param;
+	printf("key : %d\n", key);
+	if (key == 13) {
+		all->coord.x -= 0.5;
+		test(all->minilibx.mlx_ptr, all->minilibx.win_ptr, param);
+	}
+	(void)param;
+	return (0);
 }
 
 int main(int ac, char **av)
@@ -208,28 +225,23 @@ int main(int ac, char **av)
 	//int		i;
 	t_cub	*all;
 	int		res;
-	void	*mlx_ptr;
-	void	*win_ptr;
 
 	if (ac != 2)
 		return (printf("Need 1 argument\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
 		return (printf("Invalid  argument\n"));
 	all = ft_fill_struct(create_tab(fd));
+	all->coord.x = 12.0;
+	all->coord.y = 3.0;
 	res = check_map(all->map);
 
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, all->res_x, all->res_y, "Cub3D");
+	all->minilibx.mlx_ptr = mlx_init();
+	all->minilibx.win_ptr = mlx_new_window(all->minilibx.mlx_ptr, all->res_x, all->res_y, "Cub3D");
+	test(all->minilibx.mlx_ptr, all->minilibx.win_ptr, all);
 
+	mlx_key_hook(all->minilibx.win_ptr, deal_key, all);
 
-
-
-test(mlx_ptr, win_ptr, all);
-
-
-
-
-	mlx_loop(mlx_ptr);
+	mlx_loop(all->minilibx.mlx_ptr);
 
 //aff params
 	/*

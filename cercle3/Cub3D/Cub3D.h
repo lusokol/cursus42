@@ -6,12 +6,24 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:18:32 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/23 17:09:35 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/30 13:10:07 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+typedef struct	s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}				t_mlx;
+
+typedef struct	s_coord
+{
+	double		x;
+	double		y;
+}				t_coord;
 
 typedef struct	s_cub
 {
@@ -28,6 +40,8 @@ typedef struct	s_cub
 	int		ceilling;
 
 	char	**map;
+	t_coord	coord;
+	t_mlx	minilibx;
 }				t_cub;
 
 char	**create_tab(int fd);
