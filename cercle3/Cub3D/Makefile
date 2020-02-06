@@ -1,4 +1,4 @@
-NAME = Cub3D
+NAME = Cub3D.out
 
 SRCS = fill_struct.c \
 	   check_map.c \

@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:18:32 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/30 13:10:07 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/01/30 15:52:55 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,39 @@ typedef struct	s_coord
 	double		y;
 }				t_coord;
 
+typedef struct	s_draw
+{
+	int			drawStart;
+	int			drawEnd;
+	int			hauteurLigne;
+	int			y;
+	int			ceilling;
+	int			floor;
+}				t_draw;
+
+typedef struct	s_info
+{
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+	double		cameraX;
+	double		rayPosX;
+	double		rayPosY;
+	double		rayDirX;
+	double		rayDirY;
+	double		deltaDistX;
+	double		deltaDistY;
+	int			mapX;
+	int			mapY;
+	double		sideDistX;
+	double		sideDistY;
+	int			stepX;
+	int			stepY;
+	int			side;
+	double		perpWallDist;
+}				t_info;
+
 typedef struct	s_cub
 {
 	int		res_y;
@@ -42,6 +75,8 @@ typedef struct	s_cub
 	char	**map;
 	t_coord	coord;
 	t_mlx	minilibx;
+	t_info	info;
+	t_draw	draw;
 }				t_cub;
 
 char	**create_tab(int fd);
