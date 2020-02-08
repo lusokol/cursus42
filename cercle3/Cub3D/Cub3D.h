@@ -58,6 +58,12 @@ typedef struct	s_info
 	double		perpWallDist;
 }				t_info;
 
+typedef struct	s_vit
+{
+	double	rot;
+	double	mvt;
+}		t_vit;
+
 typedef struct	s_cub
 {
 	int		res_y;
@@ -77,6 +83,7 @@ typedef struct	s_cub
 	t_mlx	minilibx;
 	t_info	info;
 	t_draw	draw;
+	t_vit	vit;
 }				t_cub;
 
 char	**create_tab(int fd);

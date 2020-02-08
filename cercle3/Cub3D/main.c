@@ -97,20 +97,21 @@ void	calcul2(t_cub *all)
 	all->draw.floor = all->draw.drawEnd;
 }
 
-void	print_screen(t_cub *all, int x)
+void	print_screen(t_cub *all, int x, int *img_ptr)
 {
-	int color;
+	//int color;
 
+	img_ptr[0] = 1;
 	while (all->draw.ceilling < all->draw.drawStart)
-		mlx_pixel_put(all->minilibx.mlx_ptr, all->minilibx.win_ptr, (int)x, all->draw.ceilling++, 16711680);
+		img_ptr[x + all->res_x * all->draw.ceilling++] = 16711680;
 	while (all->draw.floor < all->res_y)
-		mlx_pixel_put(all->minilibx.mlx_ptr, all->minilibx.win_ptr, (int)x, all->draw.floor++, 16777215);
+		img_ptr[x + all->res_x * all->draw.floor++] = 16777215;
 	while (all->draw.y < all->draw.drawEnd) {
-		color = 65280;
 		if (all->info.side == 1) {
-			color = 255;
+			img_ptr[x + all->res_x * all->draw.y] = 255;
 		}
-		mlx_pixel_put(all->minilibx.mlx_ptr, all->minilibx.win_ptr, (int)x, (int)all->draw.y, color);
+		else
+			img_ptr[x + all->res_x * all->draw.y] = 65280;
 		all->draw.y++;
 	}
 }
@@ -119,20 +120,26 @@ void	cubddd(t_cub *all)
 {
 	int		x;
 	void	*img_ptr;
+	int	*img_data;
+	int	test1;
+	int	test2;
+	int	test3;
 
 	x = 0;
-	init_struct(all);
+	img_ptr = mlx_new_image(all->minilibx.mlx_ptr, all->res_x, all->res_y);
+	img_data = (int*)mlx_get_data_addr(img_ptr, &test1, &test2, &test3);
 	while (x <= all->res_x)
 	{
-		img_ptr = mlx_new_image(all->minilibx.mlx_ptr, all->res_x, all->res_y);
 		calcul(all, x);
 		vecteur_dir(all);
 		rayCasting(all);
 		calcul2(all);
-		print_screen(all, x);
-		mlx_destroy_image(img_ptr);
+		print_screen(all, x, img_data);
+		//printf("%d\n%d\n%d\n", test1, test2, test3);
 		x++;
 	}
+	mlx_put_image_to_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr, img_ptr, 0, 0);
+	mlx_destroy_image(all->minilibx.mlx_ptr, img_ptr);
 }
 
 
@@ -156,14 +163,47 @@ void	cubddd(t_cub *all)
 int		deal_key(int key, void *param)
 {
 	t_cub	*all;
+	double test;
 
 	all = param;
 	printf("key : %d\n", key);
-	if (key == 13) {
-		all->coord.x -= 0.5;
-//		test(all->minilibx.mlx_ptr, all->minilibx.win_ptr, param);
-		cubddd(all);
+	if (key == 122 && all->map[(int)(all->coord.x - 0.101)][(int)(all->coord.y)] != '1')
+	{
+		all->coord.x += all->info.dirX / 10;
+		all->coord.y += all->info.dirY / 10;
 	}
+	if (key == 115 && all->map[(int)(all->coord.x + 0.101)][(int)(all->coord.y)] != '1')
+	{
+		all->coord.x -= all->info.dirX / 10;
+		all->coord.y -= all->info.dirY / 10;
+	}
+	if (key == 113 && all->map[(int)(all->coord.x)][(int)(all->coord.y + 0.101)] != '1')
+	{
+		all->coord.x -= all->info.planeX / 10;
+		all->coord.y -= all->info.planeY / 10;
+	}
+	if (key == 100 && all->map[(int)(all->coord.x)][(int)(all->coord.y - 0.101)] != '1')
+	{
+		all->coord.x += all->info.planeX / 10;
+		all->coord.y += all->info.planeY / 10;
+	}
+	if (key == 65361)
+	{
+		test = all->info.dirX;
+		all->info.dirX = all->info.dirX * cos(-all->vit.rot) - all->info.dirY * sin(-all->vit.rot);
+		all->info.dirY = test * sin(-all->vit.rot) + all->info.dirY * cos(-all->vit.rot);
+		all->info.planeX = -0.66 * all->info.dirY;
+		all->info.planeY = 0.66 * all->info.dirX;
+	}
+	if (key == 65363)
+	{
+		test = all->info.dirX;
+		all->info.dirX = all->info.dirX * cos(all->vit.rot) - all->info.dirY * sin(all->vit.rot);
+		all->info.dirY = test * sin(all->vit.rot) + all->info.dirY * cos(all->vit.rot);
+		all->info.planeX = -0.66 * all->info.dirY;
+		all->info.planeY = 0.66 * all->info.dirX;
+	}
+	cubddd(all);
 	(void)param;
 	return (0);
 }
@@ -173,16 +213,18 @@ int main(int ac, char **av)
 	int		fd;
 	//int		i;
 	t_cub	*all;
-	int		res;
+	//int		res;
 
 	if (ac != 2)
 		return (printf("Need 1 argument\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
 		return (printf("Invalid  argument\n"));
 	all = ft_fill_struct(create_tab(fd));
+	init_struct(all);
 	all->coord.x = 12.0;
 	all->coord.y = 3.0;
-	res = check_map(all->map);
+	all->vit.rot = 0.05;
+	/*res = */check_map(all->map);
 
 	all->minilibx.mlx_ptr = mlx_init();
 	all->minilibx.win_ptr = mlx_new_window(all->minilibx.mlx_ptr, all->res_x, all->res_y, "Cub3D");
