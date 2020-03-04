@@ -1,4 +1,4 @@
-NAME = Cub3D.out
+NAME = Cub3D
 
 SRCS = fill_struct.c \
 	   check_map.c \
@@ -6,10 +6,14 @@ SRCS = fill_struct.c \
 	   get_next_line_utils.c \
 	   libft.a \
 	   main.c \
+	   movement.c \
+	   rotkey.c \
+	   texture.c \
+	   skybox.c \
 
 MLX = libmlx.a \
 
-FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address -framework OpenGL -framework AppKit #-lmlx
+FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address -framework OpenGL -framework AppKit
 
 CONFIG = fichierTest.cub
 

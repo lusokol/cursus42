@@ -6,11 +6,11 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:35:29 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/29 15:28:46 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/04 15:32:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
+#include "cub3d.h"
 
 t_cub	*ft_get_map(char **str, t_cub *all)
 {
@@ -60,10 +60,6 @@ void	ft_take_res(t_cub *all, char *str)
 	while (ft_isdigit(str[i]))
 		i++;
 	all->res_y = ft_atoi(str + i);
-//	if (all->res_x < 500)
-//		all->res_x = 500;
-//	if (all->res_y < 500)
-//		all->res_y = 500;
 }
 
 int		ft_take_rgb(char *str)
@@ -118,9 +114,11 @@ t_cub	*ft_fill_struct(char **str)
 		else if (str[i][0] == 'S' && str[i][1] != 'O')
 			all->sprite = ft_strdup(str[i] + 2);
 		else if (str[i][0] == 'F')
-			all->floor = ft_take_rgb(str[i] + 2);
+			all->floor = ft_strdup(str[i] + 2);
+			//all->floor = ft_take_rgb(str[i] + 2);
 		else if (str[i][0] == 'C')
-			all->ceilling = ft_take_rgb(str[i] + 2);
+			all->ceilling = ft_strdup(str[i] + 2);
+			//all->ceilling = ft_take_rgb(str[i] + 2);
 	}
 	return (ft_get_map(str, all));
 }

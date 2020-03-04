@@ -6,11 +6,11 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:36:25 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/29 16:01:38 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/03 12:54:02 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
+#include "cub3d.h"
 
 int		check_pos(char a, int b)
 {
