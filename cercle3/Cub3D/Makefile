@@ -10,6 +10,8 @@ SRCS = fill_struct.c \
 	   rotkey.c \
 	   texture.c \
 	   skybox.c \
+	   sprite.c \
+	   saut.c \
 
 MLX = libmlx.a \
 

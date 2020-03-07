@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 12:13:36 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/04 20:06:12 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/07 11:07:25 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		deal_key(t_cub *all)
 
 int		key_push(int key, t_cub *all)
 {
+	//printf("key : %d\n", key);
 	if (key == 13)
 		all->key.w = 1;
 	if (key == 0)
@@ -44,6 +45,8 @@ int		key_push(int key, t_cub *all)
 		all->key.fd = 1;
 	if (key == 123)
 		all->key.fg = 1;
+	if (key == 49)
+		all->key.j = 1;
 	return (0);
 }
 
@@ -61,6 +64,8 @@ int		key_release(int key, t_cub *all)
 		all->key.fd = 0;
 	if (key == 123)
 		all->key.fg = 0;
+	if (key == 49)
+		all->key.j = 0;
 	return (0);
 }
 

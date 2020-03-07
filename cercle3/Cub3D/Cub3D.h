@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:18:32 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/04 15:40:18 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/07 16:51:43 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,40 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
-# include "math.h"
+# include <math.h>
+# include <time.h>
+
+clock_t g_begin;
+
+typedef struct		s_sprite
+{
+	t_text			
+	double			spritex;
+	double			spritey;
+	double			invdet;
+	double			transformx;
+	double			transformy;
+	int				spritescreenx;
+	int				spriteheight;
+	int				spritewidth;
+	int				drawstarty;
+	int				drawendy;
+	int				drawstartx;
+	int				drawendx;
+	clock_t			end;
+	double			millis;
+	int				coeffx;
+	int				coeffy;
+}					t_sprite;
+
+typedef struct		s_skybox
+{
+	double			coeffx;
+	double			coeffy;
+	double			i;
+	int				rot;
+	int				ok;
+}					t_skybox;
 
 typedef struct		s_floor
 {
@@ -36,6 +69,8 @@ typedef struct		s_floor
 
 typedef struct		s_texture
 {
+	double			x;
+	double			y;
 	void			*ptr;
 	int				*data;
 	int				w;
@@ -55,12 +90,14 @@ typedef struct		s_mlx
 	t_text			east;
 	t_text			floor;
 	t_text			skybox;
+	t_text			sprite;
 }					t_mlx;
 
 typedef struct		s_coord
 {
 	double			x;
 	double			y;
+	double			z;
 }					t_coord;
 
 typedef struct		s_draw
@@ -81,6 +118,7 @@ typedef struct		s_key
 	int				d;
 	int				fg;
 	int				fd;
+	double				j;
 }					t_key;
 
 typedef struct		s_info
@@ -134,6 +172,9 @@ typedef struct		s_cub
 	t_vit			vit;
 	t_key			key;
 	t_floor			floceil;
+	t_skybox		skybox;
+	t_sprite		spr;
+	t_text			pars;
 }					t_cub;
 
 char				**create_tab(int fd);
@@ -155,5 +196,10 @@ int					ft_color_texture(t_cub *all, int *ptr, t_text *text, int i);
 void				init_text(t_cub *all);
 int					ft_texture_floor(t_cub *all, t_text *text);
 int					ft_skybox(t_cub *all, int x);
+void				ft_calcul_skybox(t_cub *all);
+void				ft_calcfloor(t_cub *all);
+void				print_sprite(t_cub *all, int *img_data);
+void				ft_jump(t_cub *all);
+void				calcul2(t_cub *all);
 
 #endif

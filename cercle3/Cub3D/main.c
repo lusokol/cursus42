@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:09:33 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/04 20:16:01 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/07 16:51:42 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	init_struct(t_cub *all)
 	all->key.d = 0;
 	all->key.fd = 0;
 	all->key.fg = 0;
+	all->key.j = 0;
+	all->coord.z = 0;
 }
 
 void	calcul(t_cub *all, int x)
@@ -90,14 +92,16 @@ void	rayCasting(t_cub *all)
 void	calcul2(t_cub *all)
 {
 	all->draw.hauteurligne = abs((int)(all->res_y / all->info.perpwalldist));
-	all->draw.drawstart = (-(all->draw.hauteurligne) / 2) + (all->res_y / 2);
-	all->draw.drawend = (all->draw.hauteurligne / 2) + (all->res_y / 2);
+	all->draw.drawstart = (int)(-(all->draw.hauteurligne) * (0.5 - all->coord.z) + (int)(all->res_y * (0.5 + all->coord.z)));
+	all->draw.drawend = (int)((all->draw.hauteurligne * (0.5 + all->coord.z)) + (int)(all->res_y * (0.5 + all->coord.z)));
 	if (all->draw.drawstart < 0) {
 		all->draw.drawstart = 0;
 	}
 	if (all->draw.drawend >= all->res_y) {
 		all->draw.drawend = all->res_y;
 	}
+	all->draw.drawstart = abs(all->draw.drawstart);
+	all->draw.drawend = abs(all->draw.drawend);
 	all->draw.y = all->draw.drawstart;
 	all->draw.ceilling = 0;
 	all->draw.floor = all->draw.drawend;
@@ -110,13 +114,10 @@ void	print_screen(t_cub *all, int x, int *img_ptr)
 		//img_ptr[x + all->res_x * all->draw.ceilling++] = 16711680;
 	while (all->draw.floor < all->res_y)
 		img_ptr[x + all->res_x * all->draw.floor++] = ft_texture_floor(all, &all->minilibx.floor);
-		//img_ptr[x + all->res_x * all->draw.floor++] = 16777215;
+	//	img_ptr[x + all->res_x * all->draw.floor++] = 16777215;
 	while (all->draw.y < all->draw.drawend) {
-//		if (all->info.side == 1) {
-		img_ptr[x + all->res_x * all->draw.y] = ft_texture(all);//255;
-//		}
-//		else
-//			img_ptr[x + all->res_x * all->draw.y] = 65280;
+		img_ptr[x + all->res_x * all->draw.y] = ft_texture(all);
+//		img_ptr[x + all->res_x * all->draw.y] = 456123;
 		all->draw.y++;
 	}
 }
@@ -133,16 +134,21 @@ void	cubddd(t_cub *all)
 	x = 0;
 	img_ptr = mlx_new_image(all->minilibx.mlx_ptr, all->res_x, all->res_y);
 	img_data = (int*)mlx_get_data_addr(img_ptr, &test1, &test2, &test3);
+//	if (all->skybox.ok)
+	ft_calcul_skybox(all);
 	while (x < all->res_x)
 	{
 		calcul(all, x);
 		vecteur_dir(all);
 		rayCasting(all);
+		ft_jump(all);
 		calcul2(all);
+		ft_calcfloor(all);
 		print_screen(all, all->res_x - x - 1, img_data);
 		//printf("%d\n%d\n%d\n", test1, test2, test3);
 		x++;
 	}
+	print_sprite(all, img_data);
 	mlx_put_image_to_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr, img_ptr, 0, 0);
 	mlx_destroy_image(all->minilibx.mlx_ptr, img_ptr);
 }
@@ -182,6 +188,7 @@ void	ft_spawnpoint(t_cub *all)
 
 	i = 0;
 	j = 0;
+	all->spr.nbr = 0;
 	while (all->map[j])
 	{
 		i = 0;
@@ -189,6 +196,8 @@ void	ft_spawnpoint(t_cub *all)
 		{
 			if (all->map[j][i] == 'N' || all->map[j][i] == 'S' || all->map[j][i] == 'W' || all->map[j][i] == 'E')
 				ft_spawnlettre(all, i, j, all->map[j][i]);
+			if (ft_is_sprite(all->map[j][i]))
+				all->spr.nbr++;
 			i++;
 		}
 		j++;
@@ -202,6 +211,7 @@ int		main(int ac, char **av)
 	t_cub	*all;
 	//int		res;
 
+	g_begin = clock();
 	if (ac != 2)
 		return (printf("Need 1 argument\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
@@ -210,6 +220,7 @@ int		main(int ac, char **av)
 	ft_spawnpoint(all);
 	init_struct(all);
 	all->vit.rot = 0.05;
+	all->vit.mvt = 1;
 	/*res = */check_map(all->map);
 
 	int i = 0;
@@ -220,7 +231,6 @@ int		main(int ac, char **av)
 	}
 	all->minilibx.mlx_ptr = mlx_init();
 	init_text(all);
-	printf("x : %f\ny : %f\n\n", all->coord.x, all->coord.y);
 	all->minilibx.win_ptr = mlx_new_window(all->minilibx.mlx_ptr, all->res_x, all->res_y, "Cub3D");
 	cubddd(all);
 	mlx_hook(all->minilibx.win_ptr, 2, (1L << 0), &key_push, all);
