@@ -12,6 +12,9 @@ SRCS = fill_struct.c \
 	   skybox.c \
 	   sprite.c \
 	   saut.c \
+	   parsing_sprite.c \
+	   hud.c \
+	   goomba.c \
 
 MLX = libmlx.a \
 

@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:09:33 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/07 16:51:42 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:39:56 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	init_struct(t_cub *all)
 {
-	//all->info.dirx = -1;
-	//all->info.diry = 0;
 	all->info.planex = -0.66 * all->info.diry;
 	all->info.planey = 0.66 * all->info.dirx;
 	all->key.w = 0;
@@ -26,6 +24,12 @@ void	init_struct(t_cub *all)
 	all->key.fg = 0;
 	all->key.j = 0;
 	all->coord.z = 0;
+	all->spr.nbr = 0;
+	all->hud.hp = 3;
+	all->hud.gold = 0;
+	all->spr.goomba.frame = 1;
+	all->spr.goomba.safe = 0;
+	all->spr.goomba.cankill = 0;
 }
 
 void	calcul(t_cub *all, int x)
@@ -92,8 +96,10 @@ void	rayCasting(t_cub *all)
 void	calcul2(t_cub *all)
 {
 	all->draw.hauteurligne = abs((int)(all->res_y / all->info.perpwalldist));
-	all->draw.drawstart = (int)(-(all->draw.hauteurligne) * (0.5 - all->coord.z) + (int)(all->res_y * (0.5 + all->coord.z)));
-	all->draw.drawend = (int)((all->draw.hauteurligne * (0.5 + all->coord.z)) + (int)(all->res_y * (0.5 + all->coord.z)));
+	//all->draw.jump = ((double)all->draw.hauteurligne / 3.0) * (all->coord.z * 10);
+	all->draw.drawstart = (int)(-(all->draw.hauteurligne) * (0.5 - all->coord.z) + (int)(all->res_y * (0.5 + all->coord.z)))/* + all->draw.jump*/;
+	all->draw.drawend = (int)((all->draw.hauteurligne * (0.5 + all->coord.z)) + (int)(all->res_y * (0.5 + all->coord.z)))/* + all->draw.jump*/;
+	//printf("z : %f\n", all->coord.z);
 	if (all->draw.drawstart < 0) {
 		all->draw.drawstart = 0;
 	}
@@ -113,6 +119,7 @@ void	print_screen(t_cub *all, int x, int *img_ptr)
 		img_ptr[x + all->res_x * all->draw.ceilling++] = ft_skybox(all, x);
 		//img_ptr[x + all->res_x * all->draw.ceilling++] = 16711680;
 	while (all->draw.floor < all->res_y)
+		//img_ptr[x + all->res_x * all->draw.floor++] = 123456;
 		img_ptr[x + all->res_x * all->draw.floor++] = ft_texture_floor(all, &all->minilibx.floor);
 	//	img_ptr[x + all->res_x * all->draw.floor++] = 16777215;
 	while (all->draw.y < all->draw.drawend) {
@@ -148,7 +155,9 @@ void	cubddd(t_cub *all)
 		//printf("%d\n%d\n%d\n", test1, test2, test3);
 		x++;
 	}
+	anim_goomba(all);
 	print_sprite(all, img_data);
+	hud(all, img_data);
 	mlx_put_image_to_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr, img_ptr, 0, 0);
 	mlx_destroy_image(all->minilibx.mlx_ptr, img_ptr);
 }
@@ -175,7 +184,6 @@ int		ft_spawnlettre(t_cub *all, int i, int j, char a)
 		all->info.dirx = -1;
 		all->info.diry = 0;
 	}
-	printf("i = %d\nj = %d\n", i, j);
 	all->coord.x = j + 0.5;
 	all->coord.y = i + 0.5;
 	return (1);
@@ -219,6 +227,7 @@ int		main(int ac, char **av)
 	all = ft_fill_struct(create_tab(fd));
 	ft_spawnpoint(all);
 	init_struct(all);
+	ft_spawnpoint(all);
 	all->vit.rot = 0.05;
 	all->vit.mvt = 1;
 	/*res = */check_map(all->map);
@@ -226,11 +235,10 @@ int		main(int ac, char **av)
 	int i = 0;
 
 	while (all->map[i])
-	{
 		printf("%s\n", all->map[i++]);
-	}
 	all->minilibx.mlx_ptr = mlx_init();
 	init_text(all);
+	sprite_pars(all);
 	all->minilibx.win_ptr = mlx_new_window(all->minilibx.mlx_ptr, all->res_x, all->res_y, "Cub3D");
 	cubddd(all);
 	mlx_hook(all->minilibx.win_ptr, 2, (1L << 0), &key_push, all);

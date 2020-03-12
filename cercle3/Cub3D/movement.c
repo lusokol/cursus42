@@ -6,11 +6,44 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 12:09:23 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/07 12:51:58 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:50:56 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_colision(t_cub *all, double x, double y)
+{
+	double		diff;
+	int			tmp;
+
+	diff = 0.3;
+	tmp = all->spr.tab[all->spr.n].col;
+		if (x - diff < all->coord.x && x + diff > all->coord.x)
+		{
+			if (y - diff < all->coord.y && y + diff > all->coord.y)
+			{
+				if (all->spr.goomba.safe == 0)
+					all->spr.tab[all->spr.n].col = 1;
+				else if (all->spr.goomba.cankill == 1 && all->spr.tab[all->spr.n].spr == 4)
+				{
+					all->spr.tab[all->spr.n].alive = 0;
+					all->hud.gold++;
+					system("afplay ./sound/piece.wav&");
+				}
+			}
+			else
+				all->spr.tab[all->spr.n].col = 0;
+		}
+		else
+			all->spr.tab[all->spr.n].col = 0;
+	if (tmp == 0 && all->spr.tab[all->spr.n].col == 1 && all->spr.goomba.safe == 0)
+		if (all->hud.hp > 0)
+		{
+			all->hud.hp--;
+			system("afplay ./sound/hpm.wav&");
+		}
+}
 
 void	move_w(t_cub *all)
 {

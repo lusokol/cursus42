@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:35:29 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/04 15:32:54 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/03/10 14:26:18 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_cub	*ft_fill_struct(char **str)
 			all->west = ft_strdup(str[i] + 3);
 		else if (str[i][0] == 'E' && str[i][1] == 'A')
 			all->east = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'S' && str[i][1] != 'O')
+		else if (str[i][0] == 'S' && str[i][1] == ' ')
 			all->sprite = ft_strdup(str[i] + 2);
 		else if (str[i][0] == 'F')
 			all->floor = ft_strdup(str[i] + 2);
@@ -119,6 +119,12 @@ t_cub	*ft_fill_struct(char **str)
 		else if (str[i][0] == 'C')
 			all->ceilling = ft_strdup(str[i] + 2);
 			//all->ceilling = ft_take_rgb(str[i] + 2);
+		else if (str[i][0] == 'S' && str[i][1] == '1')
+			all->sprite1 = ft_strdup(str[i] + 3);
+		else if (str[i][0] == 'S' && str[i][1] == '1')
+			all->sprite1 = ft_strdup(str[i] + 3);
+		else if (str[i][0] == 'S' && str[i][1] == '2')
+			all->sprite2 = ft_strdup(str[i] + 3);
 	}
 	return (ft_get_map(str, all));
 }
