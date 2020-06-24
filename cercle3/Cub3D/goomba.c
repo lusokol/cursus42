@@ -61,7 +61,7 @@ void	ft_move_goomba(t_cub *all, int i)
 	if (all->spr.tab[i].sens == 1)
 	{
 		all->spr.tab[i].x += 0.02;
-		if (all->map[(int)all->spr.tab[i].x][(int)all->spr.tab[i].y] == '1')
+		if (all->map[(int)(all->spr.tab[i].x + 0.35)][(int)all->spr.tab[i].y] == '1')
 		{
 			all->spr.tab[i].sens = 0;
 			all->spr.tab[i].x = tmpx;
@@ -70,7 +70,7 @@ void	ft_move_goomba(t_cub *all, int i)
 	else if (all->spr.tab[i].sens == 0)
 	{
 		all->spr.tab[i].x -= 0.02;
-		if (all->map[(int)all->spr.tab[i].x][(int)all->spr.tab[i].y] == '1')
+		if (all->map[(int)(all->spr.tab[i].x - 0.35)][(int)all->spr.tab[i].y] == '1')
 		{
 			all->spr.tab[i].sens = 1;
 			all->spr.tab[i].x = tmpx;

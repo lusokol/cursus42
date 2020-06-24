@@ -14,10 +14,8 @@ S1 ./textures/block3.xpm
 
 S2 ./textures/goomba1.xpm
 
-//F 0 0 255
-F ./textures/grass.xpm
+F 250 0 0
 
-//C 0 255 0
 C ./textures/skybox.xpm
 
                      1111111111111111111111

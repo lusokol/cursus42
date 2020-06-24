@@ -19,15 +19,15 @@ t_cub	*ft_get_map(char **str, t_cub *all)
 	int k;
 
 	i = 0;
-	while (str[i] && str[i][0] != '0' && str[i][0] != '1')
+	while (str[i] && str[i][0] != '0' && str[i][0] != '1' && str[i][0] != ' ')
 		i++;
 	j = i;
-	while (str[i] && (str[i][0] == '0' || str[i][0] == '1'))
+	while (str[i] && (str[i][0] == '0' || str[i][0] == '1' || str[i][0] == ' '))
 		i++;
 	all->map = malloc(sizeof(char*) * (i - j + 1));
 	k = -1;
 	while (++k < (i - j))
-		(all->map)[k] = str[j + k];
+		(all->map)[k] = ft_strdup(str[j + k]);
 	(all->map)[k] = NULL;
 	return (all);
 }
@@ -59,7 +59,16 @@ void	ft_take_res(t_cub *all, char *str)
 	all->res_x = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
+	while (!(ft_isdigit(str[i])))
+		i++;
 	all->res_y = ft_atoi(str + i);
+	while (ft_isdigit(str[i]))
+		i++;
+	if (ft_atoi(str + i) != 0 || !all->res_x || !all->res_x)
+	{
+		printf("Error\nResolution bad indent.\n");
+		ft_exit(all);
+	}
 }
 
 int		ft_take_rgb(char *str)
@@ -88,7 +97,113 @@ int		ft_take_rgb(char *str)
 		rgb--;
 		res += j;
 	}
+	printf("res : %i\n", res);
 	return (res);
+}
+
+void	*take_info(t_cub *all, char *str, int i, int type)
+{
+	int j;
+
+	j = 0;
+	if (str[j] == ' ')
+			j++;
+	else
+	{
+		printf("Error\nMissing space at the argument %d after \"%c\"\n", i + 1, str[-1]);
+		ft_exit(all);
+	}
+	while (str[j] && str[j] == ' ')
+			j++;
+	if (str[j] == '\n' || str[j] == '\0')
+	{
+		printf("Error\nMissing argument line %d.\n", i + 1);
+		ft_exit(all);
+	}
+	all->rgbf = (type == 1 && ft_isdigit(str[j])) ? 1 : all->rgbf;
+	all->rgbc = (type == 2 && ft_isdigit(str[j])) ? 1 : all->rgbc;
+	if (type == 1 && ft_isdigit(str[j]))
+		all->flo = ft_take_rgb(&str[j]);
+	if (type == 2 && ft_isdigit(str[j]))
+		all->ceil = ft_take_rgb(&str[j]);
+	return (ft_strdup(&str[j]));
+}
+
+void	*ft_add_path(t_cub *all, void *comp, void *comp2)
+{
+	if (comp == NULL)
+		return (comp2);
+	else
+	{
+		printf("Error\nMultiple path.\n");
+		ft_exit(all);
+	}
+	return (0);
+}
+
+void	text_null(t_cub *all)
+{
+	all->north = NULL;
+	all->south = NULL;
+	all->east = NULL;
+	all->west = NULL;
+	all->floor = NULL;
+	all->ceilling = NULL;
+	all->sprite = NULL;
+	all->sprite1 = NULL;
+	all->sprite2 = NULL;
+	all->minilibx.win_ptr = NULL;
+	all->rgbc = 0;
+	all->rgbf = 0;
+}
+
+void	ft_check_info(char **str, int i, t_cub *all)
+{
+	if (str[i][0] == 'R')
+		ft_take_res(all, str[i]);
+	else if (str[i][0] == 'N' && str[i][1] == 'O')
+		all->north = ft_add_path(all, all->north, take_info(all, str[i] + 2, i, 0));
+	else if (str[i][0] == 'S' && str[i][1] == 'O')
+		all->south = ft_add_path(all, all->south, take_info(all, str[i] + 2, i, 0));
+	else if (str[i][0] == 'W' && str[i][1] == 'E')
+		all->west = ft_add_path(all, all->west, take_info(all, str[i] + 2, i, 0));
+	else if (str[i][0] == 'E' && str[i][1] == 'A')
+		all->east = ft_add_path(all, all->east, take_info(all, str[i] + 2, i, 0));
+	else if (str[i][0] == 'S' && str[i][1] != '1' && str[i][1] != '2')
+		all->sprite = ft_add_path(all, all->sprite, take_info(all, str[i] + 1, i, 0));
+	else if (str[i][0] == 'F')
+		all->floor = ft_add_path(all, all->floor, take_info(all, str[i] + 1, i, 1));
+	else if (str[i][0] == 'C')
+		all->ceilling = ft_add_path(all, all->ceilling, take_info(all, str[i] + 1, i, 2)); 
+	else if (str[i][0] == 'S' && str[i][1] == '1')
+		all->sprite1 = ft_add_path(all, all->sprite1, take_info(all, str[i] + 2, i, 0));
+	else if (str[i][0] == 'S' && str[i][1] == '2')
+		all->sprite2 = ft_add_path(all, all->sprite2, take_info(all, str[i] + 2, i, 0));
+}
+
+int		missing_arg(t_cub *all)
+{
+	if (!all->north)
+		printf("Missing argument : NO\n");
+	else if (!all->south)
+		printf("Missing argument : SO\n");
+	else if (!all->west)
+		printf("Missing argument : WE\n");
+	else if (!all->east)
+		printf("Missing argument : EA\n");
+	else if (!all->ceilling)
+		printf("Missing argument : C\n");
+	else if (!all->floor)
+		printf("Missing argument : F\n");
+	else if (!all->sprite)
+		printf("Missing argument : S\n");
+	else if (!all->sprite1)
+		printf("Missing argument : S1\n");
+	else if (!all->sprite2)
+		printf("Missing argument : S2\n");
+	else
+		return (1);
+	return (0);
 }
 
 t_cub	*ft_fill_struct(char **str)
@@ -99,32 +214,10 @@ t_cub	*ft_fill_struct(char **str)
 	i = -1;
 	if (!(all = malloc(sizeof(t_cub))))
 		return (NULL);
-	while (str[++i])
-	{
-		if (str[i][0] == 'R')
-			ft_take_res(all, str[i]);
-		else if (str[i][0] == 'N' && str[i][1] == 'O')
-			all->north = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'S' && str[i][1] == 'O')
-			all->south = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'W' && str[i][1] == 'E')
-			all->west = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'E' && str[i][1] == 'A')
-			all->east = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'S' && str[i][1] == ' ')
-			all->sprite = ft_strdup(str[i] + 2);
-		else if (str[i][0] == 'F')
-			all->floor = ft_strdup(str[i] + 2);
-			//all->floor = ft_take_rgb(str[i] + 2);
-		else if (str[i][0] == 'C')
-			all->ceilling = ft_strdup(str[i] + 2);
-			//all->ceilling = ft_take_rgb(str[i] + 2);
-		else if (str[i][0] == 'S' && str[i][1] == '1')
-			all->sprite1 = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'S' && str[i][1] == '1')
-			all->sprite1 = ft_strdup(str[i] + 3);
-		else if (str[i][0] == 'S' && str[i][1] == '2')
-			all->sprite2 = ft_strdup(str[i] + 3);
-	}
+	text_null(all);
+	while (str[++i][0] != ' ' && str[i][0] != '0' && str[i][0] != '1')
+		ft_check_info(str, i, all);
+	if (!missing_arg(all))
+		ft_exit(all);
 	return (ft_get_map(str, all));
 }

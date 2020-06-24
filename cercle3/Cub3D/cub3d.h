@@ -146,6 +146,7 @@ typedef struct		s_key
 	int				d;
 	int				fg;
 	int				fd;
+	int				exit;
 	double			j;
 }					t_key;
 
@@ -170,6 +171,7 @@ typedef struct		s_info
 	int				stepy;
 	int				side;
 	double			perpwalldist;
+	double			*dist;
 }					t_info;
 
 typedef struct		s_vit
@@ -183,6 +185,7 @@ typedef struct		s_hud
 	t_text			cv;
 	t_text			cp;
 	t_text			coin;
+	t_text			fin;
 	t_number		number;
 	int				hp;
 	int				gold;
@@ -194,6 +197,8 @@ typedef struct		s_cub
 {
 	int				res_y;
 	int				res_x;
+	int				rgbc;
+	int				rgbf;
 
 	char			*north;
 	char			*south;
@@ -203,10 +208,13 @@ typedef struct		s_cub
 	char			*sprite;
 	char			*sprite1;
 	char			*sprite2;
-	char			*floor;
-	char			*ceilling;
+	void			*floor;
+	int				flo;
+	void			*ceilling;
+	int				ceil;
 
 	char			**map;
+	char			**map2;
 	t_coord			coord;
 	t_mlx			minilibx;
 	t_info			info;
@@ -220,6 +228,7 @@ typedef struct		s_cub
 	t_hud			hud;
 }					t_cub;
 
+void				init_struct(t_cub *all);
 char				**create_tab(int fd);
 t_cub				*ft_fill_struct(char **str);
 int					get_next_line(int fd, char **line);
@@ -252,5 +261,8 @@ void				hud(t_cub *all, int *img_data);
 void				anim_goomba(t_cub *all);
 void				check_colision(t_cub *all, double x, double y);
 int					kill_goomba(t_cub *all, int n);
+void				ft_exit(t_cub *all);
+void				game_over(t_cub *all, int *img_data);
+t_cub				*ft_get_map(char **str, t_cub *all);
 
 #endif

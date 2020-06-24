@@ -19,7 +19,7 @@ int		select_sprite(t_cub *all, int x, int y)
 	n = 0;
 	while ((int)all->spr.tab[n].x != x || (int)all->spr.tab[n].y != y || all->map[(int)all->coord.x][(int)all->coord.y] != '3' || all->spr.tab[n].spr != 2)
 		n++;
-	if (all->hud.hp < 3)
+	if (all->hud.hp < 3 && all->hud.hp > 0)
 	{
 		all->hud.hp++;
 		system("afplay ./sound/hpp.wav&");

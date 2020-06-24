@@ -15,10 +15,11 @@ SRCS = fill_struct.c \
 	   parsing_sprite.c \
 	   hud.c \
 	   goomba.c \
+	   game_over.c \
 
 MLX = libmlx.a \
 
-FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address -framework OpenGL -framework AppKit
+FLAGS = -Wall -Werror -Wextra -framework OpenGL -framework AppKit -g3 -fsanitize=address
 
 CONFIG = fichierTest.cub
 

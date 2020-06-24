@@ -23,6 +23,7 @@ void	init_struct(t_cub *all)
 	all->key.fd = 0;
 	all->key.fg = 0;
 	all->key.j = 0;
+	all->key.exit = 0;
 	all->coord.z = 0;
 	all->spr.nbr = 0;
 	all->hud.hp = 3;
@@ -30,6 +31,8 @@ void	init_struct(t_cub *all)
 	all->spr.goomba.frame = 1;
 	all->spr.goomba.safe = 0;
 	all->spr.goomba.cankill = 0;
+	all->sprite2 = NULL;
+	all->minilibx.win_ptr = NULL;
 }
 
 void	calcul(t_cub *all, int x)
@@ -116,15 +119,22 @@ void	calcul2(t_cub *all)
 void	print_screen(t_cub *all, int x, int *img_ptr)
 {
 	while (all->draw.ceilling < all->draw.drawstart)
-		img_ptr[x + all->res_x * all->draw.ceilling++] = ft_skybox(all, x);
-		//img_ptr[x + all->res_x * all->draw.ceilling++] = 16711680;
+	{
+		if (all->rgbc == 1)
+			img_ptr[x + all->res_x * all->draw.ceilling++] = all->ceil;
+		else
+			img_ptr[x + all->res_x * all->draw.ceilling++] = ft_skybox(all, x);
+	}
 	while (all->draw.floor < all->res_y)
-		//img_ptr[x + all->res_x * all->draw.floor++] = 123456;
-		img_ptr[x + all->res_x * all->draw.floor++] = ft_texture_floor(all, &all->minilibx.floor);
-	//	img_ptr[x + all->res_x * all->draw.floor++] = 16777215;
+	{
+		if (all->rgbf == 1)
+			img_ptr[x + all->res_x * all->draw.floor++] = all->flo;
+		else
+			img_ptr[x + all->res_x * all->draw.floor++] = ft_texture_floor(all, &all->minilibx.floor);
+	}
 	while (all->draw.y < all->draw.drawend) {
 		img_ptr[x + all->res_x * all->draw.y] = ft_texture(all);
-//		img_ptr[x + all->res_x * all->draw.y] = 456123;
+		//img_ptr[x + all->res_x * all->draw.y] = 456123;
 		all->draw.y++;
 	}
 }
@@ -133,10 +143,10 @@ void	cubddd(t_cub *all)
 {
 	int		x;
 	void	*img_ptr;
-	int	*img_data;
-	int	test1;
-	int	test2;
-	int	test3;
+	int		*img_data;
+	int		test1;
+	int		test2;
+	int		test3;
 
 	x = 0;
 	img_ptr = mlx_new_image(all->minilibx.mlx_ptr, all->res_x, all->res_y);
@@ -152,12 +162,13 @@ void	cubddd(t_cub *all)
 		calcul2(all);
 		ft_calcfloor(all);
 		print_screen(all, all->res_x - x - 1, img_data);
-		//printf("%d\n%d\n%d\n", test1, test2, test3);
+		all->info.dist[x] = all->info.perpwalldist;
 		x++;
 	}
 	anim_goomba(all);
 	print_sprite(all, img_data);
 	hud(all, img_data);
+	game_over(all, img_data);
 	mlx_put_image_to_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr, img_ptr, 0, 0);
 	mlx_destroy_image(all->minilibx.mlx_ptr, img_ptr);
 }
@@ -217,6 +228,7 @@ int		main(int ac, char **av)
 	int		fd;
 	//int		i;
 	t_cub	*all;
+	char	**tab;
 	//int		res;
 
 	g_begin = clock();
@@ -224,16 +236,22 @@ int		main(int ac, char **av)
 		return (printf("Need 1 argument\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
 		return (printf("Invalid  argument\n"));
-	all = ft_fill_struct(create_tab(fd));
+	tab = create_tab(fd);
+	all = ft_fill_struct(tab);
 	ft_spawnpoint(all);
 	init_struct(all);
 	ft_spawnpoint(all);
+	all->info.dist = malloc(sizeof(double) * all->res_x);
 	all->vit.rot = 0.05;
 	all->vit.mvt = 1;
-	/*res = */check_map(all->map);
+	if (check_map(all->map))
+		printf("map ok\n");
+	else
+		printf("map pas ok\n");
+	all->map2 = all->map;
+	ft_get_map(tab, all);
 
 	int i = 0;
-
 	while (all->map[i])
 		printf("%s\n", all->map[i++]);
 	all->minilibx.mlx_ptr = mlx_init();

@@ -105,16 +105,17 @@ t_text	take_text(t_cub *all, char *text_addr)
 {
 	t_text texture;
 
+	//printf("path : %s\n", text_addr);
 	if (!(texture.ptr = mlx_xpm_file_to_image(all->minilibx.mlx_ptr, text_addr, &texture.w, &texture.h)))
 	{
-		printf("Error\nIncorrect texture path.");
-		//ft_exit(all);
+		printf("Error\n\"%s\" is an incorrect texture path.\n", text_addr);
+		ft_exit(all);
 	}
 	if (!(texture.data = (int*)mlx_get_data_addr(texture.ptr,
 					&texture.bpp, &texture.line_size, &texture.endian)))
 	{
-		printf("Error\nmlx_get_data_addr texture");
-		//ft_exit(all);
+		printf("Error\nmlx_get_data_addr texture\n");
+		ft_exit(all);
 	}
 	return (texture);
 }
@@ -125,7 +126,9 @@ void	init_text(t_cub *all)
 	all->minilibx.south = take_text(all, all->south);
 	all->minilibx.west = take_text(all, all->west);
 	all->minilibx.east = take_text(all, all->east);
-	all->minilibx.floor = take_text(all, all->floor);
+	if (all->rgbf != 1)
+		all->minilibx.floor = take_text(all, all->floor);
+	if (all->rgbc != 1)
 	all->minilibx.skybox = take_text(all, all->ceilling);
 	all->minilibx.sprite = take_text(all, all->sprite);
 	all->minilibx.sprite1 = take_text(all, all->sprite1);
@@ -136,6 +139,7 @@ void	init_text(t_cub *all)
 	all->hud.cp = take_text(all, "./textures/coeur_plein.xpm");
 	all->hud.cv = take_text(all, "./textures/coeur_vide.xpm");
 	all->hud.coin = take_text(all, "./textures/piece2.xpm");
+	all->hud.fin = take_text(all, "./textures/gameover.xpm");
 	all->hud.number.num[0] = take_text(all, "./textures/numbers/font0.xpm");
 	all->hud.number.num[1] = take_text(all, "./textures/numbers/font1.xpm");
 	all->hud.number.num[2] = take_text(all, "./textures/numbers/font2.xpm");

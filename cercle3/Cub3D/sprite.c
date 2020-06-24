@@ -87,15 +87,18 @@ void	print_sprite(t_cub *all, int *img_data)
 		z = (all->spr.drawstartx < 0) ? 0 : all->spr.drawstartx;
 		while (z < all->spr.drawendx && z < all->res_x)
 		{
-			y = (all->spr.drawstarty < 0) ? 0 : all->spr.drawstarty;
-			while (y < all->spr.drawendy && y < all->res_y)
+			if ((all->spr.spritex * all->spr.spritex + all->spr.spritey * all->spr.spritey) < all->info.dist[z] * all->info.dist[z])
 			{
-				if (z >= 0 && z < all->res_x && y >= 0 && y < all->res_y && all->spr.transformy > 0)
+				y = (all->spr.drawstarty < 0) ? 0 : all->spr.drawstarty;
+				while (y < all->spr.drawendy && y < all->res_y)
 				{
-					timer_calcul(all, z, y, all->spr.n);
-					check_transparent(all, img_data, z, y);
+					if (z >= 0 && z < all->res_x && y >= 0 && y < all->res_y && all->spr.transformy > 0)
+					{
+						timer_calcul(all, z, y, all->spr.n);
+						check_transparent(all, img_data, z, y);
+					}
+					y++;
 				}
-				y++;
 			}
 			z++;
 		}
