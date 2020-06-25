@@ -14,7 +14,7 @@
 
 void	ft_exit(t_cub *all)
 {
-		if (all->minilibx.mlx_ptr && all->minilibx.win_ptr)
+		if (all && all->minilibx.mlx_ptr && all->minilibx.win_ptr)
 		{
 				mlx_clear_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr);
 				mlx_destroy_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr);

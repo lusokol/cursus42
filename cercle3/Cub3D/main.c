@@ -132,9 +132,9 @@ void	print_screen(t_cub *all, int x, int *img_ptr)
 		else
 			img_ptr[x + all->res_x * all->draw.floor++] = ft_texture_floor(all, &all->minilibx.floor);
 	}
-	while (all->draw.y < all->draw.drawend) {
+	while (all->draw.y < all->draw.drawend)
+	{
 		img_ptr[x + all->res_x * all->draw.y] = ft_texture(all);
-		//img_ptr[x + all->res_x * all->draw.y] = 456123;
 		all->draw.y++;
 	}
 }
@@ -229,7 +229,6 @@ int		main(int ac, char **av)
 	//int		i;
 	t_cub	*all;
 	char	**tab;
-	//int		res;
 
 	g_begin = clock();
 	if (ac != 2)
@@ -244,10 +243,11 @@ int		main(int ac, char **av)
 	all->info.dist = malloc(sizeof(double) * all->res_x);
 	all->vit.rot = 0.05;
 	all->vit.mvt = 1;
-	if (check_map(all->map))
-		printf("map ok\n");
-	else
-		printf("map pas ok\n");
+	if (!check_map(all->map))
+	{
+		printf("Error\nMap invalid\n");
+		ft_exit(all);
+	}
 	all->map2 = all->map;
 	ft_get_map(tab, all);
 

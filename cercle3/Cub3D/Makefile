@@ -17,7 +17,7 @@ SRCS = fill_struct.c \
 	   goomba.c \
 	   game_over.c \
 
-MLX = libmlx.a \
+MLX = libmlx.a libmlx.dylib \
 
 FLAGS = -Wall -Werror -Wextra -framework OpenGL -framework AppKit -g3 -fsanitize=address
 

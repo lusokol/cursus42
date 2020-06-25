@@ -74,7 +74,7 @@ $(NAME):
 	@echo "Compilation libft..."
 	@gcc $(FLAGS) -c $(SRCS) -I .
 	@echo "Creation de la lib..."
-	@ar rc $(NAME) $(SRCS:.c=.o) $(PRINTF) $^
+	@ar rc $(NAME) $(SRCS:.c=.o) $^# $(PRINTF) $^
 	@ranlib $(NAME)
 
 clean:

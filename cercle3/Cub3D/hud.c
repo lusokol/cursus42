@@ -15,9 +15,9 @@
 int		take_heart(int heart, t_cub *all, double i, double ratio)
 {
 	if (heart <= all->hud.hp)
-		return (all->hud.cp.data[(int)(ratio * all->hud.cp.w + all->hud.cp.w * (i * all->hud.cp.h))]);
+		return (all->hud.cp.data[(int)(ratio * all->hud.cp.w + all->hud.cp.w * (int)(i * all->hud.cp.h))]);
 	else
-		return (all->hud.cv.data[(int)(ratio * all->hud.cv.w + all->hud.cv.w * (i * all->hud.cv.h))]);
+		return (all->hud.cv.data[(int)(ratio * all->hud.cv.w + all->hud.cv.w * (int)(i * all->hud.cv.h))]);
 }
 
 int		take_gold(t_cub *all, int img, double ratioy, double ratiox)

@@ -45,8 +45,30 @@ char	**create_tab(int fd)
 		tmp = ft_strjoin(tmp, line);
 		free(line);
 	}
+	int j = -1;
+	printf("str : \"%s\"\n", tmp);
+	printf("\n\n\n");
 	str = ft_split(tmp, '\n');
+	while (str[++j])
+			printf("str : \"%s\"\n", str[j]);
 	return (str);
+}
+
+void	check_res(t_cub *all)
+{
+	int x;
+	int y;
+
+	mlx_get_screen_size(all->minilibx.mlx_ptr, &x, &y);
+	if (all->res_x < 500)
+		all->res_x = 500;
+	if (all->res_y < 500)
+		all->res_y = 500;
+	if (all->res_x > x)
+		all->res_x = x;
+	if (all->res_y > y)
+		all->res_y = y;
+	printf("resx: %d\nresy: %d\n", all->res_x, all->res_y);
 }
 
 void	ft_take_res(t_cub *all, char *str)
@@ -69,6 +91,7 @@ void	ft_take_res(t_cub *all, char *str)
 		printf("Error\nResolution bad indent.\n");
 		ft_exit(all);
 	}
+	check_res(all);
 }
 
 int		ft_take_rgb(char *str)
@@ -215,7 +238,7 @@ t_cub	*ft_fill_struct(char **str)
 	if (!(all = malloc(sizeof(t_cub))))
 		return (NULL);
 	text_null(all);
-	while (str[++i][0] != ' ' && str[i][0] != '0' && str[i][0] != '1')
+	while (str[++i] && str[i][0] != ' ' && str[i][0] != '0' && str[i][0] != '1')
 		ft_check_info(str, i, all);
 	if (!missing_arg(all))
 		ft_exit(all);

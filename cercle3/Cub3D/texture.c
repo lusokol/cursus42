@@ -56,7 +56,7 @@ int		ft_texture_floor(t_cub *all, t_text *text)
 	all->floceil.currentfloorx = fabs(all->floceil.currentfloorx);
 	all->floceil.currentfloory = fabs(all->floceil.currentfloory);
 	all->draw.jump = ((double)all->draw.hauteurligne/3.0) * (all->coord.z * 10);
-	return (text->data[(int)(all->floceil.currentfloory + text->w * all->floceil.currentfloorx)]);
+	return (text->data[(int)(all->floceil.currentfloorx + text->w * all->floceil.currentfloory)]);
 }
 
 int		ft_texture(t_cub *all)
