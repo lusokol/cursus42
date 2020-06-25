@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:18:32 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/11 20:14:35 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/25 20:03:25 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
 # include <math.h>
 # include <time.h>
 

@@ -6,7 +6,7 @@
 #    By: lusokol <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 20:53:32 by lusokol           #+#    #+#              #
-#    Updated: 2020/01/07 13:45:02 by lusokol          ###   ########.fr        #
+#    Updated: 2020/06/25 20:31:10 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,9 +71,7 @@ FLAGS = -Wall -Wextra -Werror -g3
 all: ${NAME}
 
 $(NAME):
-	@echo "Compilation libft..."
 	@gcc $(FLAGS) -c $(SRCS) -I .
-	@echo "Creation de la lib..."
 	@ar rc $(NAME) $(SRCS:.c=.o) $^# $(PRINTF) $^
 	@ranlib $(NAME)
 

@@ -1,46 +1,63 @@
 NAME = Cub3D
 
-SRCS = fill_struct.c \
-	   check_map.c \
-	   get_next_line.c \
-	   get_next_line_utils.c \
-	   libft.a \
-	   main.c \
-	   movement.c \
-	   rotkey.c \
-	   texture.c \
-	   skybox.c \
-	   sprite.c \
-	   saut.c \
-	   parsing_sprite.c \
-	   hud.c \
-	   goomba.c \
-	   game_over.c \
+SRCS = ./srcs/fill_struct.c \
+	   ./srcs/check_map.c \
+	   ./srcs/get_next_line.c \
+	   ./srcs/get_next_line_utils.c \
+	   ./srcs/main.c \
+	   ./srcs/movement.c \
+	   ./srcs/rotkey.c \
+	   ./srcs/texture.c \
+	   ./srcs/skybox.c \
+	   ./srcs/sprite.c \
+	   ./srcs/saut.c \
+	   ./srcs/parsing_sprite.c \
+	   ./srcs/hud.c \
+	   ./srcs/goomba.c \
+	   ./srcs/game_over.c \
 
-MLX = libmlx.a libmlx.dylib \
+BIBLIO = libmlx.a libmlx.dylib libft.a\
 
 FLAGS = -Wall -Werror -Wextra -framework OpenGL -framework AppKit# -g3 -fsanitize=address
 
-CONFIG = fichierTest.cub
+CONFIG = map.cub
 
 all: ${NAME}
 
-$(NAME): 
-	@echo "Creation de l'executable..."
-	@gcc $(FLAGS) -D BUFFER_SIZE=32 $(SRCS) $(MLX) -o $(NAME)
+$(NAME) : libmlx.a libmlx.dylib libft.a
+	@echo "Création de l'executable..."
+	@gcc $(FLAGS) -D BUFFER_SIZE=32 $(SRCS) $(BIBLIO) -o $(NAME)
+	@echo "Compilation terminée !"
 
 clean:
 	@echo "Clean..."
-	@rm -rf $(NAME)
+	@rm -rf $(SRCS:.c=.o)
+	@echo "Clean !"
 
 fclean:
 	@echo "Fclean..."
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(SRCS:.c=.o) $(BIBLIO)
+	@(cd ./minilibx2 && $(MAKE) clean)
+	@(cd ./minilibx && $(MAKE) clean)
+	@(cd ./libft && $(MAKE) fclean)
+	@echo "Fclean !"
 
-re:	fclean all
+re:	clean all
 
 run:	re
 	@(clear)
 	@(./$(NAME) $(CONFIG))
+
+libft.a:
+	@echo "Compilation de la libft"
+	@(cd ./libft && $(MAKE) $@ && cp libft.a ../.)
+
+libmlx.dylib:
+	@echo "Compilation de la mlx MMS"
+	@(cd ./minilibx2 && $(MAKE) $@ && cp libmlx.dylib ../.) 2>/dev/null
+
+libmlx.a:
+	@echo "Compilation de la mlx openGL"
+	@(cd ./minilibx && $(MAKE) $@ && cp libmlx.a ../.) 2>/dev/null
 
 .PHONY:	all clean fclean re
