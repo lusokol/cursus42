@@ -59,24 +59,24 @@ SRCS = ft_atoi.c \
 	   ft_putchar.c \
 	   ft_putstr.c \
 
-PRINTF = ../ft_printf.o \
-		 ../ft_printf_arg.o \
-		 ../ft_printf_arg2.o \
-		 ../checks.o \
-		 ../ft_util.o \
-		 ../disp_util.o \
+PRINTF = ft_printf.c \
+		 ft_printf_arg.c \
+		 ft_printf_arg2.c \
+		 checks.c \
+		 ft_util.c \
+		 disp_util.c \
 
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror
 
 all: ${NAME}
 
 $(NAME):
-	@gcc $(FLAGS) -c $(SRCS) -I .
-	@ar rc $(NAME) $(SRCS:.c=.o) $^# $(PRINTF) $^
+	@gcc $(FLAGS) -c $(SRCS) $(PRINTF) -I .
+	@ar rc $(NAME) $(SRCS:.c=.o) $(PRINTF:.c=.o) $^
 	@ranlib $(NAME)
 
 clean:
-	@rm -rf $(SRCS:.c=.o)
+	@rm -rf $(SRCS:.c=.o) $(PRINTF:.c=.o)
 
 
 fclean:	clean

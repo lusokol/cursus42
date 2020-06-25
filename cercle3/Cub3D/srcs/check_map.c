@@ -33,12 +33,12 @@ void	check_fail(int i, int j, char **map)
 	tmp = 0;
 	if (i > 0 && j >= ft_strlen(map[i - 1]))
 	{
-		printf("Error\nMap invalid.\n");
+		ft_printf("Error\nMap invalid.\n");
 		ft_exit(NULL);
 	}
 	if (map[i + 1] && j >= ft_strlen(map[i + 1]))
 	{
-		printf("Error\nMap invalid.\n");
+		ft_printf("Error\nMap invalid.\n");
 		ft_exit(NULL);
 	}
 }
@@ -146,12 +146,12 @@ int		check_map(char **map)
 
 	if ((res = start_check(map)) > 1)
 	{
-		printf("Error\nMultiple start position.\n");
+		ft_printf("Error\nMultiple start position.\n");
 		ft_exit(NULL);
 	}
 	else if (res == 0)
 	{
-		printf("Error\nMissing start position.\n");
+		ft_printf("Error\nMissing start position.\n");
 		ft_exit(NULL);
 	}
 	fill_map(map);

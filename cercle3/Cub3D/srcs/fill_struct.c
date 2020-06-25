@@ -63,7 +63,6 @@ void		check_res(t_cub *all)
 		all->res_x = x;
 	if (all->res_y > y)
 		all->res_y = y;
-	printf("resx: %d\nresy: %d\n", all->res_x, all->res_y);
 }
 
 void		ft_take_res(t_cub *all, char *str)
@@ -83,7 +82,7 @@ void		ft_take_res(t_cub *all, char *str)
 		i++;
 	if (ft_atoi(str + i) != 0 || !all->res_x || !all->res_x)
 	{
-		printf("Error\nResolution bad indent.\n");
+		ft_printf("Error\nResolution bad indent.\n");
 		ft_exit(all);
 	}
 	check_res(all);
@@ -127,7 +126,7 @@ void		*info(t_cub *all, char *str, int i, int type)
 		j++;
 	else
 	{
-		printf("Error\nMissing space at the argument %d after\"%c\"\n",
+		ft_printf("Error\nMissing space at the argument %d after\"%c\"\n",
 				i + 1, str[-1]);
 		ft_exit(all);
 	}
@@ -135,7 +134,7 @@ void		*info(t_cub *all, char *str, int i, int type)
 		j++;
 	if (str[j] == '\n' || str[j] == '\0')
 	{
-		printf("Error\nMissing argument line %d.\n", i + 1);
+		ft_printf("Error\nMissing argument line %d.\n", i + 1);
 		ft_exit(all);
 	}
 	all->rgbf = (type == 1 && ft_isdigit(str[j])) ? 1 : all->rgbf;
@@ -153,7 +152,7 @@ void		*path(t_cub *all, void *comp, void *comp2)
 		return (comp2);
 	else
 	{
-		printf("Error\nMultiple path.\n");
+		ft_printf("Error\nMultiple path.\n");
 		ft_exit(all);
 	}
 	return (0);
@@ -202,23 +201,23 @@ void		ft_check_info(char **str, int i, t_cub *all)
 int			missing_arg(t_cub *all)
 {
 	if (!all->north)
-		printf("Missing argument : NO\n");
+		ft_printf("Error\nMissing argument : NO\n");
 	else if (!all->south)
-		printf("Missing argument : SO\n");
+		ft_printf("Error\nMissing argument : SO\n");
 	else if (!all->west)
-		printf("Missing argument : WE\n");
+		ft_printf("Error\nMissing argument : WE\n");
 	else if (!all->east)
-		printf("Missing argument : EA\n");
+		ft_printf("Error\nMissing argument : EA\n");
 	else if (!all->ceilling)
-		printf("Missing argument : C\n");
+		ft_printf("Error\nMissing argument : C\n");
 	else if (!all->floor)
-		printf("Missing argument : F\n");
+		ft_printf("Error\nMissing argument : F\n");
 	else if (!all->sprite)
-		printf("Missing argument : S\n");
+		ft_printf("Error\nMissing argument : S\n");
 	else if (!all->sprite1)
-		printf("Missing argument : S1\n");
+		ft_printf("Error\nMissing argument : S1\n");
 	else if (!all->sprite2)
-		printf("Missing argument : S2\n");
+		ft_printf("Error\nMissing argument : S2\n");
 	else
 		return (1);
 	return (0);

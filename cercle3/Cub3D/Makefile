@@ -31,7 +31,7 @@ $(NAME) : libmlx.a libmlx.dylib libft.a
 
 clean:
 	@echo "Clean..."
-	@rm -rf $(SRCS:.c=.o)
+	@rm -rf $(NAME)
 	@echo "Clean !"
 
 fclean:

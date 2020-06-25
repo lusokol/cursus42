@@ -262,9 +262,9 @@ int		main(int ac, char **av)
 
 	g_begin = clock();
 	if (ac != 2)
-		return (printf("Need 1 argument\n"));
+		return (ft_printf("Error\nNeed 1 argument\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
-		return (printf("Invalid  argument\n"));
+		return (ft_printf("Error\nInvalid  argument\n"));
 	tab = create_tab(fd);
 	all = ft_fill_struct(tab);
 	ft_spawnpoint(all);
@@ -275,7 +275,7 @@ int		main(int ac, char **av)
 	all->vit.mvt = 1;
 	if (!check_map(all->map))
 	{
-		printf("Error\nMap invalid\n");
+		ft_printf("Error\nMap invalid\n");
 		ft_exit(all);
 	}
 	all->map2 = all->map;

@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
+# include "../libft/libftprintf.h"
 # include "../minilibx/mlx.h"
 # include <math.h>
 # include <time.h>
