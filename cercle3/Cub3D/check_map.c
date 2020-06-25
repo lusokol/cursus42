@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:36:25 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/03 12:54:02 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/25 17:00:22 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ int		replace_zero(int i, int j, char **map)
 {
 	int tmp;
 
-//	int s = -1;
-//	while (map[++s])
-//			printf("map : \"%s\"\n", map[s]);
-//	printf("i : %d, j : %d\n", i, j);
 	tmp = 0;
-	if (i > 0 && j < ft_strlen(map[i - 1]) &&(check_pos(map[i - 1][j], 3)))
+	if (i > 0 && j < ft_strlen(map[i - 1]) && (check_pos(map[i - 1][j], 3)))
 	{
 		map[i - 1][j] = '.';
 		tmp = 1;
@@ -124,23 +120,11 @@ void	fill_map(char **map)
 	}
 }
 
-int		check_map(char **map)
+int		check_point(char **map)
 {
 	int i;
 	int j;
-	int res;
 
-	if ((res = start_check(map)) > 1)
-	{
-		printf("Error\nMultiple start position.\n");
-		ft_exit(NULL);
-	}
-	else if (res == 0)
-	{
-		printf("Error\nMissing start position.\n");
-		ft_exit(NULL);
-	}
-	fill_map(map);
 	i = 0;
 	j = -1;
 	while (map[i][++j])
@@ -154,4 +138,22 @@ int		check_map(char **map)
 		if (map[i][j] == '.')
 			return (0);
 	return (1);
+}
+
+int		check_map(char **map)
+{
+	int res;
+
+	if ((res = start_check(map)) > 1)
+	{
+		printf("Error\nMultiple start position.\n");
+		ft_exit(NULL);
+	}
+	else if (res == 0)
+	{
+		printf("Error\nMissing start position.\n");
+		ft_exit(NULL);
+	}
+	fill_map(map);
+	return (check_point(map));
 }

@@ -19,7 +19,7 @@ SRCS = fill_struct.c \
 
 MLX = libmlx.a libmlx.dylib \
 
-FLAGS = -Wall -Werror -Wextra -framework OpenGL -framework AppKit -g3 -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -framework OpenGL -framework AppKit# -g3 -fsanitize=address
 
 CONFIG = fichierTest.cub
 

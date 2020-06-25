@@ -6,13 +6,13 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:35:29 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/10 14:26:18 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/25 17:07:17 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_cub	*ft_get_map(char **str, t_cub *all)
+t_cub		*ft_get_map(char **str, t_cub *all)
 {
 	int i;
 	int j;
@@ -32,11 +32,11 @@ t_cub	*ft_get_map(char **str, t_cub *all)
 	return (all);
 }
 
-char	**create_tab(int fd)
+char		**create_tab(int fd)
 {
-	char **str;
-	char *tmp;
-	char *line;
+	char	**str;
+	char	*tmp;
+	char	*line;
 
 	tmp = ft_strdup("");
 	while (get_next_line(fd, &line) > 0)
@@ -45,16 +45,11 @@ char	**create_tab(int fd)
 		tmp = ft_strjoin(tmp, line);
 		free(line);
 	}
-	int j = -1;
-	printf("str : \"%s\"\n", tmp);
-	printf("\n\n\n");
 	str = ft_split(tmp, '\n');
-	while (str[++j])
-			printf("str : \"%s\"\n", str[j]);
 	return (str);
 }
 
-void	check_res(t_cub *all)
+void		check_res(t_cub *all)
 {
 	int x;
 	int y;
@@ -71,7 +66,7 @@ void	check_res(t_cub *all)
 	printf("resx: %d\nresy: %d\n", all->res_x, all->res_y);
 }
 
-void	ft_take_res(t_cub *all, char *str)
+void		ft_take_res(t_cub *all, char *str)
 {
 	int i;
 
@@ -94,7 +89,7 @@ void	ft_take_res(t_cub *all, char *str)
 	check_res(all);
 }
 
-int		ft_take_rgb(char *str)
+int			ft_take_rgb(char *str)
 {
 	int res;
 	int j;
@@ -120,24 +115,24 @@ int		ft_take_rgb(char *str)
 		rgb--;
 		res += j;
 	}
-	printf("res : %i\n", res);
 	return (res);
 }
 
-void	*take_info(t_cub *all, char *str, int i, int type)
+void		*info(t_cub *all, char *str, int i, int type)
 {
 	int j;
 
 	j = 0;
 	if (str[j] == ' ')
-			j++;
+		j++;
 	else
 	{
-		printf("Error\nMissing space at the argument %d after \"%c\"\n", i + 1, str[-1]);
+		printf("Error\nMissing space at the argument %d after\"%c\"\n",
+				i + 1, str[-1]);
 		ft_exit(all);
 	}
 	while (str[j] && str[j] == ' ')
-			j++;
+		j++;
 	if (str[j] == '\n' || str[j] == '\0')
 	{
 		printf("Error\nMissing argument line %d.\n", i + 1);
@@ -152,7 +147,7 @@ void	*take_info(t_cub *all, char *str, int i, int type)
 	return (ft_strdup(&str[j]));
 }
 
-void	*ft_add_path(t_cub *all, void *comp, void *comp2)
+void		*path(t_cub *all, void *comp, void *comp2)
 {
 	if (comp == NULL)
 		return (comp2);
@@ -164,7 +159,7 @@ void	*ft_add_path(t_cub *all, void *comp, void *comp2)
 	return (0);
 }
 
-void	text_null(t_cub *all)
+void		text_null(t_cub *all)
 {
 	all->north = NULL;
 	all->south = NULL;
@@ -180,31 +175,31 @@ void	text_null(t_cub *all)
 	all->rgbf = 0;
 }
 
-void	ft_check_info(char **str, int i, t_cub *all)
+void		ft_check_info(char **str, int i, t_cub *all)
 {
 	if (str[i][0] == 'R')
 		ft_take_res(all, str[i]);
 	else if (str[i][0] == 'N' && str[i][1] == 'O')
-		all->north = ft_add_path(all, all->north, take_info(all, str[i] + 2, i, 0));
+		all->north = path(all, all->north, info(all, str[i] + 2, i, 0));
 	else if (str[i][0] == 'S' && str[i][1] == 'O')
-		all->south = ft_add_path(all, all->south, take_info(all, str[i] + 2, i, 0));
+		all->south = path(all, all->south, info(all, str[i] + 2, i, 0));
 	else if (str[i][0] == 'W' && str[i][1] == 'E')
-		all->west = ft_add_path(all, all->west, take_info(all, str[i] + 2, i, 0));
+		all->west = path(all, all->west, info(all, str[i] + 2, i, 0));
 	else if (str[i][0] == 'E' && str[i][1] == 'A')
-		all->east = ft_add_path(all, all->east, take_info(all, str[i] + 2, i, 0));
+		all->east = path(all, all->east, info(all, str[i] + 2, i, 0));
 	else if (str[i][0] == 'S' && str[i][1] != '1' && str[i][1] != '2')
-		all->sprite = ft_add_path(all, all->sprite, take_info(all, str[i] + 1, i, 0));
+		all->sprite = path(all, all->sprite, info(all, str[i] + 1, i, 0));
 	else if (str[i][0] == 'F')
-		all->floor = ft_add_path(all, all->floor, take_info(all, str[i] + 1, i, 1));
+		all->floor = path(all, all->floor, info(all, str[i] + 1, i, 1));
 	else if (str[i][0] == 'C')
-		all->ceilling = ft_add_path(all, all->ceilling, take_info(all, str[i] + 1, i, 2)); 
+		all->ceilling = path(all, all->ceilling, info(all, str[i] + 1, i, 2));
 	else if (str[i][0] == 'S' && str[i][1] == '1')
-		all->sprite1 = ft_add_path(all, all->sprite1, take_info(all, str[i] + 2, i, 0));
+		all->sprite1 = path(all, all->sprite1, info(all, str[i] + 2, i, 0));
 	else if (str[i][0] == 'S' && str[i][1] == '2')
-		all->sprite2 = ft_add_path(all, all->sprite2, take_info(all, str[i] + 2, i, 0));
+		all->sprite2 = path(all, all->sprite2, info(all, str[i] + 2, i, 0));
 }
 
-int		missing_arg(t_cub *all)
+int			missing_arg(t_cub *all)
 {
 	if (!all->north)
 		printf("Missing argument : NO\n");
@@ -229,7 +224,7 @@ int		missing_arg(t_cub *all)
 	return (0);
 }
 
-t_cub	*ft_fill_struct(char **str)
+t_cub		*ft_fill_struct(char **str)
 {
 	int		i;
 	t_cub	*all;

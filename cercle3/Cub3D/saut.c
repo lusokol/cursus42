@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 19:14:18 by lusokol           #+#    #+#             */
-/*   Updated: 2020/03/11 19:51:41 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/25 18:43:03 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int		select_sprite(t_cub *all, int x, int y)
 	int n;
 
 	n = 0;
-	while ((int)all->spr.tab[n].x != x || (int)all->spr.tab[n].y != y || all->map[(int)all->coord.x][(int)all->coord.y] != '3' || all->spr.tab[n].spr != 2)
+	while ((int)all->spr.tab[n].x != x || (int)all->spr.tab[n].y != y ||
+			all->map[(int)all->coord.x][(int)all->coord.y] != '3' ||
+			all->spr.tab[n].spr != 2)
 		n++;
 	if (all->hud.hp < 3 && all->hud.hp > 0)
 	{
@@ -36,8 +38,6 @@ void	change_sprite(t_cub *all, int x, int y)
 	int		alive;
 
 	n = select_sprite(all, x, y);
-//	mlx_destroy_image(all->minilibx.mlx_ptr, all->spr.tab[n].ptr);
-//	free(all->spr.tab[n].data);
 	tmpx = all->spr.tab[n].x;
 	tmpy = all->spr.tab[n].y;
 	alive = all->spr.tab[n].alive;
