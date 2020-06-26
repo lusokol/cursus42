@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:35:29 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/26 14:34:31 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 19:54:52 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char		**create_tab(int fd)
 		free(line);
 	}
 	str = ft_split(tmp, '\n');
+	free(line);
+	free(tmp);
 	return (str);
 }
 

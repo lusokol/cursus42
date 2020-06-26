@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 14:30:03 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/26 17:00:25 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 20:05:33 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	init_struct(t_cub *all)
 	all->spr.goomba.frame = 1;
 	all->spr.goomba.safe = 0;
 	all->spr.goomba.cankill = 0;
-	all->sprite2 = NULL;
 	all->minilibx.win_ptr = NULL;
 }
 
