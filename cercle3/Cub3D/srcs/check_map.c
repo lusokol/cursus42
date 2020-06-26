@@ -26,23 +26,6 @@ int		check_pos(char a, int b)
 	return (0);
 }
 
-void	check_fail(int i, int j, char **map)
-{
-	int tmp;
-
-	tmp = 0;
-	if (i > 0 && j >= ft_strlen(map[i - 1]))
-	{
-		ft_printf("Error\nMap invalid.\n");
-		ft_exit(NULL);
-	}
-	if (map[i + 1] && j >= ft_strlen(map[i + 1]))
-	{
-		ft_printf("Error\nMap invalid.\n");
-		ft_exit(NULL);
-	}
-}
-
 int		replace_zero(int i, int j, char **map)
 {
 	int tmp;
@@ -138,22 +121,4 @@ int		check_point(char **map)
 		if (map[i][j] == '.')
 			return (0);
 	return (1);
-}
-
-int		check_map(char **map)
-{
-	int res;
-
-	if ((res = start_check(map)) > 1)
-	{
-		ft_printf("Error\nMultiple start position.\n");
-		ft_exit(NULL);
-	}
-	else if (res == 0)
-	{
-		ft_printf("Error\nMissing start position.\n");
-		ft_exit(NULL);
-	}
-	fill_map(map);
-	return (check_point(map));
 }

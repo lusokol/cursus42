@@ -15,6 +15,14 @@ SRCS = ./srcs/fill_struct.c \
 	   ./srcs/hud.c \
 	   ./srcs/goomba.c \
 	   ./srcs/game_over.c \
+	   ./srcs/all_check.c \
+	   ./srcs/calcul.c \
+	   ./srcs/check_error.c \
+	   ./srcs/init_struct.c \
+	   ./srcs/next.c \
+	   ./srcs/raycasting.c \
+	   ./srcs/bmpbis.c \
+	   ./srcs/bmp.c \
 
 BIBLIO = libmlx.a libmlx.dylib libft.a\
 
@@ -37,8 +45,6 @@ clean:
 fclean:
 	@echo "Fclean..."
 	@rm -rf $(NAME) $(SRCS:.c=.o) $(BIBLIO)
-	@(cd ./minilibx2 && $(MAKE) clean)
-	@(cd ./minilibx && $(MAKE) clean)
 	@(cd ./libft && $(MAKE) fclean)
 	@echo "Fclean !"
 

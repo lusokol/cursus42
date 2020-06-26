@@ -6,130 +6,11 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:09:33 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 18:26:34 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 18:02:20 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_struct(t_cub *all)
-{
-	all->info.planex = -0.66 * all->info.diry;
-	all->info.planey = 0.66 * all->info.dirx;
-	all->key.w = 0;
-	all->key.a = 0;
-	all->key.s = 0;
-	all->key.d = 0;
-	all->key.fd = 0;
-	all->key.fg = 0;
-	all->key.j = 0;
-	all->key.exit = 0;
-	all->coord.z = 0;
-	all->spr.nbr = 0;
-	all->hud.hp = 3;
-	all->hud.gold = 0;
-	all->spr.goomba.frame = 1;
-	all->spr.goomba.safe = 0;
-	all->spr.goomba.cankill = 0;
-	all->sprite2 = NULL;
-	all->minilibx.win_ptr = NULL;
-}
-
-void	calcul(t_cub *all, int x)
-{
-	all->info.camerax = (2 * (double)x / all->res_x) - 1;
-	all->info.rayposx = all->coord.x;
-	all->info.rayposy = all->coord.y;
-	all->info.raydirx = all->info.dirx + (all->info.planex * all->info.camerax);
-	all->info.raydiry = all->info.diry + (all->info.planey * all->info.camerax);
-	all->info.mapx = (int)(all->info.rayposx);
-	all->info.mapy = (int)(all->info.rayposy);
-	all->info.deltadistx = sqrt(1 + ((all->info.raydiry * all->info.raydiry)
-				/ (all->info.raydirx * all->info.raydirx)));
-	all->info.deltadisty = sqrt(1 + ((all->info.raydirx * all->info.raydirx)
-				/ (all->info.raydiry * all->info.raydiry)));
-}
-
-void	vecteur_dir(t_cub *all)
-{
-	if (all->info.raydirx < 0)
-	{
-		all->info.stepx = -1;
-		all->info.sidedistx = (all->info.rayposx - all->info.mapx)
-			* all->info.deltadistx;
-	}
-	else
-	{
-		all->info.stepx = 1;
-		all->info.sidedistx = (all->info.mapx + 1.0 - all->info.rayposx)
-			* all->info.deltadistx;
-	}
-	if (all->info.raydiry < 0)
-	{
-		all->info.stepy = -1;
-		all->info.sidedisty = (all->info.rayposy - all->info.mapy)
-			* all->info.deltadisty;
-	}
-	else
-	{
-		all->info.stepy = 1;
-		all->info.sidedisty = (all->info.mapy + 1.0 - all->info.rayposy)
-			* all->info.deltadisty;
-	}
-}
-
-void	raycasting_next(t_cub *all)
-{
-	if (all->info.side == 0)
-		all->info.perpwalldist = fabs(((all->info.mapx - all->info.rayposx)
-					+ ((1 - all->info.stepx) / 2)) / all->info.raydirx);
-	else
-		all->info.perpwalldist = fabs(((all->info.mapy - all->info.rayposy)
-					+ ((1 - all->info.stepy) / 2)) / all->info.raydiry);
-}
-
-void	raycasting(t_cub *all)
-{
-	int hit;
-
-	hit = 0;
-	while (hit == 0)
-	{
-		if (all->info.sidedistx < all->info.sidedisty)
-		{
-			all->info.sidedistx += all->info.deltadistx;
-			all->info.mapx += all->info.stepx;
-			all->info.side = 0;
-		}
-		else
-		{
-			all->info.sidedisty += all->info.deltadisty;
-			all->info.mapy += all->info.stepy;
-			all->info.side = 1;
-		}
-		if ((all->map)[all->info.mapx][all->info.mapy] == '1')
-			hit = 1;
-	}
-	raycasting_next(all);
-}
-
-void	calcul2(t_cub *all)
-{
-	all->draw.hauteurligne = abs((int)(all->res_y / all->info.perpwalldist));
-	all->draw.drawstart = (int)(-(all->draw.hauteurligne) * (0.5 - all->coord.z)
-			+ (int)(all->res_y * (0.5 + all->coord.z)));
-	all->draw.drawend = (int)((all->draw.hauteurligne * (0.5 + all->coord.z))
-			+ (int)(all->res_y * (0.5 + all->coord.z)));
-	if (all->draw.drawstart < 0)
-		all->draw.drawstart = 0;
-	if (all->draw.drawend >= all->res_y)
-		all->draw.drawend = all->res_y;
-	all->draw.drawstart = abs(all->draw.drawstart);
-	all->draw.drawend = abs(all->draw.drawend);
-	all->draw.y = all->draw.drawstart;
-	all->draw.ceilling = 0;
-	all->draw.floor = all->draw.drawend;
-}
 
 void	print_screen(t_cub *all, int x, int *img_ptr)
 {
@@ -184,36 +65,13 @@ void	cubddd(t_cub *all)
 	print_sprite(all, img_data);
 	hud(all, img_data);
 	game_over(all, img_data);
-	mlx_put_image_to_window(all->minilibx.mlx_ptr,
-			all->minilibx.win_ptr, img_ptr, 0, 0);
-	mlx_destroy_image(all->minilibx.mlx_ptr, img_ptr);
-}
-
-int		ft_spawnlettre(t_cub *all, int i, int j, char a)
-{
-	if (a == 'W')
+	all->minilibx.img_data = img_data;
+	if (all->save == 0)
 	{
-		all->info.dirx = 0;
-		all->info.diry = -1;
+		mlx_put_image_to_window(all->minilibx.mlx_ptr,
+				all->minilibx.win_ptr, img_ptr, 0, 0);
+		mlx_destroy_image(all->minilibx.mlx_ptr, img_ptr);
 	}
-	if (a == 'E')
-	{
-		all->info.dirx = 0;
-		all->info.diry = 1;
-	}
-	if (a == 'S')
-	{
-		all->info.dirx = 1;
-		all->info.diry = 0;
-	}
-	if (a == 'N')
-	{
-		all->info.dirx = -1;
-		all->info.diry = 0;
-	}
-	all->coord.x = j + 0.5;
-	all->coord.y = i + 0.5;
-	return (1);
 }
 
 void	ft_spawnpoint(t_cub *all)
@@ -240,20 +98,6 @@ void	ft_spawnpoint(t_cub *all)
 	}
 }
 
-void	ft_mlx_init(t_cub *all)
-{
-	all->minilibx.mlx_ptr = mlx_init();
-	init_text(all);
-	sprite_pars(all);
-	all->minilibx.win_ptr = mlx_new_window(all->minilibx.mlx_ptr,
-			all->res_x, all->res_y, "Cub3D");
-	cubddd(all);
-	mlx_hook(all->minilibx.win_ptr, 2, (1L << 0), &key_push, all);
-	mlx_hook(all->minilibx.win_ptr, 3, (1L << 1), &key_release, all);
-	mlx_loop_hook(all->minilibx.mlx_ptr, &deal_key, all);
-	mlx_loop(all->minilibx.mlx_ptr);
-}
-
 int		main(int ac, char **av)
 {
 	int		fd;
@@ -261,10 +105,10 @@ int		main(int ac, char **av)
 	char	**tab;
 
 	g_begin = clock();
-	if (ac != 2)
-		return (ft_printf("Error\nNeed 1 argument\n"));
+	if (ac < 2 || ac > 3)
+		return (ft_printf("Error\nNeed 1 or 2 argument.\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
-		return (ft_printf("Error\nInvalid  argument\n"));
+		return (ft_printf("Error\nInvalid  argument.\n"));
 	tab = create_tab(fd);
 	all = ft_fill_struct(tab);
 	ft_spawnpoint(all);
@@ -274,11 +118,10 @@ int		main(int ac, char **av)
 	all->vit.rot = 0.05;
 	all->vit.mvt = 1;
 	if (!check_map(all->map))
-	{
-		ft_printf("Error\nMap invalid\n");
-		ft_exit(all);
-	}
+		exit((ft_printf("Error\nMap invalid\n")) == 0);
 	all->map2 = all->map;
 	ft_get_map(tab, all);
+	if (ac == 3)
+		check_ac(av, all);
 	ft_mlx_init(all);
 }

@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:35:29 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 17:07:17 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 14:34:31 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,45 +47,6 @@ char		**create_tab(int fd)
 	}
 	str = ft_split(tmp, '\n');
 	return (str);
-}
-
-void		check_res(t_cub *all)
-{
-	int x;
-	int y;
-
-	mlx_get_screen_size(all->minilibx.mlx_ptr, &x, &y);
-	if (all->res_x < 500)
-		all->res_x = 500;
-	if (all->res_y < 500)
-		all->res_y = 500;
-	if (all->res_x > x)
-		all->res_x = x;
-	if (all->res_y > y)
-		all->res_y = y;
-}
-
-void		ft_take_res(t_cub *all, char *str)
-{
-	int i;
-
-	i = 0;
-	while (!(ft_isdigit(str[i])))
-		i++;
-	all->res_x = ft_atoi(str + i);
-	while (ft_isdigit(str[i]))
-		i++;
-	while (!(ft_isdigit(str[i])))
-		i++;
-	all->res_y = ft_atoi(str + i);
-	while (ft_isdigit(str[i]))
-		i++;
-	if (ft_atoi(str + i) != 0 || !all->res_x || !all->res_x)
-	{
-		ft_printf("Error\nResolution bad indent.\n");
-		ft_exit(all);
-	}
-	check_res(all);
 }
 
 int			ft_take_rgb(char *str)
@@ -144,83 +105,6 @@ void		*info(t_cub *all, char *str, int i, int type)
 	if (type == 2 && ft_isdigit(str[j]))
 		all->ceil = ft_take_rgb(&str[j]);
 	return (ft_strdup(&str[j]));
-}
-
-void		*path(t_cub *all, void *comp, void *comp2)
-{
-	if (comp == NULL)
-		return (comp2);
-	else
-	{
-		ft_printf("Error\nMultiple path.\n");
-		ft_exit(all);
-	}
-	return (0);
-}
-
-void		text_null(t_cub *all)
-{
-	all->north = NULL;
-	all->south = NULL;
-	all->east = NULL;
-	all->west = NULL;
-	all->floor = NULL;
-	all->ceilling = NULL;
-	all->sprite = NULL;
-	all->sprite1 = NULL;
-	all->sprite2 = NULL;
-	all->minilibx.win_ptr = NULL;
-	all->rgbc = 0;
-	all->rgbf = 0;
-}
-
-void		ft_check_info(char **str, int i, t_cub *all)
-{
-	if (str[i][0] == 'R')
-		ft_take_res(all, str[i]);
-	else if (str[i][0] == 'N' && str[i][1] == 'O')
-		all->north = path(all, all->north, info(all, str[i] + 2, i, 0));
-	else if (str[i][0] == 'S' && str[i][1] == 'O')
-		all->south = path(all, all->south, info(all, str[i] + 2, i, 0));
-	else if (str[i][0] == 'W' && str[i][1] == 'E')
-		all->west = path(all, all->west, info(all, str[i] + 2, i, 0));
-	else if (str[i][0] == 'E' && str[i][1] == 'A')
-		all->east = path(all, all->east, info(all, str[i] + 2, i, 0));
-	else if (str[i][0] == 'S' && str[i][1] != '1' && str[i][1] != '2')
-		all->sprite = path(all, all->sprite, info(all, str[i] + 1, i, 0));
-	else if (str[i][0] == 'F')
-		all->floor = path(all, all->floor, info(all, str[i] + 1, i, 1));
-	else if (str[i][0] == 'C')
-		all->ceilling = path(all, all->ceilling, info(all, str[i] + 1, i, 2));
-	else if (str[i][0] == 'S' && str[i][1] == '1')
-		all->sprite1 = path(all, all->sprite1, info(all, str[i] + 2, i, 0));
-	else if (str[i][0] == 'S' && str[i][1] == '2')
-		all->sprite2 = path(all, all->sprite2, info(all, str[i] + 2, i, 0));
-}
-
-int			missing_arg(t_cub *all)
-{
-	if (!all->north)
-		ft_printf("Error\nMissing argument : NO\n");
-	else if (!all->south)
-		ft_printf("Error\nMissing argument : SO\n");
-	else if (!all->west)
-		ft_printf("Error\nMissing argument : WE\n");
-	else if (!all->east)
-		ft_printf("Error\nMissing argument : EA\n");
-	else if (!all->ceilling)
-		ft_printf("Error\nMissing argument : C\n");
-	else if (!all->floor)
-		ft_printf("Error\nMissing argument : F\n");
-	else if (!all->sprite)
-		ft_printf("Error\nMissing argument : S\n");
-	else if (!all->sprite1)
-		ft_printf("Error\nMissing argument : S1\n");
-	else if (!all->sprite2)
-		ft_printf("Error\nMissing argument : S2\n");
-	else
-		return (1);
-	return (0);
 }
 
 t_cub		*ft_fill_struct(char **str)

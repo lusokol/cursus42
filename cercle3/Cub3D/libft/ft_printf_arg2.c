@@ -14,8 +14,8 @@
 
 t_printf		ft_arg_xx(va_list *arg, char *type, int a)
 {
-	int		nbr;
-	int		i;
+	int			nbr;
+	int			i;
 	t_printf	info;
 
 	i = 0;
@@ -35,8 +35,8 @@ t_printf		ft_arg_xx(va_list *arg, char *type, int a)
 
 t_printf		ft_arg_c(va_list *arg, char *type)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	int			i;
 	t_printf	info;
 
 	i = 0;
@@ -58,8 +58,8 @@ t_printf		ft_arg_c(va_list *arg, char *type)
 
 t_printf		ft_arg_s(va_list *arg, char *type)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	int			i;
 	t_printf	info;
 
 	i = 0;
@@ -83,7 +83,7 @@ t_printf		ft_arg_p(va_list *arg, char *type)
 {
 	unsigned long long int	nbr;
 	int						i;
-	t_printf					info;
+	t_printf				info;
 
 	i = 0;
 	info = ft_init_printf();
@@ -105,8 +105,8 @@ t_printf		ft_arg_p(va_list *arg, char *type)
 
 t_printf		ft_arg_percent(va_list *arg, char *type)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	int			i;
 	t_printf	info;
 
 	i = 0;

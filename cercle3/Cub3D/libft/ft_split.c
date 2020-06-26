@@ -49,12 +49,6 @@ static int			ft_nbr_mots(const char *str, char charset)
 		if (str[i] == charset)
 			nbr_mots++;
 		i++;
-		//while (str[i] == charset)
-		//	i++;
-		//if (str[i])
-		//	nbr_mots++;
-		//while (str[i] != charset && str[i] != '\0')
-		//	i++;
 	}
 	return (nbr_mots);
 }
@@ -77,13 +71,10 @@ char				**ft_split(const char *str, char c)
 		j = 0;
 		if (str[is] == c && str[is])
 			is++;
-		//	while (str[is] == c && str[is])
-		//		is++;
 		if (!(tab[i] = malloc(sizeof(char) * (ft_taillem(str, is, c) + 1))))
 			return (ft_free(tab, i));
 		while (str[is] != c && str[is])
 			tab[i][j++] = str[is++];
-		
 		tab[i++][j] = '\0';
 	}
 	tab[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 10:49:35 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 17:54:18 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 15:37:05 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,6 @@ int		take_gold(t_cub *all, int img, double ratioy, double ratiox)
 				* all->hud.number.num[all->hud.gold % 10].w) +
 				(int)(all->hud.number.num[all->hud.gold % 10].w * (int)(ratioy
 				* all->hud.number.num[all->hud.gold % 10].h)))]);
-}
-
-int		gold_next(t_cub *all, int img)
-{
-	int width;
-
-	width = all->res_x / 10;
-	all->hud.drawstart = width * img - ((img == 2) ? width * 0.4 : 0);
-	all->hud.drawend = all->hud.drawstart + width;
-	return (all->hud.drawstart);
 }
 
 void	gold(t_cub *all, int *img_data)

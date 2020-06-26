@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-t_printf		ft_init_printf(void)
+t_printf	ft_init_printf(void)
 {
 	t_printf info;
 

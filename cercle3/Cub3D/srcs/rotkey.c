@@ -6,21 +6,11 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 12:13:36 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 18:42:22 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 15:26:34 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_exit(t_cub *all)
-{
-	if (all && all->minilibx.mlx_ptr && all->minilibx.win_ptr)
-	{
-		mlx_clear_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr);
-		mlx_destroy_window(all->minilibx.mlx_ptr, all->minilibx.win_ptr);
-	}
-	exit(0);
-}
 
 int		deal_key(t_cub *all)
 {

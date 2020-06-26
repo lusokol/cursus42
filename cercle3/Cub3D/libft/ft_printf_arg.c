@@ -70,10 +70,10 @@ int			ft_take_precision(t_printf *info, char *type, int i, va_list *arg)
 	return (add);
 }
 
-t_printf		ft_arg_i_d(va_list *arg, char *type)
+t_printf	ft_arg_i_d(va_list *arg, char *type)
 {
-	int		nbr;
-	int		i;
+	int			nbr;
+	int			i;
 	t_printf	info;
 
 	i = 0;
@@ -94,10 +94,10 @@ t_printf		ft_arg_i_d(va_list *arg, char *type)
 	return (info);
 }
 
-t_printf		ft_arg_u(va_list *arg, char *type)
+t_printf	ft_arg_u(va_list *arg, char *type)
 {
-	int long long		nbr;
-	int					i;
+	int long long			nbr;
+	int						i;
 	t_printf				info;
 
 	i = 0;

@@ -6,49 +6,11 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:13:04 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 19:33:40 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 15:45:31 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_calcfloor_next(t_cub *all)
-{
-	if (all->info.side == 1)
-		all->floceil.wallx = all->info.rayposx + ((all->info.mapy -
-					all->info.rayposy + (1 - all->info.stepy) * (0.5))
-				/ all->info.raydiry) * all->info.raydirx;
-	else
-		all->floceil.wallx = all->info.rayposy + ((all->info.mapx -
-					all->info.rayposx + (1 - all->info.stepx) * (0.5))
-				/ all->info.raydirx) * all->info.raydiry;
-	all->floceil.wallx -= floor(all->floceil.wallx);
-}
-
-void	ft_calcfloor(t_cub *all)
-{
-	ft_calcfloor_next(all);
-	if (all->info.side == 0 && all->info.raydirx > 0)
-	{
-		all->floceil.floorxwall = all->info.mapx;
-		all->floceil.floorywall = all->info.mapy + all->floceil.wallx;
-	}
-	else if (all->info.side == 0 && all->info.raydirx < 0)
-	{
-		all->floceil.floorxwall = all->info.mapx + 1.0;
-		all->floceil.floorywall = all->info.mapy + all->floceil.wallx;
-	}
-	else if (all->info.side == 1 && all->info.raydiry > 0)
-	{
-		all->floceil.floorxwall = all->info.mapx + all->floceil.wallx;
-		all->floceil.floorywall = all->info.mapy;
-	}
-	else
-	{
-		all->floceil.floorxwall = all->info.mapx + all->floceil.wallx;
-		all->floceil.floorywall = all->info.mapy + 1.0;
-	}
-}
 
 int		ft_texture_floor(t_cub *all, t_text *text)
 {
@@ -69,29 +31,6 @@ int		ft_texture_floor(t_cub *all, t_text *text)
 		* (all->coord.z * 10);
 	return (text->data[(int)(all->floceil.currentfloorx + text->w *
 				all->floceil.currentfloory)]);
-}
-
-int		ft_texture(t_cub *all)
-{
-	if (all->info.side == 1)
-	{
-		if (all->info.raydiry < 0)
-			return (ft_color_texture(all, all->minilibx.west.data,
-						&all->minilibx.west, 0));
-		else if (all->info.raydiry > 0)
-			return (ft_color_texture(all, all->minilibx.east.data,
-						&all->minilibx.east, 0));
-	}
-	else
-	{
-		if (all->info.raydirx > 0)
-			return (ft_color_texture(all, all->minilibx.south.data,
-						&all->minilibx.south, 1));
-		else if (all->info.raydirx < 0)
-			return (ft_color_texture(all, all->minilibx.north.data,
-						&all->minilibx.north, 1));
-	}
-	return (0);
 }
 
 int		ft_color_texture(t_cub *all, int *ptr, t_text *text, int i)

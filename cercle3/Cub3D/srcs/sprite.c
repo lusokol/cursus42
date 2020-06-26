@@ -6,42 +6,11 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:13:29 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 19:15:58 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 15:47:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	sprite_pos(t_cub *all, int n)
-{
-	all->spr.spritex = all->spr.tab[n].x - all->coord.x;
-	all->spr.spritey = all->spr.tab[n].y - all->coord.y;
-	all->spr.invdet = 1.0 / (all->info.planex * all->info.diry -
-			all->info.dirx * all->info.planey);
-	all->spr.transformx = all->spr.invdet * (all->info.diry *
-			all->spr.spritex - all->info.dirx * all->spr.spritey);
-	all->spr.transformy = all->spr.invdet * (-all->info.planey *
-			all->spr.spritex + all->info.planex * all->spr.spritey);
-	all->spr.spritescreenx = (int)((all->res_x / 2) * (1.0 +
-				all->spr.transformx / all->spr.transformy));
-}
-
-void	sprite_dim(t_cub *all)
-{
-	all->spr.spriteheight = abs((int)(all->res_y /
-				(all->spr.transformy))) * 0.5;
-	all->spr.drawstarty = -all->spr.spriteheight * (0.5 - all->coord.z) +
-		all->res_y * (0.5 + all->coord.z) - all->spr.spriteheight *
-		all->spr.tab[all->spr.n].size;
-	all->spr.drawendy = all->spr.spriteheight * (0.5 + all->coord.z) +
-		all->res_y * (0.5 + all->coord.z) - all->spr.spriteheight *
-		all->spr.tab[all->spr.n].size;
-	all->spr.spritewidth = abs((int)(all->res_y /
-				(all->spr.transformy))) * 0.5;
-	all->spr.drawstartx = -all->spr.spritewidth * (0.5) +
-		all->spr.spritescreenx;
-	all->spr.drawendx = all->spr.spritewidth * (0.5) + all->spr.spritescreenx;
-}
 
 void	sprite_timer(t_cub *all, int n)
 {

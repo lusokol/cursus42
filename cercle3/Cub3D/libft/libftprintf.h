@@ -52,7 +52,9 @@ t_printf		ft_arg_xx(va_list *arg, char *type, int a);
 int				ft_nbr_espace(t_printf *info, char *nbr, int zero);
 char			*ft_convert_base(unsigned int nbr, char *baseto);
 char			*ft_convert_base_add(unsigned long long int nbr, char *baseto);
-int				ft_take_largeur(t_printf *info, char *type, int i, va_list *arg);
-int				ft_take_precision(t_printf *info, char *type, int i, va_list *arg);
+int				ft_take_largeur(t_printf *info, char *type, int i,
+		va_list *arg);
+int				ft_take_precision(t_printf *info, char *type, int i,
+		va_list *arg);
 
 #endif

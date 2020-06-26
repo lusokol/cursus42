@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 16:26:36 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 18:39:56 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 15:28:14 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@ int		ft_is_sprite(char a)
 	if (a == '2' || a == '3' || a == '4')
 		return (1);
 	return (0);
-}
-
-void	ft_take_sprite_next(t_cub *all, int n)
-{
-	all->spr.tab[n] = all->spr.goomba.frame1;
-	all->spr.tab[n].anim = 0;
-	all->spr.tab[n].size = -0.5;
-	all->spr.tab[n].spr = 4;
-	all->spr.tab[n].sens = 1;
-	all->spr.tab[n].col = 0;
-	all->spr.tab[n].alive = 1;
 }
 
 void	ft_take_sprite(t_cub *all, int j, int i, int n)
@@ -76,13 +65,6 @@ void	sprite_pars(t_cub *all)
 		}
 		j++;
 	}
-}
-
-double	sort_calc(t_cub *all, int n)
-{
-	return (((all->coord.x - all->spr.tab[n].x) * (all->coord.x -
-			all->spr.tab[n].x) + (all->coord.y - all->spr.tab[n].y)
-			* (all->coord.y - all->spr.tab[n].y)));
 }
 
 void	ft_sort_sprite_alive(t_cub *all, int nbr)

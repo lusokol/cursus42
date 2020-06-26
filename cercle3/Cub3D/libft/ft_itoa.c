@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static	unsigned long long int	length_n(long long int n)
+static unsigned long long int	length_n(long long int n)
 {
 	unsigned long long int length;
 
@@ -25,7 +25,7 @@ static	unsigned long long int	length_n(long long int n)
 	return (length);
 }
 
-char					*ft_itoa(int long long n)
+char							*ft_itoa(int long long n)
 {
 	char						*p;
 	char						sign;

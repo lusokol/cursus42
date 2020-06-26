@@ -6,7 +6,7 @@
 /*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:18:32 by lusokol           #+#    #+#             */
-/*   Updated: 2020/06/25 20:03:25 by lusokol          ###   ########.fr       */
+/*   Updated: 2020/06/26 17:28:27 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@
 # include <time.h>
 
 clock_t g_begin;
+
+typedef struct		s_bmp
+{
+	int				size;
+	char			*img;
+	unsigned char	header[14];
+	unsigned char	info[40];
+	unsigned char	pad[3];
+	int				color;
+	int				fd;
+}					t_bmp;
 
 typedef struct		s_texture
 {
@@ -119,6 +130,11 @@ typedef struct		s_mlx
 	t_text			sprite;
 	t_text			sprite1;
 	t_text			sprite2;
+	int				bits_per_pixel;
+	int				size_line;
+	int				endian;
+	void			*img_ptr;
+	int				*img_data;
 }					t_mlx;
 
 typedef struct		s_coord
@@ -213,6 +229,7 @@ typedef struct		s_cub
 	int				flo;
 	void			*ceilling;
 	int				ceil;
+	int				save;
 
 	char			**map;
 	char			**map2;
@@ -229,6 +246,28 @@ typedef struct		s_cub
 	t_hud			hud;
 }					t_cub;
 
+void				calcul(t_cub *all, int x);
+void				check_ac(char **av, t_cub *all);
+void				ft_bmp(t_cub *all);
+void				vecteur_dir(t_cub *all);
+void				raycasting(t_cub *all);
+void				ft_mlx_init(t_cub *all);
+int					ft_spawnlettre(t_cub *all, int i, int j, char a);
+void				sprite_pos(t_cub *all, int n);
+int					gold_next(t_cub *all, int img);
+void				ft_take_sprite_next(t_cub *all, int n);
+void				ft_take_res(t_cub *all, char *str);
+void				*path(t_cub *all, void *comp, void *comp2);
+void				*info(t_cub *all, char *str, int i, int type);
+int					start_check(char **str);
+void				fill_map(char **map);
+int					check_point(char **map);
+double				sort_calc(t_cub *all, int n);
+void				sprite_dim(t_cub *all);
+void				text_null(t_cub *all);
+void				ft_check_info(char **str, int i, t_cub *all);
+void				check_fail(int i, int j, char **map);
+int					missing_arg(t_cub *all);
 void				init_struct(t_cub *all);
 char				**create_tab(int fd);
 t_cub				*ft_fill_struct(char **str);

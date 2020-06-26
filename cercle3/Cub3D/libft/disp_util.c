@@ -69,7 +69,8 @@ void	ft_aff_str(t_printf info, char *str)
 	info.largeur = (info.largeur == 0) ? -1 : info.largeur;
 	zero = ft_nbr_zero(&info, str);
 	espace = ft_nbr_espace(&info, str, 0);
-	if (info.zeros == 1 && (info.str == 3 || ((info.str == 2 || info.str == 4) && info.moins == 0)))
+	if (info.zeros == 1 && (info.str == 3 || ((info.str == 2 ||
+						info.str == 4) && info.moins == 0)))
 		ft_aff_zeroes(espace);
 	else if (info.moins == 0)
 		ft_aff_spaces(espace);
