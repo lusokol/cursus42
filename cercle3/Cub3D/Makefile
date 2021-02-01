@@ -54,6 +54,8 @@ run:	re
 	@(clear)
 	@(./$(NAME) $(CONFIG))
 
+bonus: all
+
 libft.a:
 	@echo "Compilation de la libft"
 	@(cd ./libft && $(MAKE) $@ && cp libft.a ../.)

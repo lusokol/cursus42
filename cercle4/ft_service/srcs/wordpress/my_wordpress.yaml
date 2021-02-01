@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  annotations:
+    metallb.universe.tf/allow-shared-ip: sharing key   # pour que métallb utilise une ip pour tout les services 
+  labels:
+    app: wordpress
+spec:
+  ports:
+  - port: 5050  #port d'exposition au loadbalancer
+    targetPort: 5050 
+  selector:
+    app: wordpress
+    tier: frontend
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+      - name: wordpress
+        image: my_wordpress
+        env:
+          - name: DB_NAME
+            value: wordpress
+          - name: DB_USER
+            value: root
+          - name: DB_PASSWORD
+            value: password
+          - name: DB_HOST
+            value: mysql-svc
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5050
+          name: wordpress
