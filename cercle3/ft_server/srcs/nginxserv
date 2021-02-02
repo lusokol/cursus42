@@ -17,10 +17,8 @@ server {
 
     server_name     localhost;
 
-	set $test 'on';
-
     location / {
-		autoindex $test;
+		autoindex on;
     }
 
     location /phpmyadmin {

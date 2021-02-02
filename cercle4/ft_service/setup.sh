@@ -13,8 +13,8 @@ _GREEN='\033[32m'
 ######################################
 
 minikube delete
-#minikube start --vm-driver=docker
-minikube start --vm-driver=virtualbox
+minikube start --vm-driver=docker
+#minikube start --vm-driver=virtualbox
 
 #        snap install minikube
 #        brew install minikube
@@ -27,7 +27,7 @@ minikube start --vm-driver=virtualbox
 export MINI=$(minikube ip | grep -oE "\b([0-9]{1,3}\.){3}\b")20
 
 cp srcs/metallb/metallb-conf-copy.yaml srcs/metallb/metallb-conf.yaml
-sed -ie "s/MYIP/$MINI/g" ./srcs/metallb/metallb-conf.yaml
+sed -i "s/MYIP/$MINI/g" ./srcs/metallb/metallb-conf.yaml
 
 ######################################
 # Configure metallb as load-balancer #
@@ -50,13 +50,13 @@ kubectl apply -f srcs/metallb/metallb-conf.yaml
 ######################################
 #            Docker Build            #
 ######################################
-sleep 5
+sleep 10
 eval $(minikube docker-env)
 
 printf "\e[93mBuilding Nginx...\e[0m\n"
 docker build -t my_nginx srcs/nginx/
-printf "\e[93mBuilding WordPress...\e[0m\n"
-docker build -t my_wordpress srcs/wordpress/
+#printf "\e[93mBuilding WordPress...\e[0m\n"
+#docker build -t my_wordpress srcs/wordpress/
 
 eval $(minikube docker-env --unset)
 
@@ -66,8 +66,8 @@ eval $(minikube docker-env --unset)
 
 printf "\e[34mDeployement NGINX...\e[0m\n"
 kubectl apply -f srcs/nginx/nginx-deployment.yaml
-printf "\e[34mDeployement WORDPRESS...\e[0m\n"
-kubectl apply -f srcs/wordpress/my_wordpress.yaml
+#printf "\e[34mDeployement WORDPRESS...\e[0m\n"
+#kubectl apply -f srcs/wordpress/my_wordpress.yaml
 
 ###
 printf "\n\n
