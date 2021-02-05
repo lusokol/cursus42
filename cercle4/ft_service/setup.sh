@@ -29,23 +29,23 @@ export MINI=$(minikube ip | grep -oE "\b([0-9]{1,3}\.){3}\b")20
 cp srcs/metallb/metallb-conf-copy.yaml srcs/metallb/metallb-conf.yaml
 sed -i "s/MYIP/$MINI/g" ./srcs/metallb/metallb-conf.yaml
 
+#cp srcs/wordpress/nginx-copy.conf srcs/wordpress/nginx.conf
+#sed -i "s/MYIP/$MINI/g" ./srcs/wordpress/nginx.conf
+
+cp srcs/mysql/srcs/wordpress-copy.sql srcs/mysql/srcs/wordpress.sql
+sed -i "s/MYIP/$MINI/g" ./srcs/mysql/srcs/wordpress.sql
+
+cp srcs/nginx/nginx-copy.conf srcs/nginx/nginx.conf
+sed -i "s/MYIP/$MINI/g" ./srcs/nginx/nginx.conf
+
 ######################################
 # Configure metallb as load-balancer #
 ######################################
 
 printf "\e[93mInstalling metallb...\e[0m\n"
-#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
-#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml 
-#kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" 
 minikube addons enable metallb
 
-kubectl apply -f srcs/metallb/metallb-conf.yaml
-
-#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
-#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml 
-#kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" 
-
-#kubectl apply -f srcs/metallb/metallb-conf.yaml 
+kubectl apply -f srcs/metallb/metallb-conf.yaml 
 
 ######################################
 #            Docker Build            #
@@ -55,8 +55,10 @@ eval $(minikube docker-env)
 
 printf "\e[93mBuilding Nginx...\e[0m\n"
 docker build -t my_nginx srcs/nginx/
-#printf "\e[93mBuilding WordPress...\e[0m\n"
-#docker build -t my_wordpress srcs/wordpress/
+printf "\e[93mBuilding mySQL...\e[0m\n"
+docker build -t my_mysql srcs/mysql/
+printf "\e[93mBuilding WordPress...\e[0m\n"
+docker build -t my_wordpress srcs/wordpress/
 
 eval $(minikube docker-env --unset)
 
@@ -66,8 +68,10 @@ eval $(minikube docker-env --unset)
 
 printf "\e[34mDeployement NGINX...\e[0m\n"
 kubectl apply -f srcs/nginx/nginx-deployment.yaml
-#printf "\e[34mDeployement WORDPRESS...\e[0m\n"
-#kubectl apply -f srcs/wordpress/my_wordpress.yaml
+printf "\e[34mDeployement mySQL...\e[0m\n"
+kubectl apply -f srcs/mysql/my_SQL.yaml
+printf "\e[34mDeployement WORDPRESS...\e[0m\n"
+kubectl apply -f srcs/wordpress/my_wordpress.yaml
 
 ###
 printf "\n\n

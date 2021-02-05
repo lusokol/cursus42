@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: wordpress
   annotations:
-    metallb.universe.tf/allow-shared-ip: sharing key   # pour que métallb utilise une ip pour tout les services 
+    metallb.universe.tf/allow-shared-ip: shared   # pour que métallb utilise une ip pour tout les services 
   labels:
     app: wordpress
 spec:
@@ -41,7 +41,7 @@ spec:
         image: my_wordpress
         env:
           - name: DB_NAME
-            value: wordpress
+            value: wordpresscd ..
           - name: DB_USER
             value: root
           - name: DB_PASSWORD

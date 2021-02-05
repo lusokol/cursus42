@@ -9,7 +9,7 @@ data:
     - name: default
       protocol: layer2
       addresses:
-        - 10.18.205.20-10.18.205.20
+        - 192.168.49.20-192.168.49.20
 
 
 #apiVersion: v1
