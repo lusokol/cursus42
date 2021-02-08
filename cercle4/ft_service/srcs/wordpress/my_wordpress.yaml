@@ -41,13 +41,13 @@ spec:
         image: my_wordpress
         env:
           - name: DB_NAME
-            value: wordpresscd ..
+            value: wordpress
           - name: DB_USER
-            value: root
+            value: admin
           - name: DB_PASSWORD
             value: password
           - name: DB_HOST
-            value: mysql-svc
+            value: mysql
         imagePullPolicy: Never
         ports:
         - containerPort: 5050

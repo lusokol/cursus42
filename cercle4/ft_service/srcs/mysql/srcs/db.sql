@@ -1,6 +1,6 @@
-CREATE USER 'admin'@'%' IDENTIFIED BY '123';
-GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
+DELETE FROM mysql.user WHERE user='';
+CREATE USER 'admin'@'%' IDENTIFIED BY 'password';
 CREATE DATABASE wordpress;
-GRANT ALL PRIVILEGES ON wordpress.* TO 'admin'@'%' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'admin'@'%';
 DROP DATABASE test;
 FLUSH PRIVILEGES;

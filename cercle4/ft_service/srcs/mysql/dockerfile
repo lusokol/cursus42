@@ -1,4 +1,5 @@
-From alpine
+From alpine:3.11
+MAINTAINER Lucas Sokol <lusokol@student.42.fr>
 
 RUN apk update
 RUN apk add mariadb mariadb-client
@@ -7,7 +8,9 @@ RUN apk add bash
 RUN apk add wget
 RUN apk add curl
 
-COPY ./srcs/ . 
+COPY ./srcs/ .
+COPY ./srcs/my.cnf /etc/my.cnf 
+RUN mkdir -p /run/mysqld
 
 RUN chmod 777 ./doboth.sh
 RUN chmod 777 ./db.sh

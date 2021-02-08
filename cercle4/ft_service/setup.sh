@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+#set -eux
 
 ######################################
 #               Colors               #
@@ -12,8 +12,12 @@ _GREEN='\033[32m'
 #       Lancement de minikube        #
 ######################################
 
+printf "\e[38;5;196mDeleting minikube cluster...\n\e[0m"
 minikube delete
+# > /dev/null
+printf "\e[38;5;196mCreating minikube cluster...\n\e[0m"
 minikube start --vm-driver=docker
+# > /dev/null
 #minikube start --vm-driver=virtualbox
 
 #        snap install minikube
@@ -43,9 +47,9 @@ sed -i "s/MYIP/$MINI/g" ./srcs/nginx/nginx.conf
 ######################################
 
 printf "\e[93mInstalling metallb...\e[0m\n"
-minikube addons enable metallb
+minikube addons enable metallb > /dev/null
 
-kubectl apply -f srcs/metallb/metallb-conf.yaml 
+kubectl apply -f srcs/metallb/metallb-conf.yaml  > /dev/null
 
 ######################################
 #            Docker Build            #
@@ -54,11 +58,11 @@ sleep 10
 eval $(minikube docker-env)
 
 printf "\e[93mBuilding Nginx...\e[0m\n"
-docker build -t my_nginx srcs/nginx/
+docker build -t my_nginx srcs/nginx/ > /dev/null
 printf "\e[93mBuilding mySQL...\e[0m\n"
-docker build -t my_mysql srcs/mysql/
+docker build -t my_mysql srcs/mysql/ > /dev/null
 printf "\e[93mBuilding WordPress...\e[0m\n"
-docker build -t my_wordpress srcs/wordpress/
+docker build -t my_wordpress srcs/wordpress/ > /dev/null
 
 eval $(minikube docker-env --unset)
 
@@ -67,11 +71,11 @@ eval $(minikube docker-env --unset)
 ######################################
 
 printf "\e[34mDeployement NGINX...\e[0m\n"
-kubectl apply -f srcs/nginx/nginx-deployment.yaml
+kubectl apply -f srcs/nginx/nginx-deployment.yaml > /dev/null
 printf "\e[34mDeployement mySQL...\e[0m\n"
-kubectl apply -f srcs/mysql/my_SQL.yaml
+kubectl apply -f srcs/mysql/my_mysql.yaml > /dev/null
 printf "\e[34mDeployement WORDPRESS...\e[0m\n"
-kubectl apply -f srcs/wordpress/my_wordpress.yaml
+kubectl apply -f srcs/wordpress/my_wordpress.yaml > /dev/null
 
 ###
 printf "\n\n
