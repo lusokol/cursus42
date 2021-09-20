@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:28:59 by lusokol           #+#    #+#             */
-/*   Updated: 2019/11/12 14:57:10 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:46:43 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_settest(char const *s1, char const *set, int index)
+int	ft_settest(char const *s1, char const *set, int index)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])
@@ -24,6 +24,17 @@ int		ft_settest(char const *s1, char const *set, int index)
 		i++;
 	}
 	return (0);
+}
+
+char	*mon_malloc(int len, int i)
+{
+	char	*str;
+
+	if (len <= 0)
+		str = malloc(sizeof(char) * 1);
+	else
+		str = malloc(sizeof(char) * (len - i + 2));
+	return (str);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
@@ -42,13 +53,13 @@ char	*ft_strtrim(char const *s1, char const *set)
 		i++;
 	while (ft_settest(s1, set, len))
 		len--;
-	if (!(str = malloc(sizeof(char) * ((len <= 0) ? 1 : (len - i + 2)))))
+	str = mon_malloc(len, i);
+	if (!str)
 		return (NULL);
 	if (len <= 0)
-	{
 		str[0] = '\0';
+	if (len <= 0)
 		return (str);
-	}
 	while (i <= len)
 		str[index++] = s1[i++];
 	str[index] = '\0';

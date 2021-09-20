@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:49:13 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 16:54:09 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/09/20 13:03:18 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_take_flags(t_info *info, char *type)
+int	ft_take_flags(t_info *info, char *type)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_check_flag(type[i]))
@@ -28,7 +28,7 @@ int		ft_take_flags(t_info *info, char *type)
 	return (i);
 }
 
-int		ft_print_arg(va_list *arg, char *type)
+int	ft_print_arg(va_list *arg, char *type)
 {
 	int	len;
 
@@ -64,7 +64,7 @@ char	*ft_search_arg(const char *str, int i)
 	return (type);
 }
 
-int		ft_printchar(const char *str, int i)
+int	ft_printchar(const char *str, int i)
 {
 	while (str[i] != '%' && str[i])
 	{
@@ -74,7 +74,7 @@ int		ft_printchar(const char *str, int i)
 	return (i);
 }
 
-int		ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	arg;
 	char	*type;

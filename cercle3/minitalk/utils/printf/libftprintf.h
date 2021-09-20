@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:37:53 by lusokol           #+#    #+#             */
-/*   Updated: 2021/09/15 19:37:36 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/09/20 13:17:14 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-int g_count;
+int	g_count;
 
-typedef struct	s_info
+typedef struct s_info
 {
 	int			precision;
 	int			largeur;
@@ -53,6 +53,7 @@ int				ft_nbr_espace(t_info *info, char *nbr, int zero);
 char			*ft_convert_base(unsigned int nbr, char *baseto);
 char			*ft_convert_base_add(unsigned long long int nbr, char *baseto);
 int				ft_take_largeur(t_info *info, char *type, int i, va_list *arg);
-int				ft_take_precision(t_info *info, char *type, int i, va_list *arg);
+int				ft_take_precision(t_info *info, char *type,
+					int i, va_list *arg);
 
 #endif

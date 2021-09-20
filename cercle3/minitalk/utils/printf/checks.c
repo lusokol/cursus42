@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 13:23:07 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 15:48:13 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/09/20 12:52:50 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_check_flag(char a)
+int	ft_check_flag(char a)
 {
 	if (a == '-' || a == '0')
 		return (1);
@@ -35,15 +35,18 @@ void	ft_aff_moins(char *nbr, t_info *info)
 
 void	ft_aff_nbrstr(char *nbr, t_info *info)
 {
-	int i;
+	int	i;
 
-	i = (nbr[0] == '-' && info->str == 0) ? 1 : 0;
+	if (nbr[0] == '-' && info->str == 0)
+		i = 1;
+	else
+		i = 0;
 	if (info->str == 1 && nbr[0] == '\0')
 		ft_putchar(0);
 	while (nbr[i])
 	{
 		if (info->str > 0 && i >= info->precision && info->precision != -1
-				&& info->str != 4)
+			&& info->str != 4)
 			break ;
 		if (nbr[i] != '\0')
 		{
@@ -54,18 +57,22 @@ void	ft_aff_nbrstr(char *nbr, t_info *info)
 	}
 }
 
-int		ft_nbr_zero(t_info *info, char *nbr)
+int	ft_nbr_zero(t_info *info, char *nbr)
 {
-	int zero;
+	int	zero;
 
-	zero = info->precision - ft_strlen(nbr) + ((nbr[0] == '-') ? 1 : 0);
-	zero = (zero < 0) ? 0 : zero;
+	if (nbr[0] == '-')
+		zero = info->precision - ft_strlen(nbr) + 1;
+	else
+		zero = info->precision - ft_strlen(nbr);
+	if (zero < 0)
+		zero = 0;
 	return (zero);
 }
 
-int		ft_nbr_espace(t_info *info, char *nbr, int zero)
+int	ft_nbr_espace(t_info *info, char *nbr, int zero)
 {
-	int espace;
+	int	espace;
 
 	espace = info->largeur - ft_strlen(nbr) - zero;
 	if (info->str == 1 && nbr[0] == '\0')
@@ -79,6 +86,7 @@ int		ft_nbr_espace(t_info *info, char *nbr, int zero)
 	}
 	if (info->str == 4)
 		espace -= 2;
-	espace = (espace < 0) ? 0 : espace;
+	if (espace < 0)
+		espace = 0;
 	return (espace);
 }

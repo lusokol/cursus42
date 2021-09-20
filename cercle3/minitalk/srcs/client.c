@@ -1,20 +1,24 @@
-//#include <stdio.h>
-//#include <unistd.h>
-//#include <stdlib.h>
-//#include <signal.h>
-//#include "libft.h"
-//#include <wchar.h>
-//#include <locale.h>
-//#include <time.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/20 12:29:49 by lusokol           #+#    #+#             */
+/*   Updated: 2021/09/20 12:29:52 by lusokol          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
-clock_t begin;
+clock_t	g_begin;
 
 char	take_char(char *str, int tostock)
 {
-	static char *string;
+	static char	*string;
 	static int	i;
-	
+
 	if (tostock)
 	{
 		string = str;
@@ -28,10 +32,11 @@ char	take_char(char *str, int tostock)
 	return (0);
 }
 
-int to_send(int tostock)
+int	to_send(int tostock)
 {
-	static char a;
+	static char	a;
 	static int	i;
+
 	if (tostock || i < 0)
 	{
 		i = 7;
@@ -42,16 +47,17 @@ int to_send(int tostock)
 	if (!tostock)
 	{
 		if (a & (1 << i--))
-			return(1);
+			return (1);
 		else
-			return (0);	
+			return (0);
 	}
 	return (0);
 }
 
-int		take_pid(int i, int swap)
+int	take_pid(int i, int swap)
 {
-	static int a;
+	static int	a;
+
 	if (swap == 1)
 		a = i;
 	else if (swap == 0)
@@ -61,7 +67,7 @@ int		take_pid(int i, int swap)
 
 void	catcher(int sig)
 {
-	int i;
+	int	i;
 
 	(void)sig;
 	i = to_send(0);
@@ -72,17 +78,18 @@ void	catcher(int sig)
 		kill(take_pid(0, 0), SIGUSR1);
 	if (i == -1)
 	{
-		ft_printf("\e[38;5;118mThe string has been correctly sent and receive in the process %d.\n\e[0m", take_pid(0, 0));
+		ft_printf("\e[38;5;118mThe string has been correctly sent and \
+		receive in the process %d.\n\e[0m", take_pid(0, 0));
 		exit(0);
 	}
-	begin = clock();
+	g_begin = clock();
 }
 
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	char *str;
-	
+	char	*str;
+	int		i;
+
 	(void)ac;
 	str = ft_strjoin(ft_strdup(av[2]), ft_strdup("\n"));
 	take_pid(ft_atoi(av[1]), 1);
@@ -91,13 +98,14 @@ int main(int ac, char **av)
 	catcher(0);
 	signal(SIGUSR1, catcher);
 	signal(SIGUSR2, catcher);
-	begin = clock();
+	g_begin = clock();
 	while (1)
 	{
-		int i = (clock() - begin) * 1000 / CLOCKS_PER_SEC;
+		i = (clock() - g_begin) * 1000 / CLOCKS_PER_SEC;
 		if (i > 1000)
 		{
-			ft_printf("\e[38;5;196mSignal lost, stopping the transfer...\nPlease restart the server.\n\e[0m");
+			ft_printf("\e[38;5;196mSignal lost, stopping the transfer...\
+			\nPlease restart the server.\n\e[0m");
 			exit(0);
 		}
 	}
