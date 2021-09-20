@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 12:18:19 by lusokol           #+#    #+#             */
-/*   Updated: 2019/11/22 18:56:12 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/04/01 12:07:57 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 32
+#endif
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H

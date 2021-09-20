@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 19:09:28 by lusokol           #+#    #+#             */
-/*   Updated: 2021/03/17 16:13:43 by macbookpro       ###   ########.fr       */
+/*   Created: 2021/09/15 13:54:15 by macbookpro        #+#    #+#             */
+/*   Updated: 2021/09/15 19:34:48 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	char	*str;
+# include <time.h>
+# include <unistd.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include "../utils/printf/libftprintf.h"
 
-	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	i = ft_strlen(s1) + ft_strlen(s2) + 1;
-	if (!(str = malloc(sizeof(char) * i)))
-		return (NULL);
-	i = 0;
-	while (s1[i])
-		str[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		str[j++] = s2[i++];
-	str[j] = '\0';
-	return (str);
-}
+//int		ft_atoi(const char *str);
+//char	*ft_strjoin(char *s1, char *s2);
+
+#endif

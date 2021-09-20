@@ -6,11 +6,21 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 19:09:28 by lusokol           #+#    #+#             */
-/*   Updated: 2021/03/17 16:13:43 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/09/15 15:47:45 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../srcs/minitalk.h"
+
+int	ft_strlen(const char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {

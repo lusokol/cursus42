@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lusokol <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 20:53:32 by lusokol           #+#    #+#              #
-#    Updated: 2019/11/12 15:09:01 by lusokol          ###   ########.fr        #
+#    Updated: 2021/09/15 19:25:23 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS = ft_atoi.c \
        ft_strtrim.c \
        ft_strmapi.c \
        ft_strnstr.c \
-		ft_memmove.c \
+	   ft_memmove.c \
+       ft_strnjoin.c \
 
 BONUS_SRCS	=	ft_lstadd_back.c \
 			ft_lstadd_front.c \

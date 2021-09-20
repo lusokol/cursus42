@@ -33,14 +33,11 @@ export MINI=$(minikube ip | grep -oE "\b([0-9]{1,3}\.){3}\b")20
 cp srcs/metallb/metallb-conf-copy.yaml srcs/metallb/metallb-conf.yaml
 sed -i "s/MYIP/$MINI/g" ./srcs/metallb/metallb-conf.yaml
 
-#cp srcs/wordpress/nginx-copy.conf srcs/wordpress/nginx.conf
-#sed -i "s/MYIP/$MINI/g" ./srcs/wordpress/nginx.conf
+#cp srcs/mysql/srcs/wordpress-copy.sql srcs/mysql/srcs/wordpress.sql
+#sed -i "s/MYIP/$MINI/g" ./srcs/mysql/srcs/wordpress.sql
 
-cp srcs/mysql/srcs/wordpress-copy.sql srcs/mysql/srcs/wordpress.sql
-sed -i "s/MYIP/$MINI/g" ./srcs/mysql/srcs/wordpress.sql
-
-cp srcs/nginx/nginx-copy.conf srcs/nginx/nginx.conf
-sed -i "s/MYIP/$MINI/g" ./srcs/nginx/nginx.conf
+#cp srcs/nginx/nginx-copy.conf srcs/nginx/nginx.conf
+#sed -i "s/MYIP/$MINI/g" ./srcs/nginx/nginx.conf
 
 ######################################
 # Configure metallb as load-balancer #
@@ -60,9 +57,9 @@ eval $(minikube docker-env)
 printf "\e[93mBuilding Nginx...\e[0m\n"
 docker build -t my_nginx srcs/nginx/ > /dev/null
 printf "\e[93mBuilding mySQL...\e[0m\n"
-docker build -t my_mysql srcs/mysql/ > /dev/null
+#docker build -t my_mysql srcs/mysql/ > /dev/null
 printf "\e[93mBuilding WordPress...\e[0m\n"
-docker build -t my_wordpress srcs/wordpress/ > /dev/null
+#docker build -t my_wordpress srcs/wordpress/ > /dev/null
 
 eval $(minikube docker-env --unset)
 
@@ -73,9 +70,9 @@ eval $(minikube docker-env --unset)
 printf "\e[34mDeployement NGINX...\e[0m\n"
 kubectl apply -f srcs/nginx/nginx-deployment.yaml > /dev/null
 printf "\e[34mDeployement mySQL...\e[0m\n"
-kubectl apply -f srcs/mysql/my_mysql.yaml > /dev/null
+#kubectl apply -f srcs/mysql/my_mysql.yaml > /dev/null
 printf "\e[34mDeployement WORDPRESS...\e[0m\n"
-kubectl apply -f srcs/wordpress/my_wordpress.yaml > /dev/null
+#kubectl apply -f srcs/wordpress/my_wordpress.yaml > /dev/null
 
 ###
 printf "\n\n
