@@ -6,7 +6,7 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:06:14 by macbookpro        #+#    #+#              #
-#    Updated: 2021/09/15 19:35:50 by macbookpro       ###   ########.fr        #
+#    Updated: 2021/09/21 13:27:36 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ SERVER_NAME = server
 PRINTF = ./utils/printf/libftprintf.a
 
 CLIENT_SRCS =	./srcs/client.c \
-#				./utils/ft_atoi.c \
-#				./utils/ft_strjoin.c
+				./srcs/client2.c
 
 SERVER_SRCS =	./srcs/server.c
 

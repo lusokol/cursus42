@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_arg2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:35:20 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 15:43:43 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:57:39 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_info		ft_arg_xx(va_list *arg, char *type, int a)
+t_info	ft_arg_xx(va_list *arg, char *type, int a)
 {
 	int		nbr;
 	int		i;
@@ -33,7 +33,7 @@ t_info		ft_arg_xx(va_list *arg, char *type, int a)
 	return (info);
 }
 
-t_info		ft_arg_c(va_list *arg, char *type)
+t_info	ft_arg_c(va_list *arg, char *type)
 {
 	char	*str;
 	int		i;
@@ -41,7 +41,8 @@ t_info		ft_arg_c(va_list *arg, char *type)
 
 	i = 0;
 	info = ft_init_info();
-	if (!(str = malloc(sizeof(char) * 2)))
+	str = malloc(sizeof(char) * 2);
+	if (!str)
 		return (info);
 	str[1] = '\0';
 	i += ft_take_flags(&info, type);
@@ -56,7 +57,7 @@ t_info		ft_arg_c(va_list *arg, char *type)
 	return (info);
 }
 
-t_info		ft_arg_s(va_list *arg, char *type)
+t_info	ft_arg_s(va_list *arg, char *type)
 {
 	char	*str;
 	int		i;
@@ -67,7 +68,7 @@ t_info		ft_arg_s(va_list *arg, char *type)
 	i += ft_take_flags(&info, type);
 	i += ft_take_largeur(&info, type, i, arg);
 	i += ft_take_precision(&info, type, i, arg);
-	str = ft_strdup(va_arg(*arg, char*));
+	str = ft_strdup(va_arg(*arg, char *));
 	info.str = 2;
 	if (!str)
 	{
@@ -79,7 +80,7 @@ t_info		ft_arg_s(va_list *arg, char *type)
 	return (info);
 }
 
-t_info		ft_arg_p(va_list *arg, char *type)
+t_info	ft_arg_p(va_list *arg, char *type)
 {
 	unsigned long long int	nbr;
 	int						i;
@@ -103,7 +104,7 @@ t_info		ft_arg_p(va_list *arg, char *type)
 	return (info);
 }
 
-t_info		ft_arg_percent(va_list *arg, char *type)
+t_info	ft_arg_percent(va_list *arg, char *type)
 {
 	char	*str;
 	int		i;

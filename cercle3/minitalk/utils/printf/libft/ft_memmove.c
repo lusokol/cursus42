@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:49:25 by lusokol           #+#    #+#             */
-/*   Updated: 2019/11/21 18:49:26 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:17:20 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 		while (n > 0)
 		{
 			n--;
-			((char*)dst)[n] = ((char*)src)[n];
+			((char *)dst)[n] = ((char *)src)[n];
 		}
 		return (dst + n);
 	}

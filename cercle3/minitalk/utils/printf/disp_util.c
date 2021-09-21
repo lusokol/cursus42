@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   disp_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:20:06 by lusokol           #+#    #+#             */
-/*   Updated: 2020/01/07 15:38:13 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/09/20 13:02:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	ft_aff_zeroes(int a)
 
 void	ft_aff_nbr(t_info info, char *nbr)
 {
-	int espace;
-	int zero;
+	int	espace;
+	int	zero;
 
 	zero = ft_nbr_zero(&info, nbr);
 	espace = ft_nbr_espace(&info, nbr, zero);
@@ -62,14 +62,17 @@ void	ft_aff_nbr(t_info info, char *nbr)
 
 void	ft_aff_str(t_info info, char *str)
 {
-	int espace;
-	int zero;
+	int	espace;
+	int	zero;
 
-	info.precision = (info.precision < -1) ? -1 : info.precision;
-	info.largeur = (info.largeur == 0) ? -1 : info.largeur;
+	if (info.precision < -1)
+		info.precision = -1;
+	if (info.largeur == 0)
+		info.largeur = -1;
 	zero = ft_nbr_zero(&info, str);
 	espace = ft_nbr_espace(&info, str, 0);
-	if (info.zeros == 1 && (info.str == 3 || ((info.str == 2 || info.str == 4) && info.moins == 0)))
+	if (info.zeros == 1 && (info.str == 3 || ((info.str == 2
+					|| info.str == 4) && info.moins == 0)))
 		ft_aff_zeroes(espace);
 	else if (info.moins == 0)
 		ft_aff_spaces(espace);
@@ -85,10 +88,13 @@ void	ft_aff_str(t_info info, char *str)
 
 void	ft_aff_percent(t_info info, char *str)
 {
-	int espace;
+	int	espace;
 
 	info.precision = -1;
-	espace = (info.largeur - 1 >= 0) ? info.largeur - 1 : 0;
+	if (info.largeur - 1 >= 0)
+		espace = info.largeur - 1;
+	else
+		espace = 0;
 	if (info.zeros == 1 && info.moins == 0)
 		ft_aff_zeroes(espace);
 	if (info.zeros == 0 && info.moins == 0)
