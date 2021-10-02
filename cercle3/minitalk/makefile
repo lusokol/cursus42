@@ -6,7 +6,7 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:06:14 by macbookpro        #+#    #+#              #
-#    Updated: 2021/09/21 13:27:36 by macbookpro       ###   ########.fr        #
+#    Updated: 2021/10/02 11:45:43 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ $(PRINTF):
 
 $(CLIENT_NAME): ${PRINTF}
 	@printf "\e[38;5;208mCompiling the client...\e[0m\n"
-	gcc $(FLAGS) $(CLIENT_SRCS) $(PRINTF) -I $(INCLUDES) -o client
+	@gcc $(FLAGS) $(CLIENT_SRCS) $(PRINTF) -I $(INCLUDES) -o client
 	@printf "\e[38;5;118mClient successfully compiles !\e[0m\n"
 
 $(SERVER_NAME): ${PRINTF}
