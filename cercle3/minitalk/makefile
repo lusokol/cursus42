@@ -33,7 +33,7 @@ $(PRINTF):
 
 $(CLIENT_NAME): ${PRINTF}
 	@printf "\e[38;5;208mCompiling the client...\e[0m\n"
-	@gcc $(FLAGS) $(CLIENT_SRCS) $(PRINTF) -I $(INCLUDES) -o client
+	gcc $(FLAGS) $(CLIENT_SRCS) $(PRINTF) -I $(INCLUDES) -o client
 	@printf "\e[38;5;118mClient successfully compiles !\e[0m\n"
 
 $(SERVER_NAME): ${PRINTF}
@@ -47,7 +47,7 @@ clean:
 
 fclean:
 	@printf "\e[38;5;196m[Fclean] Removing client and server...\e[0m\n"
-	@rm -rf $(CLIENT_NAME) $(SERVER_NAME) $(PRINTF)
+	@rm -rf $(CLIENT_NAME) $(SERVER_NAME) $(PRINTF) ./utils/libftprintf.a
 	@cd $(PRINTF_DIR) && $(MAKE) $@
 
 re: fclean all

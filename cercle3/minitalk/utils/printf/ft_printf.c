@@ -79,14 +79,12 @@ int	ft_printf(const char *str, ...)
 	va_list	arg;
 	char	*type;
 	int		i;
-	int		j;
 
 	g_count = 0;
 	i = 0;
 	va_start(arg, str);
 	while (str[i])
 	{
-		j = 0;
 		i = ft_printchar(str, i);
 		if (str[i] == '%')
 		{

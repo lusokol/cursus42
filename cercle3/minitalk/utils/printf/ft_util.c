@@ -43,10 +43,8 @@ char	*ft_convert_base_add(unsigned long long int nbr, char *baseto)
 	int		len;
 	char	*nb;
 	int		i;
-	int		j;
 
 	i = 1;
-	j = 0;
 	len = ft_len_nbr(nbr, ft_strlen(baseto));
 	nb = malloc(sizeof(char) * (len + 1));
 	if (!nb)
@@ -67,12 +65,8 @@ char	*ft_convert_base(unsigned int nbr, char *baseto)
 	int		len;
 	char	*nb;
 	int		i;
-	int		j;
 
 	i = 1;
-	j = 0;
-	if (nbr < 0)
-		nbr = (4294967296) - -nbr;
 	len = ft_len_nbr(nbr, ft_strlen(baseto));
 	nb = malloc(sizeof(char) * (len + 1));
 	if (!nb)
