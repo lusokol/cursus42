@@ -16,24 +16,24 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
-# include "../minilibx/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
 /* zoom in and out in percent (1-99) */
 # define ZOOM 10
 
 /* screen size in pixel */
-# define SCREEN_SIZE 300
+# define SCREEN_SIZE 800
 
 /* key number for key binding */
-# define KEY_UP 126
-# define KEY_DOWN 125
-# define KEY_RIGHT 124
-# define KEY_LEFT 123
-# define ITERATION_MORE 35
-# define ITERATION_LESS 41
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define ITERATION_MORE 112
+# define ITERATION_LESS 109
 # define SCROLL_IN 4
 # define SCROLL_OUT 5
-# define ESCAPE 53
+# define ESCAPE 65307
 
 /* Color and size of gradient for fractals */
 /* Mandelbrot : */

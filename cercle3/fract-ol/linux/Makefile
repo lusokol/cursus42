@@ -23,19 +23,21 @@ SRCS =	./srcs/main.c \
 		./srcs/convert.c \
 		./srcs/error.c
 
-FLAGS = -Wall -Wextra -Werror -framework OpenGL -framework AppKit
+FLAGS = -Wall -Wextra -Werror
+
+LINUX = -L./minilibx-linux -lmlx -lXext -lX11 -lm# -framework OpenGL -framework AppKit
 
 INCLUDES =	./includes
 
-MINILIBX =	./minilibx
+MINILIBX =	./minilibx-linux
 
-LIBMLX = libmlx.a
+LIBMLX = libmlx_Linux.a
 
 all: $(LIBMLX) $(NAME)
 
 $(NAME):
 	@printf "\e[38;5;208mCompiling fract-ol...\e[0m\n"
-	@gcc $(FLAGS) $(LIBMLX) $(SRCS) -I $(INCLUDES) -o $(NAME)
+	@gcc $(FLAGS) $(LIBMLX) $(SRCS) -I $(INCLUDES) $(LINUX) -o $(NAME)
 	@printf "\e[38;5;118mFract-ol successfully compiles !\e[0m\n"
 	@chmod 777 $(NAME)
 
