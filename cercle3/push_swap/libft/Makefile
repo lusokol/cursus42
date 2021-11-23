@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
+#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 20:53:32 by lusokol           #+#    #+#              #
-#    Updated: 2021/10/14 15:27:56 by macbookpro       ###   ########.fr        #
+#    Updated: 2021/11/23 12:20:17 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,20 +65,15 @@ SRCS = ft_atoi.c \
 	   ft_util.c \
 	   disp_util.c \
 
-PRINTF = ../ft_printf.o \
-		 ../ft_printf_arg.o \
-		 ../ft_printf_arg2.o \
-		 ../checks.o \
-		 ../ft_util.o \
-		 ../disp_util.o \
+FLAGS = -Wall -Wextra -Werror# -g3
 
-FLAGS = -Wall -Wextra -Werror -g3
+INCLUDES = ./includes
 
 all: ${NAME}
 
 $(NAME):
 	@printf "\e[38;5;208mCompiling the libft...\e[0m\n"
-	@gcc $(FLAGS) -c $(SRCS) -I .
+	@clang $(FLAGS) -c $(SRCS) -I $(INCLUDES)
 	@printf "\e[38;5;118mLibft successfully compiles !\e[0m\n"
 	@ar rc $(NAME) $(SRCS:.c=.o) $^
 	@ranlib $(NAME)

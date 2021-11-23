@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:37:53 by lusokol           #+#    #+#             */
-/*   Updated: 2021/10/14 14:58:05 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/11/23 12:05:53 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-int	g_count;
+extern int g_count;
+
 
 typedef struct s_info
 {

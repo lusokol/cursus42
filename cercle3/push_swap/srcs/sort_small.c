@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 10:03:24 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/08 17:05:34 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/11/23 16:52:51 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,6 @@ void	free_sort(t_nbr *a, t_nbr *b)
 		ft_lst_free(b);
 }
 
-int	check_len(int tab1[100], int tab2[100])
-{
-	int	i;
-
-	i = 0;
-	if (!tab1[0])
-		return (1);
-	while (i < 100)
-	{
-		if (tab1[i] == 0)
-			return (0);
-		else if (tab2[i] == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 int	check_sort(t_all *all, int *grid)
 {
 	t_nbr	*a;
@@ -127,7 +109,6 @@ int	*cp_actual(int *grid, int last)
 	int	*tab;
 
 	i = 0;
-	if (grid)
 	while (grid && grid[i])
 		i++;
 	i++;
@@ -136,7 +117,7 @@ int	*cp_actual(int *grid, int last)
 		return (0);//ft_exit(please);
 	tab[i] = 0;
 	i = 0;
-	while (tab && grid && tab[i] && grid[i])
+	while (tab && grid && grid[i])
 	{
 		tab[i] = grid[i];
 		i++;
@@ -163,7 +144,7 @@ t_backtrack	*new_bt(int *actual, int nbr)
 	return (new);
 }
 
-int	check_new(int a, int b)
+int	check_new(int a, int b, t_backtrack *tmp)
 {
 	if (a == 0 && (b == 2 || b == 3 || b == 4 || b == 7 || b == 8 || b == 10 || b == 11))
 		return (0);
@@ -190,6 +171,12 @@ int	check_new(int a, int b)
 	if ((b == 1 || b == 2) && a == 3)
 		return (0);
 	if ((a == 8 && b == 11) || (a == 11 && b == 8))
+		return (0);
+	if (tmp->in_a < 2 && (b == 1 || b == 3 || b == 6 || b == 8 || b == 9 || b == 11))
+		return (0);
+	if (tmp->in_b < 2 && (b == 2 || b == 3 || b == 7 || b == 8 || b == 10 || b == 11))
+		return (0);
+	if ((tmp->in_a <= 0 && b == 5) || (tmp->in_b <= 0 && b == 4))
 		return (0);
 	return (1);
 }
@@ -218,23 +205,33 @@ void	fill_iter(t_backtrack *bt, int iter)
 		while (++i <= 11)
 			if (bt->tab[i] != NULL)
 				fill_iter(bt->tab[i], iter - 1);
-			//if (bt->tab[i] != NULL)
 				
 	}
 	else
 	{
 		while (++i <= 11)
 		{
-			if (check_new(take_last(bt->actual), i))
+			if (check_new(take_last(bt->actual), i, bt))
 			{
 				if (!(bt->tab[i] = new_bt(bt->actual, i)))
 					return ;
+				bt->tab[i]->in_a = bt->in_a;
+				bt->tab[i]->in_b = bt->in_b;
+				if (i == 4)
+				{
+					bt->tab[i]->in_a += 1;
+					bt->tab[i]->in_b -= 1;
+				}
+				if (i == 5)
+				{
+					bt->tab[i]->in_a -= 1;
+					bt->tab[i]->in_b += 1;
+				}
 			}
 			else
 			{
 				bt->tab[i] = NULL;
 			}
-			//i++;
 		}
 	}
 }
@@ -243,14 +240,12 @@ int	*check_iter(t_all *all, int iter, t_backtrack *bt)
 {
 	int	i;
 
-	//usleep(100);
 	i = 0;
 	if (iter > 0)
 	{
 		while (all->result == NULL && ++i <= 11)
 			if (bt->tab[i] != NULL)
 				check_iter(all, iter - 1, bt->tab[i]);
-				//if (bt->tab[i] != NULL)
 	}
 	else
 	{
@@ -262,16 +257,12 @@ int	*check_iter(t_all *all, int iter, t_backtrack *bt)
 
 int		ft_backtrack(t_all *all, int iter)
 {
-	int	rule;
-
-	rule = -1;
-
 	check_iter(all, iter, all->first);
-	if (all->result != NULL)
+	if (all->result != NULL/* || iter >= 5*/)
 		return (1);
 	else
 	{
-		printf("fill iter %d\n", iter);
+		ft_printf("fill iter %d\n", iter);
 		fill_iter(all->first, iter);
 		if (ft_backtrack(all, iter + 1))
 			return (1);
@@ -279,35 +270,6 @@ int		ft_backtrack(t_all *all, int iter)
 	}
 }
 
-/*int	ft_backtrack(t_all *all, int iter, int grid[2][all->size], int fct)
-{
-	//faire les rules silent
-	int	rule;
-
-	//rule = 1;
-	if (fct)
-		add_grid(all, fct);
-	//ft_fct_silent(all, fct, &grid);
-	if (check_sort(all, grid)) // si la stack A est trié
-	{
-		if (check_len(all->better, all->actual))
-			all->better = all->actual;
-		return (1);
-	}
-	else
-	{
-		while (rule <= 11)//(toutes les rules sont pas utilisées
-		{
-			//ft_fct_silent(all, rule, &grid)
-			if (iter < all->iteration_max)
-				if (ft_backtrack(all, iter + 1, grid, rule))
-					return (1);
-		}
-		return (0);
-	}
-	
-}
-*/
 void	sort_two(t_all *all)
 {
 	if (all->a->index > all->a->next->index)

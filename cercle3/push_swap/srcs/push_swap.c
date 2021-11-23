@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/11 12:31:34 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/11/23 17:11:48 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,51 @@ void	ft_fct(t_all *all, int fct)
 		ft_rrr(all);
 }
 
+void	ft_print_iter(t_backtrack *first, int iter)
+{
+	int i = 0;
+	if (iter > 0)
+	{
+		while (++i <= 11)
+			if (first->tab[i] != NULL)
+				ft_print_iter(first->tab[i], iter - 1);
+	}
+	else
+	{
+		while (++i <= 11)
+		{
+			if (first->tab[i])
+			{
+				ft_printf("\"");
+				int j = 0;
+				while (first->tab[i] && first->tab[i]->actual[j] != 0)
+					ft_printf("%d ", first->tab[i]->actual[j++]);
+				ft_printf("\"\n");
+			}
+		}
+	}
+}
+
+void	ft_bt_free(t_backtrack *lst)
+{
+	int	i;
+
+	i = 1;
+	while (i <= 11)
+	{
+		if (lst->tab && lst->tab[i])
+		{
+			ft_bt_free(lst->tab[i]);
+			free(lst->tab[i]);
+		}
+		i++;
+	}
+	if (lst->tab)
+		free(lst->tab);
+	if (lst->actual)
+		free(lst->actual);
+}
+
 int	main(int ac, char **av)
 {
 	t_all	*lst;
@@ -102,6 +147,7 @@ int	main(int ac, char **av)
 	lst->size = ac - 1;
 	lst->result = NULL;
 	lst->first = new_bt(NULL, 0);
+	lst->first->in_a = ac - 1;
 	while (i < ac)
 	{
 		ft_lstadd_back2(&(lst->a), ft_lstnew2(ft_atoi(av[i]), i - 1));
@@ -113,6 +159,7 @@ int	main(int ac, char **av)
 	//init_grid(lst);
 	//ft_backtrack(lst, 0, lst->actual);
 	ft_backtrack(lst, 0);
+	//ft_print_iter(lst->first, 3);
 	ft_printf("===========================================*\n");
 	ft_print_lst(lst);
 	ft_printf("===========================================*\n");
@@ -122,9 +169,11 @@ int	main(int ac, char **av)
 	ft_printf("===========================================*\n");
 	ft_print_lst(lst);
 	
+	ft_bt_free(lst->first);
 	ft_lst_free(lst->a);
 	ft_lst_free(lst->b);
 	ft_lst_free(lst->copy);
 	system("leaks push_swap");
 	return (0);
 }
+/////// LEAKS A CHECKER

@@ -6,11 +6,13 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:49:13 by lusokol           #+#    #+#             */
-/*   Updated: 2021/09/20 13:03:18 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/11/23 12:09:01 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+int g_count;
 
 int	ft_take_flags(t_info *info, char *type)
 {
