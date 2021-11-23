@@ -6,7 +6,7 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/10/11 17:12:45 by macbookpro       ###   ########.fr        #
+#    Updated: 2021/10/11 18:40:28 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS =	./srcs/main.c \
 
 FLAGS = -Wall -Wextra -Werror
 
-LINUX = -L./minilibx-linux -lmlx -lXext -lX11 -lm# -framework OpenGL -framework AppKit
+LINUX = -L./minilibx-linux -lmlx -lXext -lX11 -lm
 
 INCLUDES =	./includes
 

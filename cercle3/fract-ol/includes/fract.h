@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 11:34:02 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/10/11 17:19:54 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/10/11 22:14:17 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define ZOOM 10
 
 /* screen size in pixel */
-# define SCREEN_SIZE 300
+# define SCREEN_SIZE 400
 
 /* key number for key binding */
 # define KEY_UP 126
