@@ -15,8 +15,9 @@
 void	ft_print_lst(t_all *all)
 {
 	t_nbr	*tmp;
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	tmp = all->a;
 	while (tmp)
 	{
@@ -44,18 +45,6 @@ void	ft_sort_push(t_all *all)
 	else if (all->size == 5)
 		sort_five(all);
 }
-
-/*void	init_grid(t_all *all)
-{
-	int		i;
-
-	i = 0;
-	while (i < 100)
-	{
-		all->better[i] = 0;
-		all->actual[i++] = 0;
-	}
-}*/
 
 void	ft_fct(t_all *all, int fct)
 {
@@ -85,7 +74,10 @@ void	ft_fct(t_all *all, int fct)
 
 void	ft_print_iter(t_backtrack *first, int iter)
 {
-	int i = 0;
+	int	i;
+	int	j;
+
+	i = 0;
 	if (iter > 0)
 	{
 		while (++i <= 11)
@@ -99,7 +91,7 @@ void	ft_print_iter(t_backtrack *first, int iter)
 			if (first->tab[i])
 			{
 				ft_printf("\"");
-				int j = 0;
+				j = 0;
 				while (first->tab[i] && first->tab[i]->actual[j] != 0)
 					ft_printf("%d ", first->tab[i]->actual[j++]);
 				ft_printf("\"\n");
@@ -128,52 +120,121 @@ void	ft_bt_free(t_backtrack *lst)
 		free(lst->actual);
 }
 
-int	main(int ac, char **av)
+int	check_arg(int ac, char **av)
 {
-	t_all	*lst;
-	int		i;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 1;
 	if (ac == 1)
 		return (0);
-	i = 1;
+	if (ac == 2)
+	{
+		while (av[1][i])
+		{
+			while (ft_isdigit(av[1][i]))
+				i++;
+			while (av[1][i] == ' ')
+				i++;
+			if (av[1][i] && !ft_isdigit(av[1][i]))
+			{
+				ft_printf("\"%c\" isn't an INT.\nIt must be some INT \
+split with spaces.\n", av[1][i]);
+				return (0);
+			}
+		}
+	}
+	if (ac > 2)
+	{
+		while (av[j])
+		{
+			i = 0;
+			while (av[j][i])
+			{
+				if (!ft_isdigit(av[j][i]))
+				{
+					ft_printf("\"%s\" isn't an INT.\nIt must be some INT \
+split with spaces.\n", av[j]);
+					return (0);
+				}
+				i++;
+			}
+			j++;
+		}
+	}
+	return (1);
+}
+
+t_all	*lst_init(int ac, char **av)
+{
+	t_all	*lst;
+
 	lst = malloc(sizeof(t_all));
 	if (!lst)
-		return (0);
+		exit(0);
 	lst->a = NULL;
 	lst->b = NULL;
 	lst->copy = NULL;
 	lst->print = 1;
 	lst->iteration_max = 5;
-	lst->size = ac - 1;
 	lst->result = NULL;
 	lst->first = new_bt(NULL, 0);
-	lst->first->in_a = ac - 1;
-	while (i < ac)
+	if (ac > 2)
 	{
-		ft_lstadd_back2(&(lst->a), ft_lstnew2(ft_atoi(av[i]), i - 1));
-		ft_lstadd_back2(&(lst->copy), ft_lstnew2(ft_atoi(av[i]), i - 1));
+		lst->size = ac - 1;
+		lst->tab = ++av;
+	}
+	else
+	{
+		lst->tab = ft_split(av[1], ' ');
+		int i = 0;
+		while (lst->tab && lst->tab[i])
+			i++;
+		lst->size = i;
+	}
+	lst->first->in_a = lst->size;
+	return (lst);
+}
+
+void	print_result(t_all *all, int *tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		ft_fct(all, tab[i++]);
+}
+
+int	main(int ac, char **av)
+{
+	t_all	*lst;
+	int		i;
+
+	if (check_arg(ac, av) == 0)
+		return (0);
+	i = 0;
+	lst = lst_init(ac, av);
+	while (i < lst->size)
+	{
+		ft_lstadd_back2(&(lst->a), ft_lstnew2(ft_atoi(lst->tab[i]), i));
+		ft_lstadd_back2(&(lst->copy), ft_lstnew2(ft_atoi(lst->tab[i]), i));
 		i++;
 	}
 	ft_lst_sort(lst->copy);
 	ft_take_index(lst);
-	//init_grid(lst);
-	//ft_backtrack(lst, 0, lst->actual);
 	ft_backtrack(lst, 0);
-	//ft_print_iter(lst->first, 3);
 	ft_printf("===========================================*\n");
 	ft_print_lst(lst);
 	ft_printf("===========================================*\n");
-	int l = 0;
-	while (lst->result[l])
-		ft_fct(lst, lst->result[l++]);
+	print_result(lst, lst->result);
 	ft_printf("===========================================*\n");
 	ft_print_lst(lst);
-	
 	ft_bt_free(lst->first);
 	ft_lst_free(lst->a);
 	ft_lst_free(lst->b);
 	ft_lst_free(lst->copy);
-	system("leaks push_swap");
+	//system("leaks push_swap");
 	return (0);
 }
 /////// LEAKS A CHECKER

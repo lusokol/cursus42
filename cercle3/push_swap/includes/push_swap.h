@@ -37,6 +37,7 @@ typedef struct s_all
 	int			iteration_max;
 	int			print;
 	int			size;
+	char		**tab;
 	t_nbr		*a;
 	t_nbr		*b;
 	t_nbr		*copy;

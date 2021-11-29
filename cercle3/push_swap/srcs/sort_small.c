@@ -258,11 +258,10 @@ int	*check_iter(t_all *all, int iter, t_backtrack *bt)
 int		ft_backtrack(t_all *all, int iter)
 {
 	check_iter(all, iter, all->first);
-	if (all->result != NULL/* || iter >= 5*/)
+	if (all->result != NULL)
 		return (1);
 	else
 	{
-		ft_printf("fill iter %d\n", iter);
 		fill_iter(all->first, iter);
 		if (ft_backtrack(all, iter + 1))
 			return (1);

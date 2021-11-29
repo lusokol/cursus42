@@ -67,7 +67,7 @@ char	**ft_split(const char *str, char c)
 
 	is = 0;
 	tab = malloc(sizeof(char *) * (ft_nbr_mots(str, c) + 1));
-	if (!tab || str)
+	if (!tab || !str)
 		return (0);
 	i = 0;
 	while (i < ft_nbr_mots(str, c))
