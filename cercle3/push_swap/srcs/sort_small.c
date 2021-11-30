@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 10:03:24 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/23 16:52:51 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/11/30 16:41:55 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_nbr	*cp_lst(t_all *all)
 	t_nbr	*tmp;
 	t_nbr	*lst;
 
-	tmp = all->a;
+	tmp = all->original->a;
 	lst = NULL;
 	while (tmp)
 	{
@@ -267,55 +267,4 @@ int		ft_backtrack(t_all *all, int iter)
 			return (1);
 		return (0);
 	}
-}
-
-void	sort_two(t_all *all)
-{
-	if (all->a->index > all->a->next->index)
-		ft_sa(all);
-}
-
-void	sort_three(t_all *all)
-{
-	t_nbr *tmp;
-
-	tmp = all->a;
-	if (tmp->index > tmp->next->index && tmp->next->next->index > tmp->index)//tmp->index == 1 && tmp->next->index == 0)
-		ft_sa(all);
-	else if (tmp->index > tmp->next->index && tmp->next->index > tmp->next->next->index)
-	{
-		ft_sa(all);
-		ft_rra(all);
-	}
-	else if (tmp->index > tmp->next->next->index && tmp->next->next->index > tmp->next->index)
-		ft_ra(all);
-	else if (tmp->index < tmp->next->next->index && tmp->next->next->index < tmp->next->index)
-	{
-		ft_sa(all);
-		ft_ra(all);
-	}
-	else if (tmp->next->next->index < tmp->index &&  tmp->index < tmp->next->index)
-		ft_rra(all);
-}
-
-void	sort_four(t_all *all)
-{
-	(void)all;
-	/*
-	t_nbr	*tmp;
-
-	tmp = all->a;
-	if (tmp->index == 0)
-		ft_pb(all);
-	else if (tmp->next->index == 0)
-	{
-		
-	}
-	sort_three(all);
-	*/
-}
-
-void	sort_five(t_all *all)
-{
-	(void)all;
 }

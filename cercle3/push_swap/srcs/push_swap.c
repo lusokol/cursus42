@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/23 17:11:48 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/11/30 17:15:57 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	ft_print_lst(t_all *all)
 	int		i;
 
 	i = 0;
-	tmp = all->a;
+	tmp = all->original->a;
 	while (tmp)
 	{
 		ft_printf("[A] tmp->nbr : %d\ttmp->index : %d\n", tmp->nbr, tmp->index);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
-	tmp = all->b;
+	tmp = all->original->b;
 	while (tmp)
 	{
 		i++;
@@ -34,42 +34,30 @@ void	ft_print_lst(t_all *all)
 	}
 }
 
-void	ft_sort_push(t_all *all)
-{
-	if (all->size == 2)
-		sort_two(all);
-	else if (all->size == 3)
-		sort_three(all);
-	else if (all->size == 4)
-		sort_four(all);
-	else if (all->size == 5)
-		sort_five(all);
-}
-
-void	ft_fct(t_all *all, int fct)
+void	ft_fct(t_sort *all, int fct, int print)
 {
 	if (fct == 1)
-		ft_sa(all);
+		ft_sa(all->a, all->b, print);
 	else if (fct == 2)
-		ft_sb(all);
+		ft_sb(all->a, all->b, print);
 	else if (fct == 3)
-		ft_ss(all);
+		ft_ss(all->a, all->b, print);
 	else if (fct == 4)
-		ft_pa(all);
+		ft_pa(all->a, all->b, print);
 	else if (fct == 5)
-		ft_pb(all);
+		ft_pb(all->a, all->b, print);
 	else if (fct == 6)
-		ft_ra(all);
+		ft_ra(all->a, all->b, print);
 	else if (fct == 7)
-		ft_rb(all);
+		ft_rb(all->a, all->b, print);
 	else if (fct == 8)
-		ft_rr(all);
+		ft_rr(all->a, all->b, print);
 	else if (fct == 9)
-		ft_rra(all);
+		ft_rra(all->a, all->b, print);
 	else if (fct == 10)
-		ft_rrb(all);
+		ft_rrb(all->a, all->b, print);
 	else if (fct == 11)
-		ft_rrr(all);
+		ft_rrr(all->a, all->b, print);
 }
 
 void	ft_print_iter(t_backtrack *first, int iter)
@@ -173,8 +161,8 @@ t_all	*lst_init(int ac, char **av)
 	lst = malloc(sizeof(t_all));
 	if (!lst)
 		exit(0);
-	lst->a = NULL;
-	lst->b = NULL;
+	lst->original = NULL;
+	lst->qs = NULL;
 	lst->copy = NULL;
 	lst->print = 1;
 	lst->iteration_max = 5;
@@ -203,7 +191,27 @@ void	print_result(t_all *all, int *tab)
 
 	i = 0;
 	while (tab[i])
-		ft_fct(all, tab[i++]);
+		ft_fct(all->original, tab[i++], 1);
+}
+
+void	create_lst(t_all *all)
+{
+	int	i;
+
+	i = 0;
+	all->qs = malloc(sizeof(t_sort));
+	all->original = malloc(sizeof(t_sort));
+	all->original->a = NULL;
+	all->original->b = NULL;
+	all->qs->a = NULL;
+	all->qs->b = NULL;
+	while (i < all->size)
+	{
+		ft_lstadd_back2(&(all->original->a), ft_lstnew2(ft_atoi(all->tab[i]), i));
+		ft_lstadd_back2(&(all->qs->a), ft_lstnew2(ft_atoi(all->tab[i]), i));
+		ft_lstadd_back2(&(all->copy), ft_lstnew2(ft_atoi(all->tab[i]), i));
+		i++;
+	}
 }
 
 int	main(int ac, char **av)
@@ -215,15 +223,13 @@ int	main(int ac, char **av)
 		return (0);
 	i = 0;
 	lst = lst_init(ac, av);
-	while (i < lst->size)
-	{
-		ft_lstadd_back2(&(lst->a), ft_lstnew2(ft_atoi(lst->tab[i]), i));
-		ft_lstadd_back2(&(lst->copy), ft_lstnew2(ft_atoi(lst->tab[i]), i));
-		i++;
-	}
+	create_lst(lst);
 	ft_lst_sort(lst->copy);
 	ft_take_index(lst);
+	////////////////////// differents algos de trie
 	ft_backtrack(lst, 0);
+	//ft_quick_sort(0, lst->size, lst);
+	//////////////////////
 	ft_printf("===========================================*\n");
 	ft_print_lst(lst);
 	ft_printf("===========================================*\n");
@@ -231,8 +237,10 @@ int	main(int ac, char **av)
 	ft_printf("===========================================*\n");
 	ft_print_lst(lst);
 	ft_bt_free(lst->first);
-	ft_lst_free(lst->a);
-	ft_lst_free(lst->b);
+	ft_lst_free(lst->original->a);
+	ft_lst_free(lst->original->b);
+	free(lst->original);
+	free(lst->qs);
 	ft_lst_free(lst->copy);
 	//system("leaks push_swap");
 	return (0);

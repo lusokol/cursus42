@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/23 13:54:18 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/11/30 17:39:30 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,21 @@ typedef struct s_backtrack
 	struct s_backtrack	**tab;
 }	t_backtrack;
 
+typedef struct s_sort
+{
+	t_nbr	*a;
+	t_nbr	*b;
+}	t_sort;
+
+
 typedef struct s_all
 {
 	int			iteration_max;
 	int			print;
 	int			size;
 	char		**tab;
-	t_nbr		*a;
-	t_nbr		*b;
+	t_sort		*original;
+	t_sort		*qs;
 	t_nbr		*copy;
 	t_backtrack	*first;
 	int			*result;
@@ -54,17 +61,17 @@ void	ft_take_index(t_all *all);
 //int		ft_backtrack(t_all *all, int iter, int grid[100]);
 int		ft_backtrack(t_all *all, int iter);
 t_backtrack	*new_bt(int *actual, int i);
-void	ft_sa(t_all *all);
-void	ft_sb(t_all *all);
-void	ft_ss(t_all *all);
-void	ft_pa(t_all *all);
-void	ft_pb(t_all *all);
-void	ft_ra(t_all *all);
-void	ft_rb(t_all *all);
-void	ft_rr(t_all *all);
-void	ft_rra(t_all *all);
-void	ft_rrb(t_all *all);
-void	ft_rrr(t_all *all);
+void	ft_sa(t_nbr **a, t_nbr **b, int print);
+void	ft_sb(t_nbr **a, t_nbr **b, int print);
+void	ft_ss(t_nbr **a, t_nbr **b, int print);
+void	ft_pa(t_nbr **a, t_nbr **b, int print);
+void	ft_pb(t_nbr **a, t_nbr **b, int print);
+void	ft_ra(t_nbr **a, t_nbr **b, int print);
+void	ft_rb(t_nbr **a, t_nbr **b, int print);
+void	ft_rr(t_nbr **a, t_nbr **b, int print);
+void	ft_rra(t_nbr **a, t_nbr **b, int print);
+void	ft_rrb(t_nbr **a, t_nbr **b, int print);
+void	ft_rrr(t_nbr **a, t_nbr **b, int print);
 
 void	ft_ssa(t_nbr **a, t_nbr **b);//1
 void	ft_ssb(t_nbr **a, t_nbr **b);//2
@@ -77,12 +84,6 @@ void	ft_srr(t_nbr **a, t_nbr **b);//8
 void	ft_srra(t_nbr **a, t_nbr **b);//9
 void	ft_srrb(t_nbr **a, t_nbr **b);//10
 void	ft_srrr(t_nbr **a, t_nbr **b);//11
-
-void	sort_two(t_all *all);
-void	sort_three(t_all *all);
-void	sort_four(t_all *all);
-void	sort_five(t_all *all);
-
 
 #endif
 

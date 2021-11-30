@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/23 13:53:40 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/11/30 17:27:32 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void	ft_lstadd_back2(t_nbr **alst, t_nbr *new)
 	t_nbr	*tmp;
 
 	if (!new)
+	{
+		ft_printf("stopppppp\n");
 		return ;
+	}
 	if (*alst)
 	{
 		tmp = *alst;
-		while (tmp->next)
+		while (tmp && tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
 		new->next = 0;
@@ -75,7 +78,7 @@ void	ft_take_index(t_all *all)
 	t_nbr	*tmp;
 	t_nbr	*tmp2;
 
-	tmp = all->a;
+	tmp = all->original->a;
 	while (tmp)
 	{
 		tmp2 = all->copy;

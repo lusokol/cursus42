@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/11/23 17:10:24 by lusokol          ###   ########.fr        #
+#    Updated: 2021/11/30 16:44:07 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS =	./srcs/push_swap.c \
 
 LIBFT = libft.a
 
-FLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 INCLUDES =	./includes
 
