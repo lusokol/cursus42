@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/30 17:27:32 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/01 16:33:34 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	ft_lstadd_back2(t_nbr **alst, t_nbr *new)
 	t_nbr	*tmp;
 
 	if (!new)
-	{
-		ft_printf("stopppppp\n");
 		return ;
-	}
 	if (*alst)
 	{
 		tmp = *alst;

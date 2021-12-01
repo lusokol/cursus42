@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 16:06:55 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/11/30 17:43:02 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/01 10:57:52 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	ft_rb(t_nbr **a, t_nbr **b, int print)
 	t_nbr	*lst;
 
 	(void)a;
-	lst = b;
-	if (!b || !b->next)
+	lst = *b;
+	if (!(*b) || !(*b)->next)
 		return ;
-	tmp = b;
-	b = b->next;
+	tmp = *b;
+	*b = (*b)->next;
 	while (lst->next)
 		lst = lst->next;
 	lst->next = tmp;
@@ -118,15 +118,15 @@ void	ft_rra(t_nbr **a, t_nbr **b, int print)
 	t_nbr	*lst;
 
 	(void)b;
-	lst = a;
-	if (!a || !a->next)
+	lst = *a;
+	if (!(*a) || !(*a)->next)
 		return ;
 	while (lst->next && lst->next->next)
 		lst = lst->next;
 	tmp = lst->next;
 	lst->next = NULL;
-	tmp->next = a;
-	a = tmp;
+	tmp->next = *a;
+	*a = tmp;
 	if (print)
 		ft_printf("rra\n");
 }
@@ -137,15 +137,15 @@ void	ft_rrb(t_nbr **a, t_nbr **b, int print)
 	t_nbr	*lst;
 
 	(void)a;
-	lst = b;
-	if (!b || !b->next)
+	lst = *b;
+	if (!(*b) || !(*b)->next)
 		return ;
 	while (lst->next && lst->next->next)
 		lst = lst->next;
 	tmp = lst->next;
 	lst->next = NULL;
-	tmp->next = b;
-	b = tmp;
+	tmp->next = *b;
+	*b = tmp;
 	if (print)
 		ft_printf("rrb\n");
 }
