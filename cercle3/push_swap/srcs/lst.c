@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/01 16:33:34 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/02 16:54:30 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_take_index(t_all *all)
 	t_nbr	*tmp;
 	t_nbr	*tmp2;
 
-	tmp = all->original->a;
+	tmp = all->qs->a;
 	while (tmp)
 	{
 		tmp2 = all->copy;

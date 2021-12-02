@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/01 12:59:31 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/02 16:09:10 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_take_index(t_all *all);
 int		ft_backtrack(t_all *all, int iter);
 t_backtrack	*new_bt(int *actual, int i);
 void	ft_print_lst(t_all *all);
+int		partition(int l, int h, t_all *all);
 void    ft_quick_sort(int l, int h, t_all *all);
 void	ft_fct(t_sort *all, int fct, int print);
 void	ft_sa(t_nbr **a, t_nbr **b, int print);

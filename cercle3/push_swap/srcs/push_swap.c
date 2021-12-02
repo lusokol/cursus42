@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/01 17:53:51 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/02 17:45:23 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ int	main(int ac, char **av)
 	t_all	*lst;
 	int		i;
 
-	lst->copy->next->index;
 	if (check_arg(ac, av) == 0)
 		return (0);
 	i = 0;
@@ -228,19 +227,23 @@ int	main(int ac, char **av)
 	ft_lst_sort(lst->copy);
 	ft_take_index(lst);
 	//ft_printf("===========================================*\n");
-	ft_print_lst(lst);
+	//ft_print_lst(lst);
+	//return (0);
 	//ft_printf("===========================================*\n");
 
 	////////////////////// differents algos de trie
 	//ft_backtrack(lst, 0);
-	ft_printf("lst->size : %d\n", lst->size);
-	ft_print_lst(lst);
-	ft_quick_sort(0, lst->size, lst);
+	//ft_printf("lst->size : %d\n", lst->size);
+	//ft_print_lst(lst);
+	//partition(0, 4, lst);
+	//partition(0, 1, lst);
+	//partition(3, 4, lst);
+	ft_quick_sort(0, lst->size - 1, lst);
 	//////////////////////
 	
 	//print_result(lst, lst->result);
 	//ft_printf("===========================================*\n");
-	ft_print_lst(lst);
+	//ft_print_lst(lst);
 	ft_bt_free(lst->first);
 	ft_lst_free(lst->original->a);
 	ft_lst_free(lst->original->b);
