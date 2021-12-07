@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/02 17:45:23 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/07 18:39:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_print_lst(t_all *all)
 	while (tmp)
 	{
 		i++;
-		ft_printf("[B] tmp->nbr : %d\ttmp->index : %d\n", tmp->nbr, tmp->index);
+		ft_printf("[B] tmp->nbr : %d\ttmp->index : %d, move : %d, sens : %d\n", tmp->nbr, tmp->index, tmp->move, tmp->sens);
 		tmp = tmp->next;
 	}
 }
@@ -207,8 +207,8 @@ void	create_lst(t_all *all)
 	all->qs->b = NULL;
 	while (i < all->size)
 	{
-		ft_lstadd_back2(&(all->original->a), ft_lstnew2(ft_atoi(all->tab[i]), i));
-		ft_lstadd_back2(&(all->qs->a), ft_lstnew2(ft_atoi(all->tab[i]), i));
+		ft_lstadd_back2(&(all->original->a), ft_lstnew2(ft_atoi(all->tab[i]), -1));
+		ft_lstadd_back2(&(all->qs->a), ft_lstnew2(ft_atoi(all->tab[i]), -1));
 		ft_lstadd_back2(&(all->copy), ft_lstnew2(ft_atoi(all->tab[i]), i));
 		i++;
 	}
@@ -238,7 +238,9 @@ int	main(int ac, char **av)
 	//partition(0, 4, lst);
 	//partition(0, 1, lst);
 	//partition(3, 4, lst);
-	ft_quick_sort(0, lst->size - 1, lst);
+	logic_sort(lst);
+	//ft_print_lst(lst);
+	//ft_quick_sort(0, lst->size - 1, lst);
 	//////////////////////
 	
 	//print_result(lst, lst->result);

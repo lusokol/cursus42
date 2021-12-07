@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/12/01 11:04:20 by lusokol          ###   ########.fr        #
+#    Updated: 2021/12/07 11:34:35 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS =	./srcs/push_swap.c \
 		./srcs/sort_small.c \
 		./srcs/rules_silent.c \
 		./srcs/quick_sort.c \
+		./srcs/logic_sort.c \
 
 LIBFT = libft.a
 

@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/02 16:09:10 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/07 15:30:41 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct s_nbr
 {
 	int				nbr;
 	int				index;
+	int				move;
+	int				sens;
 	struct s_nbr	*next;
 }	t_nbr;
 
@@ -63,6 +65,7 @@ int		ft_backtrack(t_all *all, int iter);
 t_backtrack	*new_bt(int *actual, int i);
 void	ft_print_lst(t_all *all);
 int		partition(int l, int h, t_all *all);
+void    logic_sort(t_all *all);
 void    ft_quick_sort(int l, int h, t_all *all);
 void	ft_fct(t_sort *all, int fct, int print);
 void	ft_sa(t_nbr **a, t_nbr **b, int print);

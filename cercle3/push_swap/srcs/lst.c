@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/02 16:54:30 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/07 14:07:47 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_nbr	*ft_lstnew2(int nbr, int index)
 	new->nbr = nbr;
 	new->index = index;
 	new->next = NULL;
+	new->move = -1;
 	return (new);
 }
 
@@ -75,15 +76,15 @@ void	ft_take_index(t_all *all)
 	t_nbr	*tmp;
 	t_nbr	*tmp2;
 
-	tmp = all->qs->a;
-	while (tmp)
+	tmp2 = all->copy;
+	while (tmp2)
 	{
-		tmp2 = all->copy;
-		while (tmp2 && tmp2->nbr != tmp->nbr)
-			tmp2 = tmp2->next;
-		if (tmp2 && tmp2->nbr == tmp->nbr)
+		tmp = all->qs->a;
+		while (tmp && (tmp->nbr != tmp2->nbr || tmp->index != -1))
+			tmp = tmp->next;
+		if (tmp && tmp->nbr == tmp2->nbr && tmp->index == -1)
 			tmp->index = tmp2->index;
-		tmp = tmp->next;
+		tmp2 = tmp2->next;
 	}
 }
 
