@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/07 14:07:47 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/08 18:44:38 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_nbr	*ft_lstnew2(int nbr, int index)
 	new->nbr = nbr;
 	new->index = index;
 	new->next = NULL;
-	new->move = -1;
+	new->move = 0;
 	return (new);
 }
 
