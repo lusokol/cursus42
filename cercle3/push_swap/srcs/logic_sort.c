@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:33:47 by lusokol           #+#    #+#             */
-/*   Updated: 2021/12/09 14:42:53 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/09 14:56:23 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ t_nbr   *find_lower(int i, t_nbr *a)
     low = a;
     index = i;
     tmp = NULL;
-    //ft_printf("lower\n");
     while (low)
     {
-        // ft_printf("low : %p\n", low);
         if (low->index < i && (low->index < index || index == i))
         {
            tmp = low;
@@ -108,7 +106,6 @@ t_nbr   *find_lower(int i, t_nbr *a)
         }
         low = low->next;
     }
-    //ft_printf("assign %d to %d\n", tmp->index, i);
     return (tmp);
 }
 
@@ -123,7 +120,6 @@ void    find_higher(int i, t_nbr *a, t_nbr *b)
     tmp = NULL;
     if (high == NULL)
     {
-       // ft_printf("ICIIIIIIIIIIII\n");
         b->move = 1 + b->move_b;
         b->move_a = 0;
         b->sens_a = 0;
@@ -164,22 +160,10 @@ void    calc_merge(t_sort *tmp)
 
 void    check_move(t_sort *tmp, t_all *all)
 {
-    // int i = 0;
-    // t_nbr *temp = tmp->b;
-    // while (temp)
-    //     temp->
     (void)all;
-    //ft_printf("\n\n\nAVANT\n");
     calc_up_a(tmp);
     calc_up_b(tmp);
-    //ft_printf("\nCHECK ICI\n");
-    //ft_print_lst(all);
-    //ft_printf("\n000000000000000000000000000000000000000000000000000000\n\n");
     calc_merge(tmp);
-    //ft_printf("\nAPRES\n");
-    //ft_print_lst(all);
-    //ft_printf("\nAPRES \n\n\n");
-    // ft_printf("\n545645645645646456456465456456456456456456544545645456456456465456\n\n\n");
 }
 
 void    do_move(t_nbr *low, t_sort *tmp)
@@ -201,7 +185,6 @@ void    do_move(t_nbr *low, t_sort *tmp)
     while (low->move_b--)
         ft_fct(tmp, low->sens, 1);
 
-    /////////faire dans les deux sens rrr ou rr
     ft_fct(tmp, 4, 1);
 }
 
@@ -218,11 +201,7 @@ void    best_move(t_sort *tmp)
             lowest = b;
         b = b->next;
     }
-    //ft_print_lst(all);
-    //ft_printf("lowest : %d, index : %d\n", lowest->nbr, lowest->index);
-    //ft_printf("rotate a : %d, rotate b : %d\n", lowest->move_a, lowest->move_b);
-    do_move(lowest, tmp);//lowest->move, lowest->sens, lowest->move_a, lowest->sens_a);
-    //ft_print_lst(all);
+    do_move(lowest, tmp);
 }
 
 void    last_rotation(t_sort *tmp)
@@ -255,21 +234,12 @@ void    logic_sort(t_all *all)
     t_sort  *tmp;
 
     tmp = all->qs;
-    //ft_print_lst(all);
     push_b(all->qs);
     while (tmp->b)
     {
-        //ft_printf("\n\n==========================\n\n");
-        //ft_print_lst(all);
         check_move(tmp, all);
-      //  ft_printf("\n===================AVANT\n");
-      //  ft_print_lst(all);
         best_move(tmp);
-       // ft_printf("\n===================APRES\n");
-        //ft_print_lst(all);
     }
     last_rotation(tmp);
-    //calc_up_a(tmp);
-    //calc_up_b(tmp);
     //ft_print_lst(all);
 }
