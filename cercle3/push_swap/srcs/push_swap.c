@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/08 18:28:34 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/09 14:24:18 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_print_lst(t_all *all)
 	tmp = all->qs->a;
 	while (tmp)
 	{
-		ft_printf("[A] tmp->nbr : %2d\ttmp->index : %2d, move total : %2d, move_a : %2d, sens_a : %2d\n", tmp->nbr, tmp->index, tmp->move, tmp->move_a, tmp->sens_a);
+		ft_printf("[A] tmp->nbr : %2d\ttmp->index : %2d\n"/*, move total : %2d, move_a : %2d, sens_a : %2d\n"*/, tmp->nbr, tmp->index/*, tmp->move, tmp->move_a, tmp->sens_a*/);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
@@ -29,7 +29,7 @@ void	ft_print_lst(t_all *all)
 	while (tmp)
 	{
 		i++;
-		ft_printf("[B] tmp->nbr : %2d\ttmp->index : %2d, move_a : %2d, move_b : %2d, move total : %2d, sens : %2d\n", tmp->nbr, tmp->index, tmp->move_a, tmp->move_b, tmp->move, tmp->sens);
+		ft_printf("[B] tmp->nbr : %2d\ttmp->index : %2d\n"/*, move_a : %2d, move_b : %2d, move total : %2d, sens : %2d, sens_a : %2d\n"*/, tmp->nbr, tmp->index/*, tmp->move_a, tmp->move_b, tmp->move, tmp->sens, tmp->sens_a*/);
 		tmp = tmp->next;
 	}
 }
