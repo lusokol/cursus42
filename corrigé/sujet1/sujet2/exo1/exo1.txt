@@ -1,0 +1,8 @@
+Q 2.1) la fonction affiche 13 pour i=2 et j=3
+
+Q 2.2) la fonction affiche 86 pour i=3 et j=6
+
+Q 2.3) La fonction mystere additionne tous les carrés compris entre i et j (les deux inclus)
+exemple : 
+i = 3 t j = 4 ===> 25
+3*3 + 4*4 = 25

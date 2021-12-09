@@ -5,10 +5,20 @@ pb
 pb
 pb
 pb
+pb
+pb
+pb
 pa
+pa
+pa
+rra
 pa
 ra
 pa
+ra
+pa
+pa
+ra
 pa
 rra
 pa
@@ -16,16 +26,5 @@ pa
 ra
 ra
 ra
-pa
 ra
 ra
-ra
-ra
-[A] tmp->nbr :  3	tmp->index :  0, move total :  1, move_a :  4, sens_a :  6
-[A] tmp->nbr :  4	tmp->index :  1, move total :  2, move_a :  2, sens_a :  9
-[A] tmp->nbr :  4	tmp->index :  2, move total :  1, move_a :  1, sens_a :  6
-[A] tmp->nbr :  5	tmp->index :  3, move total :  4, move_a :  0, sens_a :  6
-[A] tmp->nbr :  6	tmp->index :  4, move total :  1, move_a :  1, sens_a :  6
-[A] tmp->nbr :  9	tmp->index :  5, move total :  2, move_a :  2, sens_a :  6
-[A] tmp->nbr : 10	tmp->index :  6, move total :  1, move_a :  3, sens_a :  0
-
