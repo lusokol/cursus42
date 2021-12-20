@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
+#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/12/07 11:34:35 by lusokol          ###   ########.fr        #
+#    Updated: 2021/12/16 11:50:27 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,8 @@ SRCS =	./srcs/push_swap.c \
 		./srcs/lst.c \
 		./srcs/rules.c \
 		./srcs/sort_small.c \
-		./srcs/rules_silent.c \
-		./srcs/quick_sort.c \
 		./srcs/logic_sort.c \
+		./srcs/rules_silent.c \
 
 LIBFT = libft.a
 

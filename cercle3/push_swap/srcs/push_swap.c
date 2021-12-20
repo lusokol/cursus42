@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/09 14:24:18 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/16 10:47:45 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ft_print_lst(t_all *all)
-{
-	t_nbr	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = all->qs->a;
-	while (tmp)
-	{
-		ft_printf("[A] tmp->nbr : %2d\ttmp->index : %2d\n"/*, move total : %2d, move_a : %2d, sens_a : %2d\n"*/, tmp->nbr, tmp->index/*, tmp->move, tmp->move_a, tmp->sens_a*/);
-		tmp = tmp->next;
-	}
-	ft_printf("\n");
-	tmp = all->qs->b;
-	while (tmp)
-	{
-		i++;
-		ft_printf("[B] tmp->nbr : %2d\ttmp->index : %2d\n"/*, move_a : %2d, move_b : %2d, move total : %2d, sens : %2d, sens_a : %2d\n"*/, tmp->nbr, tmp->index/*, tmp->move_a, tmp->move_b, tmp->move, tmp->sens, tmp->sens_a*/);
-		tmp = tmp->next;
-	}
-}
 
 void	ft_fct(t_sort *all, int fct, int print)
 {
@@ -131,8 +109,8 @@ split with spaces.\n", av[1][i]);
 
 int	check_two_plus(char **av)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 1;
@@ -175,7 +153,9 @@ int	check_arg(int ac, char **av)
 t_all	*lst_init(int ac, char **av)
 {
 	t_all	*lst;
+	int		i;
 
+	i = 0;
 	lst = malloc(sizeof(t_all));
 	if (!lst)
 		exit(0);
@@ -194,7 +174,6 @@ t_all	*lst_init(int ac, char **av)
 	else
 	{
 		lst->tab = ft_split(av[1], ' ');
-		int i = 0;
 		while (lst->tab && lst->tab[i])
 			i++;
 		lst->size = i;
@@ -212,6 +191,21 @@ void	print_result(t_all *all, int *tab)
 		ft_fct(all->original, tab[i++], 1);
 }
 
+int	check_nb_arg(t_all *all)
+{
+	int		i;
+	t_nbr	*tmp;
+
+	i = 0;
+	tmp = all->original->a;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
 void	create_lst(t_all *all)
 {
 	int	i;
@@ -225,11 +219,32 @@ void	create_lst(t_all *all)
 	all->qs->b = NULL;
 	while (i < all->size)
 	{
-		ft_lstadd_back2(&(all->original->a), ft_lstnew2(ft_atoi(all->tab[i]), -1));
+		ft_lstadd_back2(&(all->original->a),
+			ft_lstnew2(ft_atoi(all->tab[i]), -1));
 		ft_lstadd_back2(&(all->qs->a), ft_lstnew2(ft_atoi(all->tab[i]), -1));
 		ft_lstadd_back2(&(all->copy), ft_lstnew2(ft_atoi(all->tab[i]), i));
 		i++;
 	}
+}
+
+int	check_double(t_nbr *lst)
+{
+	t_nbr	*tmp1;
+	t_nbr	*tmp2;
+
+	tmp1 = lst;
+	while (tmp1 && tmp1->next)
+	{
+		tmp2 = tmp1->next;
+		while (tmp2)
+		{
+			if (tmp1->nbr == tmp2->nbr)
+				return (1);
+			tmp2 = tmp2->next;
+		}
+		tmp1 = tmp1->next;
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -242,35 +257,26 @@ int	main(int ac, char **av)
 	i = 0;
 	lst = lst_init(ac, av);
 	create_lst(lst);
+	if (check_double(lst->original->a))
+	{
+		ft_printf("Doublon detected !\n");
+		return (0);
+	}
 	ft_lst_sort(lst->copy);
 	ft_take_index(lst);
-	//ft_printf("===========================================*\n");
-	//ft_print_lst(lst);
-	//return (0);
-	//ft_printf("===========================================*\n");
-
-	////////////////////// differents algos de trie
-	//ft_backtrack(lst, 0);
-	//ft_printf("lst->size : %d\n", lst->size);
-	//ft_print_lst(lst);
-	//partition(0, 4, lst);
-	//partition(0, 1, lst);
-	//partition(3, 4, lst);
-	logic_sort(lst);
-	//ft_print_lst(lst);
-	//ft_quick_sort(0, lst->size - 1, lst);
-	//////////////////////
-	
-	//print_result(lst, lst->result);
-	//ft_printf("===========================================*\n");
-	//ft_print_lst(lst);
+	if (check_nb_arg(lst) <= 5)
+	{
+		ft_backtrack(lst, 0);
+		print_result(lst, lst->result);
+	}
+	else
+		logic_sort(lst);
 	ft_bt_free(lst->first);
 	ft_lst_free(lst->original->a);
 	ft_lst_free(lst->original->b);
 	free(lst->original);
 	free(lst->qs);
 	ft_lst_free(lst->copy);
-	//system("leaks push_swap");
 	return (0);
 }
 /////// LEAKS A CHECKER
