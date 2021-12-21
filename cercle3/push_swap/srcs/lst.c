@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/16 11:46:24 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/12/21 17:39:05 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,6 @@ void	ft_lstadd_back2(t_nbr **alst, t_nbr *new)
 	}
 	else
 		*alst = new;
-}
-
-void	ft_lst_free(t_nbr *lst)
-{
-	t_nbr	*tmp;
-
-	tmp = lst;
-	while (lst && lst->next)
-	{
-		lst = lst->next;
-		free(tmp);
-		tmp = lst;
-	}
-	if (tmp)
-		free(tmp);
 }
 
 void	ft_swap_lst(t_nbr *lst1, t_nbr *lst2)

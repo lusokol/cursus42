@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
+#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/12/16 11:50:27 by macbookpro       ###   ########.fr        #
+#    Updated: 2021/12/21 18:59:54 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,26 @@ NAME = push_swap
 
 SRCS =	./srcs/push_swap.c \
 		./srcs/lst.c \
-		./srcs/rules.c \
 		./srcs/sort_small.c \
 		./srcs/logic_sort.c \
+		./srcs/init.c \
+		./srcs/init2.c \
+		./srcs/free.c \
+		./srcs/nb_move.c \
+		./srcs/logic_move.c \
+		./srcs/calcul_logic.c \
+		./srcs/rules.c \
+		./srcs/rules2.c \
+		./srcs/rules3.c \
 		./srcs/rules_silent.c \
+		./srcs/rules_silent2.c \
+		./srcs/rules_silent3.c \
+		./srcs/bt_lst.c \
+		./srcs/check_bt.c \
 
 LIBFT = libft.a
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
 
 INCLUDES =	./includes
 
