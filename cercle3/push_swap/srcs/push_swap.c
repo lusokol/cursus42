@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/21 17:38:54 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/21 19:27:37 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,6 @@ void	ft_fct(t_sort *all, int fct, int print)
 	else if (fct == 11)
 		ft_rrr(&all->a, &all->b, print);
 }
-
-/*void	ft_print_iter(t_backtrack *first, int iter)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (iter > 0)
-	{
-		while (++i <= 11)
-			if (first->tab[i] != NULL)
-				ft_print_iter(first->tab[i], iter - 1);
-	}
-	else
-	{
-		while (++i <= 11)
-		{
-			if (first->tab[i])
-			{
-				ft_printf("\"");
-				j = 0;
-				while (first->tab[i] && first->tab[i]->actual[j] != 0)
-					ft_printf("%d ", first->tab[i]->actual[j++]);
-				ft_printf("\"\n");
-			}
-		}
-	}
-}
-*/
 
 void	print_result(t_all *all, int *tab)
 {

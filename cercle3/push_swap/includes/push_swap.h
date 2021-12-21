@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/21 19:06:06 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/21 19:33:17 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_nbr
 	int				move_b;
 	int				sens;
 	int				sens_a;
+	int				push_b;
 	struct s_nbr	*next;
 }	t_nbr;
 
