@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:48:31 by lusokol           #+#    #+#             */
-/*   Updated: 2021/12/21 20:14:55 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/22 17:07:13 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 */
 
 #include "push_swap.h"
-
-void	push_b(t_sort *tmp)
-{
-	while (tmp->a)
-		ft_fct(tmp, 5, 1);
-}
 
 void	do_move(t_nbr *low, t_sort *tmp)
 {

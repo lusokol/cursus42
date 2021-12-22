@@ -1,7 +1,24 @@
-43512
-512 34 pb pb
-125 34 ra
-512 34 rra
-4512 3 pa pa
-34512 rra rra
-12345
+pb
+pb
+pb
+pb
+pb
+pb
+pb
+pb
+pa
+ra
+pa
+ra
+pa
+ra
+pa
+ra
+pa
+ra
+pa
+pa
+pa
+ra
+ra
+ra

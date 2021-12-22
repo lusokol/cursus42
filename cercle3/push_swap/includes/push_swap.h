@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/21 19:33:17 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/22 17:44:16 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ typedef struct s_sort
 	t_nbr	*b;
 }	t_sort;
 
+typedef struct s_plsc
+{
+	int	lm;
+	int	m;
+	int	*tab;
+	int	*s;
+	int	max;
+}	t_plsc;
+
 typedef struct s_all
 {
 	int			iteration_max;
@@ -51,6 +60,7 @@ typedef struct s_all
 	int			size;
 	int			ac;
 	char		**tab;
+	int			*nbr;
 	t_sort		*original;
 	t_sort		*qs;
 	t_nbr		*copy;
@@ -58,6 +68,10 @@ typedef struct s_all
 	int			*result;
 }	t_all;
 
+void		free_plssc(t_plsc *plsc, int *tab);
+int			*lst_to_tab(t_nbr *a, t_plsc *plsc);
+void		init_tabs(int **l, t_plsc *plsc);
+void		fill_tab(int *tab, int n, int value);
 t_nbr		*cp_lst(t_all *all);
 void		ft_fct_silent(t_nbr **a, t_nbr **b, int fct);
 int			*check_iter(t_all *all, int iter, t_backtrack *bt);
