@@ -6,11 +6,11 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 16:23:59 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/23 16:24:02 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/12/24 18:27:58 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 int	check_two(char **av)
 {

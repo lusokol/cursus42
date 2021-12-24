@@ -6,11 +6,13 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/12/23 16:26:41 by macbookpro       ###   ########.fr        #
+#    Updated: 2021/12/24 18:33:02 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
+
+NAME2 = checker
 
 SRCS =	./srcs/push_swap.c \
 		./srcs/lst.c \
@@ -33,6 +35,16 @@ SRCS =	./srcs/push_swap.c \
 		./srcs/push_b.c \
 		./srcs/push_b2.c \
 
+SRCS2 = ./my_checker/checker.c \
+		./my_checker/init.c \
+		./my_checker/init2.c \
+		./my_checker/lst.c \
+		./my_checker/free.c \
+		./my_checker/read_arg.c \
+		./my_checker/rules1.c \
+		./my_checker/rules2.c \
+		./my_checker/rules3.c \
+
 LIBFT = libft.a
 
 FLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
@@ -47,16 +59,22 @@ $(NAME): $(LIBFT)
 	@printf "\e[38;5;118m$(NAME) successfully compiles !\e[0m\n"
 	@chmod 777 $(NAME)
 
+$(NAME2): $(LIBFT)
+	@printf "\e[38;5;208mCompiling $(NAME2)...\e[0m\n"
+	@clang $(FLAGS) $(SRCS2) $(LIBFT) -I $(INCLUDES) -o $(NAME2)
+	@printf "\e[38;5;118m$(NAME2) successfully compiles !\e[0m\n"
+	@chmod 777 $(NAME2)
+
 $(LIBFT):
 	@(cd ./libft && $(MAKE) --no-print-directory $^)
 
 clean:
-	@printf "\e[38;5;196m[Clean] Removing $(NAME)...\e[0m\n"
-	@rm -rf $(NAME)
+	@printf "\e[38;5;196m[Clean] Removing $(NAME) and $(NAME2)...\e[0m\n"
+	@rm -rf $(NAME) $(NAME2)
 
 fclean:
-	@printf "\e[38;5;196m[Fclean] Removing $(NAME)...\e[0m\n"
-	@rm -rf $(NAME)
+	@printf "\e[38;5;196m[Fclean] Removing $(NAME) and $(NAME2)...\e[0m\n"
+	@rm -rf $(NAME) $(NAME2)
 	@(cd ./libft && $(MAKE) --no-print-directory $@)
 
 re: clean all

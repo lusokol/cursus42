@@ -6,11 +6,11 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:36:47 by lusokol           #+#    #+#             */
-/*   Updated: 2021/12/24 01:09:47 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/12/24 18:27:37 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 int	free_sort(t_nbr *a, t_nbr *b)
 {

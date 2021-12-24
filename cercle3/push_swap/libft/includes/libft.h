@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:19:31 by lusokol           #+#    #+#             */
-/*   Updated: 2021/11/23 11:47:03 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/24 18:40:47 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/uio.h>
-//# include "libftprintf.h"
 
 typedef struct s_list
 {

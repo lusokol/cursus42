@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:49:13 by lusokol           #+#    #+#             */
-/*   Updated: 2021/11/23 12:09:01 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/24 18:39:48 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int g_count;
+int	g_count;
 
 int	ft_take_flags(t_info *info, char *type)
 {

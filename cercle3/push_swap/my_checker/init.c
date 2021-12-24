@@ -6,11 +6,11 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:17:04 by lusokol           #+#    #+#             */
-/*   Updated: 2021/12/23 17:04:01 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/12/24 18:27:09 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	convert_ac_tab(t_all *lst, char **av)
 {
@@ -67,6 +67,7 @@ void	create_lst(t_all *all)
 	all->original = malloc(sizeof(t_sort));
 	all->original->a = NULL;
 	all->original->b = NULL;
+	all->act = NULL;
 	while (i < all->size)
 	{
 		ft_lstadd_back2(&(all->original->a),
