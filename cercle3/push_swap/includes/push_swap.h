@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/22 17:44:16 by lusokol          ###   ########.fr       */
+/*   Updated: 2021/12/23 17:50:40 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_all
 	int			size;
 	int			ac;
 	char		**tab;
+	char		**act;
 	int			*nbr;
 	t_sort		*original;
 	t_sort		*qs;

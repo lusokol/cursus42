@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:36:47 by lusokol           #+#    #+#             */
-/*   Updated: 2021/12/23 16:05:41 by macbookpro       ###   ########.fr       */
+/*   Updated: 2021/12/24 01:09:47 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,17 @@ void	ft_lst_free(t_nbr *lst)
 		free(tmp);
 }
 
-void	ft_free_all(t_all *lst)
+void	ft_free_all(t_all *lst, int i)
 {
-	ft_bt_free(lst->first);
-	free(lst->first);
+	if (i == 1)
+		ft_printf("Error\n");
 	ft_lst_free(lst->original->a);
 	ft_lst_free(lst->original->b);
-	ft_lst_free(lst->qs->a);
-	ft_lst_free(lst->qs->b);
 	free(lst->original);
-	free(lst->qs);
-	ft_lst_free(lst->copy);
 	if (lst->ac == 2)
 		ft_tab_free(lst->tab);
+	if (lst->act)
+		ft_tab_free(lst->act);
 	free(lst);
 	exit(0);
 }

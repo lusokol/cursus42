@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
+#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2021/12/22 17:38:41 by lusokol          ###   ########.fr        #
+#    Updated: 2021/12/23 16:26:41 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
