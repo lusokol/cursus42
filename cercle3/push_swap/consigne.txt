@@ -12,3 +12,6 @@ Pour 500 values = barème de 1 à 5
   - moins de 8500: 3
   - moins de 10000: 2
   - moins de 11500: 1
+
+for i in {1..10}; do ARG="$(./genstack.pl 100 -1000 1000)"; RES=$(./push_swap $ARG); echo "$RES" | ./checker_Mac $ARG; echo "$RES" | ./checker $ARG; echo "$RES" | wc -l; done
+for i in {1..10}; do ARG="$(./genstack.pl 500 -1000 1000)"; RES=$(./push_swap $ARG); echo "$RES" | ./checker_Mac $ARG; echo "$RES" | ./checker $ARG; echo "$RES" | wc -l; done

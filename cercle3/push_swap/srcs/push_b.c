@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 16:39:34 by lusokol           #+#    #+#             */
-/*   Updated: 2021/12/22 17:44:06 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/04 13:47:45 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,24 @@ void	push_b(t_sort *tmp)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	plsc = malloc(sizeof(t_plsc));
 	tab = lst_to_tab(tmp->a, plsc);
 	plssc(tab, plsc);
 	rec(plsc);
-	while (i < plsc->max)
+	if (plsc->lm < plsc->max)
 	{
-		if (plsc->s[j] == i)
+		while (++i < plsc->max)
 		{
-			ft_fct(tmp, 6, 1);
-			j++;
+			if (plsc->s[j] == i)
+			{
+				ft_fct(tmp, 6, 1);
+				j++;
+			}
+			else
+				ft_fct(tmp, 5, 1);
 		}
-		else
-			ft_fct(tmp, 5, 1);
-		i++;
 	}
 	free_plssc(plsc, tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/23 16:50:43 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/01/04 17:31:17 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,47 @@ void	print_result(t_all *all, int *tab)
 		ft_fct(all->original, tab[i++], 1);
 }
 
+long long int	ft_latoi(char *str)
+{
+	int				i;
+	int				negative;
+	long long int	res;
+
+	i = 0;
+	negative = 1;
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			negative = negative * -1;
+		i++;
+	}
+	while ((ft_isdigit(str[i])) && str[i] != '\0')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (res * negative);
+}
+
+int	check_ovf(char **tab)
+{
+	int				i;
+	long long int	l;
+
+	i = 0;
+	while (tab[i])
+	{
+		l = ft_latoi(tab[i]);
+		if (l > 2147483647 || l < -2147483648)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	t_all	*lst;
@@ -55,7 +96,7 @@ int	main(int ac, char **av)
 		return (0);
 	lst = lst_init(ac, av);
 	create_lst(lst);
-	if (check_double(lst->original->a))
+	if (!check_ovf(lst->tab) || check_double(lst->original->a))
 	{
 		ft_printf("Error\n");
 		ft_free_all(lst);

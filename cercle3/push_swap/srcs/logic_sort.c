@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-/* ICI pour opti ce que j'envoie dans b au debut */
-
 void	calc_merge(t_sort *tmp)
 {
 	t_nbr	*b;
@@ -25,16 +23,6 @@ void	calc_merge(t_sort *tmp)
 		b = b->next;
 	}
 }
-
-/* faire un algo de backtracking
-** qui genere pour chaque chiffre parmis les size/2 premiers de la liste.
-** des rayons qui partent respectivement sur les 5 premiers chiffres
-** suivant celui de depart
-** et ce jusqu'a la fin
-*/
-
-// Gerer les doublons et la redirection vers la bonne 
-// fonction (backtracking ou logic sort)
 
 void	check_move(t_sort *tmp, t_all *all)
 {

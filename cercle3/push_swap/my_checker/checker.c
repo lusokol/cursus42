@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:57 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/24 18:28:27 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/01/04 17:36:03 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,22 @@ int	check_sort(t_sort *lst)
 	return (1);
 }
 
+int	check_ovf(char **tab)
+{
+	int				i;
+	long long int	l;
+
+	i = 0;
+	while (tab[i])
+	{
+		l = ft_latoi(tab[i]);
+		if (l > 2147483647 || l < -2147483648)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	t_all	*lst;
@@ -92,7 +108,7 @@ int	main(int ac, char **av)
 		return (0);
 	lst = lst_init(ac, av);
 	create_lst(lst);
-	if (check_double(lst->original->a))
+	if (!check_ovf(lst->tab) || check_double(lst->original->a))
 		ft_free_all(lst, 1);
 	read_arg(lst);
 	i = 0;

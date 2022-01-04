@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:09:06 by macbookpro        #+#    #+#             */
-/*   Updated: 2021/12/23 17:50:40 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/01/04 12:02:13 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_all
 	int			*result;
 }	t_all;
 
+int			count_max(t_nbr *temp);
 void		free_plssc(t_plsc *plsc, int *tab);
 int			*lst_to_tab(t_nbr *a, t_plsc *plsc);
 void		init_tabs(int **l, t_plsc *plsc);
