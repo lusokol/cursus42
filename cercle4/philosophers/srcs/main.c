@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:18:27 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/11 18:28:53 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/12 18:15:43 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,158 @@ int	ft_exit(char *str)
 	return (0);
 }
 
+void	ft_putchar(char a)
+{
+	write(1, &a, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		if (nb == -2147483648)
+		{
+			ft_putchar('2');
+			nb += 2000000000;
+		}
+		nb = -nb;
+	}
+	if (nb < 10)
+		ft_putchar(nb + '0');
+	if (nb >= 10)
+	{
+		ft_putnbr(nb / 10);
+		ft_putchar(nb % 10 + '0');
+	}
+}
+
+char	*txt(int i)
+{
+	if (i == 1)
+		return (" has taken a fork\n");
+	if (i == 2)
+		return (" is eating\n");
+	if (i == 3)
+		return (" is sleeping\n");
+	if (i == 4)
+		return (" is thinking\n");
+	if (i == 5)
+		return (" died\n");
+	return ("");
+}
+
+void	aff_philo(t_philo *philo, int i)
+{
+	pthread_mutex_lock(&philo->table->txt);
+	ft_putnbr(philo->index);
+	char *str = txt(i);
+	write (1, str, strlen(str));
+	pthread_mutex_unlock(&philo->table->txt);
+}
+
+void	fork_lock(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->prec->frk));
+	aff_philo(philo, 1);
+	pthread_mutex_lock(&(philo->next->frk));
+	aff_philo(philo, 1);
+}
+
+void	fork_unlock(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->prec->frk);
+	pthread_mutex_unlock(&philo->next->frk);
+}
+
+long long int	calc_ms_pass(struct timeval start)
+{
+	struct timeval	end;
+	long long int	diff;
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec));
+	//printf("diff : %lld\n", diff);
+	diff /= 1000;
+	//printf("diff : %lld\n", diff);
+	return (diff);
+}
+
+void	eat(t_philo *philo)
+{
+	aff_philo(philo, 2);
+	usleep(philo->table->time_eat * 1000);
+	if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
+			philo->is_alive = 0;
+}
+
+void	sleeping(t_philo *philo)
+{
+	aff_philo(philo, 3);
+	usleep(philo->table->time_sleep * 1000);
+	if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
+			philo->is_alive = 0;
+	if (philo->is_alive == 1 && philo->table->stop == 0)
+		aff_philo(philo, 4);
+}
+
+/*
+void	eat(t_philo *philo)
+{
+	struct timeval	start;
+	long long int	diff;
+
+	aff_philo(philo, 2);
+	gettimeofday(&start, NULL);
+	gettimeofday(&philo->last_eat, NULL);
+	diff = calc_ms_pass(start);
+	while (diff < philo->table->time_eat && philo->table->stop == 0)
+	{
+		diff = calc_ms_pass(start);
+		if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
+			philo->is_alive = 0;
+	}	
+}
+
+void	sleeping(t_philo *philo)
+{
+	struct timeval	start;
+	long long int	diff;
+
+	aff_philo(philo, 3);
+	gettimeofday(&start, NULL);
+	gettimeofday(&philo->last_eat, NULL);
+	diff = calc_ms_pass(start);
+	while (diff < philo->table->time_sleep && philo->table->stop == 0)
+	{
+		diff = calc_ms_pass(start);
+		if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
+			philo->is_alive = 0;
+	}
+	if (philo->table->stop == 0)
+		aff_philo(philo, 4);
+}
+*/
+
 void	*test_fct(void *arg)
 {
-	t_philo	*tmp = (t_philo*)arg;
-	printf("i am the philosopher number %d\n", tmp->index);
+	t_philo	*philo = (t_philo*)arg;
+	while (philo->is_alive == 1 && philo->table->stop == 0)
+	{
+		if (philo->table->stop == 0)
+		{
+			fork_lock(philo);
+			eat(philo);
+			fork_unlock(philo);
+		}
+		if (philo->table->stop == 0)
+			sleeping(philo);
+		if (philo->is_alive == 0 && philo->table->stop == 0)
+		{
+			philo->table->stop = 1;
+			aff_philo(philo, 5);
+		}
+	}
+	printf("is_alive : %d\nstop : %d\n", philo->is_alive, philo->table->stop);
 	return (NULL);
 }
 
@@ -32,8 +180,8 @@ void	create_lst(t_table *table)
 	i = 0;
 	while (i < table->nb_philo)
 	{
-		ft_lstadd_back(&(table->lst), ft_lstnew(i + 1, 1));
-		ft_lstadd_back(&(table->lst), ft_lstnew(0, 2));
+		ft_lstadd_back(&(table->lst), ft_lstnew(i + 1, 1, table));
+		ft_lstadd_back(&(table->lst), ft_lstnew(0, 2, table));
 		i++;
 	}
 }
@@ -44,6 +192,9 @@ t_table	*init(char **av, int ac)
 
 	table = malloc(sizeof(t_table));
 	table->lst = NULL;
+	table->stop = 0;
+	pthread_mutex_init(&table->txt, NULL);
+	gettimeofday(&(table->time_start), NULL);
 	table->nb_philo = ft_atoi(av[1]);
 	table->time_die = ft_atoi(av[2]);
 	table->time_eat = ft_atoi(av[3]);
@@ -72,7 +223,9 @@ int main(int ac, char **av)
 	{
 		//printf("sending the philosopher number %d\n", tmp->index);
 		pthread_create(&test, NULL, &test_fct, (void*)tmp);
+		usleep(5);
 		tmp = tmp->next->next;
 	}
-	sleep(1);
+	//sleep(1);
+	pthread_join(test, NULL);
 }
