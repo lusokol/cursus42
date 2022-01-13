@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/11 16:38:39 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/13 12:57:26 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS =	./srcs/main.c \
 		./srcs/utils.c \
 		./srcs/lst.c \
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
 
 INCLUDES =	./includes
 

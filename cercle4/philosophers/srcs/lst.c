@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/01/12 17:07:56 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/13 12:40:23 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_philo	*ft_lstnew(int i, int j, t_table *table)
 	new->is_alive = 1;
 	new->is_eating = 0;
 	new->table = table;
-	pthread_mutex_init(&new->frk, NULL);
+	if (j == 2)
+		pthread_mutex_init(&new->frk, NULL);
 	new->next = NULL;
 	new->prec = NULL;
 	return (new);
