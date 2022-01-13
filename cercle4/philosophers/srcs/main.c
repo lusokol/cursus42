@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:18:27 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/13 13:01:54 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/13 15:38:02 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ long long int	calc_ms_pass(struct timeval start)
 {
 	struct timeval	end;
 	long long int	diff;
+
 	gettimeofday(&end, NULL);
-	diff = ((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec));
+	diff = ((end.tv_sec * 1000000 + end.tv_usec)
+			- (start.tv_sec * 1000000 + start.tv_usec));
 	diff /= 1000;
 	return (diff);
 }
@@ -72,15 +74,15 @@ long long int	calc_ms_pass(struct timeval start)
 void	color(int i)
 {
 	if (i == 1)
-		write (1, "\e[0;49;96m[", 11);
+		write (1, "\e[0;49;96m", 10);
 	else if (i == 2)
-		write (1, "\e[0;49;92m[", 11);
+		write (1, "\e[0;49;92m", 10);
 	else if (i == 3)
-		write (1, "\e[0;49;95m[", 11);
+		write (1, "\e[0;49;95m", 10);
 	else if (i == 4)
-		write (1, "\e[0;49;33m[", 11);
+		write (1, "\e[0;49;33m", 10);
 	else if (i == 5)
-		write (1, "\e[0;49;91m[", 11);
+		write (1, "\e[0;49;91m", 10);
 }
 
 void	aff_philo(t_philo *philo, int i)
@@ -91,15 +93,15 @@ void	aff_philo(t_philo *philo, int i)
 	pthread_mutex_lock(&philo->table->txt);
 	if (philo->table->stop == 0 || (philo->is_alive == 0 && i == 5))
 	{
-		write (1, "\e[38;5;208m[", 12);
+		//write (1, "\e[38;5;208m[", 12);
 		time = calc_ms_pass(philo->table->time_start);
 		ft_putnbr(time);
-		write (1, "ms]\e[0m", 7);
+		//write (1, "ms]\e[0m", 7);
 		if (time < 1000)
 			write (1, "\t\t", 2);
 		else
 			write (1, "\t", 1);
-		color(i);
+		//color(i);
 		write (1, "Philosopher ", 12);
 		ft_putnbr(philo->index);
 		str = txt(i);
@@ -111,10 +113,24 @@ void	aff_philo(t_philo *philo, int i)
 
 void	fork_lock(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->prec->frk));
-	aff_philo(philo, 1);
-	pthread_mutex_lock(&(philo->next->frk));
-	aff_philo(philo, 1);
+	// if (philo->index == 1)
+	// {
+	while (philo->next->next->is_eating == 1 || philo->prec->prec->is_eating == 1)
+		;
+		philo->is_eating = 1;
+		pthread_mutex_lock(&(philo->prec->frk));
+		aff_philo(philo, 1);
+		pthread_mutex_lock(&(philo->next->frk));
+		aff_philo(philo, 1);
+		philo->is_eating = 0;
+	// }
+	// else
+	// {
+		// pthread_mutex_lock(&(philo->next->frk));
+		// aff_philo(philo, 1);
+		// pthread_mutex_lock(&(philo->prec->frk));
+		// aff_philo(philo, 1);
+	// }
 }
 
 void	fork_unlock(t_philo *philo)
@@ -133,7 +149,8 @@ void	eat(t_philo *philo)
 	gettimeofday(&start, NULL);
 	gettimeofday(&philo->last_eat, NULL);
 	diff = calc_ms_pass(start);
-	while (diff < philo->table->time_eat && philo->table->stop == 0 && philo->is_alive == 1)
+	while (diff < philo->table->time_eat
+		&& philo->table->stop == 0 && philo->is_alive == 1)
 	{
 		diff = calc_ms_pass(start);
 		if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
@@ -149,7 +166,8 @@ void	sleeping(t_philo *philo)
 	aff_philo(philo, 3);
 	gettimeofday(&start, NULL);
 	diff = calc_ms_pass(start);
-	while (diff < philo->table->time_sleep && philo->table->stop == 0 && philo->is_alive == 1)
+	while (diff < philo->table->time_sleep
+		&& philo->table->stop == 0 && philo->is_alive == 1)
 	{
 		diff = calc_ms_pass(start);
 		if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
@@ -161,7 +179,9 @@ void	sleeping(t_philo *philo)
 
 void	*test_fct(void *arg)
 {
-	t_philo	*philo = (t_philo*)arg;
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
 	while (philo->is_alive == 1 && philo->table->stop == 0)
 	{
 		if (philo->table->stop == 0)
@@ -235,32 +255,40 @@ void	ft_free(t_philo	*philo)
 	free(table);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	(void)av;
-	int			i = 0;
-	pthread_t	test;
+	int			i;
 	t_philo		*philo;
+	t_table		*table;
 
+	i = 0;
 	if (ac != 5 && ac != 6)
-		return (ft_exit("Wrong number of argument.\nIt must be : number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]"));
-	t_table	*table;
+		return (ft_exit("Wrong number of argument.\nIt must be : number_of_phi\
+losophers time_to_die time_to_eat time_to_sleep \
+[number_of_times_each_philosopher_must_eat]"));
 	table = init(av, ac);
-	create_lst(table);		
+	create_lst(table);
 	philo = table->lst;
 	while (++i <= table->nb_philo)
 	{
-		pthread_create(&test, NULL, &test_fct, (void*)philo);
-		usleep(5);
+		pthread_create(&philo->thrd, NULL, &test_fct, (void *)philo);
+		//usleep(1);
 		philo = philo->next->next;
 	}
 	i = 0;
-	while  (++i <= table->nb_philo)
-		pthread_join(test, NULL);
-	ft_free(philo);
+	philo = table->lst;
+	while (++i <= table->nb_philo)
+	{
+		pthread_join(philo->thrd, NULL);
+		philo = philo->next->next;
+	}
+	ft_free(table->lst);
+	return (0);
+}
+
+/*
 	philo = NULL;
 	table = NULL;
 	test = NULL;
 	system ("leaks philosophers");
-	return (0);
-}
+*/
