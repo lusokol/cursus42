@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:33:45 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/13 14:15:01 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/18 18:40:19 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philo
 	struct timeval	last_eat;
 	int				is_alive;
 	int				is_eating;
+	int				nb_eat;
 	pthread_t		thrd;
 	struct s_table	*table;
 	struct s_philo	*next;
@@ -54,6 +55,8 @@ typedef struct s_table
 	int				time_eat;
 	int				time_sleep;
 	int				nb_eat;
+	int				nb_eat_actual;
+	int				start_eat;
 	int				stop;
 	pthread_mutex_t	txt;
 	struct timeval	time_start;
@@ -63,5 +66,6 @@ typedef struct s_table
 int		ft_atoi(const char *str);
 t_philo	*ft_lstnew(int i, int j, t_table *table);
 void	ft_lstadd_back(t_philo **alst, t_philo *new);
+int		ft_isdigit(int c);
 
 #endif

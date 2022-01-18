@@ -1,0 +1,3 @@
+main.c0 \
+		utils.c0 \
+		lst.c0 \
