@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:30:52 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/01/18 18:36:05 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/19 13:29:39 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_philo	*ft_lstnew(int i, int j, t_table *table)
 	if (!(new))
 		return (NULL);
 	new->to_do = 1;
+	new->is_waiting = 0;
 	new->index = i;
 	new->type = j;
 	new->nb_eat = 0;

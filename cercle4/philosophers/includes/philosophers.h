@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:33:45 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/18 18:40:19 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/20 16:25:05 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 	pthread_mutex_t	frk;
 	struct timeval	last_eat;
 	int				is_alive;
+	int				is_waiting;
 	int				is_eating;
 	int				nb_eat;
 	pthread_t		thrd;
@@ -59,13 +60,27 @@ typedef struct s_table
 	int				start_eat;
 	int				stop;
 	pthread_mutex_t	txt;
+	pthread_t		alive;
 	struct timeval	time_start;
 	t_philo			*lst;
 }					t_table;
 
-int		ft_atoi(const char *str);
-t_philo	*ft_lstnew(int i, int j, t_table *table);
-void	ft_lstadd_back(t_philo **alst, t_philo *new);
-int		ft_isdigit(int c);
+int				ft_atoi(const char *str);
+t_philo			*ft_lstnew(int i, int j, t_table *table);
+void			ft_lstadd_back(t_philo **alst, t_philo *new);
+int				ft_isdigit(int c);
+int				ft_exit(char *str);
+int				check_arg(char **av);
+t_table			*init(char **av, int ac);
+void			create_lst(t_table *table);
+void			create_thread(t_table *table);
+void			ft_free(t_philo	*philo);
+void			*routine_fct(void *arg);
+void			aff_philo(t_philo *philo, int i);
+void			check_stop(t_table *table);
+long long int	calc_ms_pass(struct timeval start);
+void			ft_putnbr(int nb);
+void			*is_alive(void *arg);
+void			fork_unlock(t_philo *philo);
 
 #endif

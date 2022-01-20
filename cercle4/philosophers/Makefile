@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/18 19:39:49 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/20 15:36:37 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,10 @@ NAME = philosophers
 SRC =	main.c \
 		utils.c \
 		lst.c \
+		exit.c \
+		parsing.c \
+		routine.c \
+		text.c \
 
 PATH_SRCS = ./srcs
 
@@ -37,12 +41,12 @@ TMP_FILE = tmp_folder
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(PATH_SRCS)/%.c
-	@if [ ! -d '$(TMP_FILE)' ]; then mkdir -p $(TMP_FILE); make start; fi;
+	@if [ ! -d '$(TMP_FILE)' ]; then mkdir -p $(TMP_FILE); make project; fi;
 	@mkdir -p $(OBJ_DIR)
 	@printf "$(_ORANGE)| Compiling : $(_WHITE)%-21s$(_ORANGE)|\n" $<
 	@gcc $(FLAGS) -I $(INCLUDES) -c $< -o $@
 
-start:
+project:
 	@printf "$(_ORANGE)___________________________________\n$(_R)"
 	@printf "$(_BOLD)$(_ORANGE)| - %15s - 42 Project - |$(_R)\n" $(NAME)
 	@printf "$(_ORANGE)___________________________________\n$(_R)"
@@ -60,11 +64,8 @@ clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@printf "$(_RED)[Fclean] Removing $(NAME)...$(_R)\n"
+	@printf "$(_RED)[Fclean] Removing $(NAME) ...$(_R)\n"
 	@rm -rf $(NAME)
-
-show:
-	printf "$(OBJ)\n"
 
 re: clean all
 
@@ -79,4 +80,4 @@ _R = \e[0m
 
 ##########################################
 
-.PHONY: all clean fclean re start
+.PHONY: all clean fclean re project
