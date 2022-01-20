@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 11:05:52 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/19 13:47:25 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/20 18:08:18 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,10 @@ void	fork_unlock(t_philo *philo)
 void	fork_lock(t_philo *philo)
 {
 	philo->is_waiting = 1;
-	if (philo->index % 2)
-	{
-		pthread_mutex_lock(&(philo->prec->frk));
-		aff_philo(philo, 1);
-		pthread_mutex_lock(&(philo->next->frk));
-		aff_philo(philo, 1);
-	}
-	else
-	{
-		pthread_mutex_lock(&(philo->next->frk));
-		aff_philo(philo, 1);
-		pthread_mutex_lock(&(philo->prec->frk));
-		aff_philo(philo, 1);
-	}
+	pthread_mutex_lock(&(philo->prec->frk));
+	aff_philo(philo, 1);
+	pthread_mutex_lock(&(philo->next->frk));
+	aff_philo(philo, 1);
 	philo->is_waiting = 0;
 }
 
@@ -78,6 +68,8 @@ void	sleeping(t_philo *philo)
 		if (calc_ms_pass(philo->last_eat) >= philo->table->time_die)
 			philo->is_alive = 0;
 	}
+	if (philo->table->stop == 0)
+		aff_philo(philo, 4);
 }
 
 void	*routine_fct(void *arg)
@@ -87,6 +79,8 @@ void	*routine_fct(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->table->start_eat == 0)
 		;
+	if (!(philo->index % 2))
+		usleep(philo->table->time_eat * 1000 / 2 + 1);
 	gettimeofday(&philo->last_eat, NULL);
 	while (philo->is_alive == 1 && philo->table->stop == 0)
 	{
@@ -98,8 +92,6 @@ void	*routine_fct(void *arg)
 		}
 		if (philo->table->stop == 0)
 			sleeping(philo);
-		if (philo->table->stop == 0)
-			aff_philo(philo, 4);
 		if (philo->is_alive == 0 && philo->table->stop == 0)
 		{
 			philo->table->stop = 1;

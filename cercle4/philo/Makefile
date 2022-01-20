@@ -6,13 +6,13 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/20 15:36:37 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/20 18:13:47 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##########################################
 
-NAME = philosophers
+NAME = philo
 
 SRC =	main.c \
 		utils.c \
