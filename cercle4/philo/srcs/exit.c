@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 11:07:37 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/19 12:50:52 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/01/25 11:59:46 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int	ft_exit(char *str)
 
 void	check_stop(t_table *table)
 {
-	int	i;
-
-	i = 0;
 	table->nb_eat_actual++;
 	if (table->nb_philo == table->nb_eat_actual)
 		table->stop = 1;

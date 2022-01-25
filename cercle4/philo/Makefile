@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/20 18:13:47 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/24 15:42:45 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,18 +43,18 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: $(PATH_SRCS)/%.c
 	@if [ ! -d '$(TMP_FILE)' ]; then mkdir -p $(TMP_FILE); make project; fi;
 	@mkdir -p $(OBJ_DIR)
-	@printf "$(_ORANGE)| Compiling : $(_WHITE)%-21s$(_ORANGE)|\n" $<
+	@printf "$(_ORANGE)┃ Compiling : $(_WHITE)%-21s$(_ORANGE)┃\n" $<
 	@gcc $(FLAGS) -I $(INCLUDES) -c $< -o $@
 
 project:
-	@printf "$(_ORANGE)___________________________________\n$(_R)"
-	@printf "$(_BOLD)$(_ORANGE)| - %15s - 42 Project - |$(_R)\n" $(NAME)
-	@printf "$(_ORANGE)___________________________________\n$(_R)"
+	@printf "$(_ORANGE)┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n$(_R)"
+	@printf "$(_BOLD)$(_ORANGE)┃ - %15s - 42 Project - ┃$(_R)\n" $(NAME)
+	@printf "$(_ORANGE)┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n$(_R)"
 
 
 $(NAME): $(OBJ)
 	@gcc $(FLAGS) -I $(INCLUDES) $(OBJ) -o $(NAME)
-	@printf "$(_ORANGE)___________________________________\n$(_R)"
+	@printf "$(_ORANGE)┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n$(_R)"
 	@printf "$(_BOLD)$(_GREEN)$(NAME) successfully compiles !$(_R)\n"
 	@chmod 777 $(NAME)
 	@rm -rf $(TMP_FILE)
