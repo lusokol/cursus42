@@ -6,21 +6,21 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/27 13:59:56 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/27 14:33:45 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##########################################
 
-NAME = 
+NAME = megaphone
 
-SRC = 
+SRC = megaphone.cpp
 
-PATH_SRCS = ./srcs
+PATH_SRCS = ./
 
-INCLUDES =	./includes/
+INCLUDES =	./
 
-FLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -std=c++98# -g3 -fsanitize=address
 
 ##########################################
 
@@ -39,9 +39,9 @@ NO_RECURSE = 0
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(PATH_SRCS)/%.cpp
-	ifeq ($(NO_RECURSE), 0)
-		$(eval NB_FILE_TO_COMPILE ?= $(shell make NO_RECURSE=1 --dry-run --debug=b | grep "does not\|Must remake" | grep -o "\`.*\.o'" | sort | uniq | wc -l))
-	endif
+ifeq ($(NO_RECURSE), 0)
+	$(eval NB_FILE_TO_COMPILE ?= $(shell make --dry-run --debug=b | grep "does not\|Must remake" | grep -o "\`.*\.o'" | sort | uniq | wc -l))
+endif
 	@if [ '$(BEGIN)' -eq '0' ]; then BEGIN=1; make project; printf "nb file to compile : $(NB_FILE_TO_COMPILE)\n"; fi;
 	@mkdir -p $(OBJ_DIR)
 	@printf "$(_ORANGE)┃ Compiling : $(_WHITE)%-21s$(_ORANGE)┃\n" $<
