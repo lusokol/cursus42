@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phone_book.hpp                                     :+:      :+:    :+:   */
+/*   contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 17:57:32 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/29 19:37:44 by macbookpro       ###   ########.fr       */
+/*   Created: 2022/01/29 18:27:58 by macbookpro        #+#    #+#             */
+/*   Updated: 2022/01/29 20:29:00 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_HPP
-# define PHONE_BOOK_HPP
+#ifndef CONTACT_HPP
+# define CONTACT_HPP
 
-#include "main.hpp"
+# include "main.hpp"
 
-class Book {
+class Contact {
 
 public:
 
-    Book(void);
-    ~Book(void);
+    Contact(void);
+    ~Contact(void);
 
-	void Add(void);
-	void Search(void);
-	Contact list[8];
-	int	nb_contact;
+	void	Add_contact(void);
+	void	Aff_itself_less(int index);
+	void	Aff_itself(void);
+	std::string	info[5];
 };
 
 #endif

@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phone_book.hpp                                     :+:      :+:    :+:   */
+/*   main.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 17:57:32 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/29 19:37:44 by macbookpro       ###   ########.fr       */
+/*   Created: 2022/01/29 18:58:05 by macbookpro        #+#    #+#             */
+/*   Updated: 2022/01/29 19:05:42 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_HPP
-# define PHONE_BOOK_HPP
+#ifndef MAIN_HPP
+# define MAIN_HPP
 
-#include "main.hpp"
+# include <iostream>
 
-class Book {
-
-public:
-
-    Book(void);
-    ~Book(void);
-
-	void Add(void);
-	void Search(void);
-	Contact list[8];
-	int	nb_contact;
-};
+# include "contact.hpp"
+# include "phone_book.hpp"
 
 #endif

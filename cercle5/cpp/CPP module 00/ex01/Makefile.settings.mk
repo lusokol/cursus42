@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile.settings.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
+#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/01/27 18:07:34 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/29 18:57:42 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = Phone_Book
 # sources needed to compile
 SRC =	main.cpp \
 		phone_book.cpp \
+		contact.cpp \
 
 # path of sources (if nothing, put a '.')
 PATH_SRCS = .

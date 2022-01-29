@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
+#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/27 18:28:21 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/28 22:32:44 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,10 @@ all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(PATH_SRCS)/%.cpp
 ifeq ($(NO_RECURS), 0)
-	$(eval NB_FILE_TO_COMPILE ?= $(shell make NO_RECURS=1 --dry-run --debug=b | grep "does not\|Must remake" | grep -o "'.*\.o'" | sort | uniq | wc -l))
+	$(eval NB_FILE_TO_COMPILE ?= $(shell make NO_RECURS=1 --dry-run --debug=b | grep "does not\|Must remake" | grep -o "\`.*\.o'" | sort | uniq | wc -l))
 endif
 	@if [ '$(BEGIN)' -eq '0' ]; then $(eval BEGIN = 1) make project; printf "\n"; fi;
 	@mkdir -p $(OBJ_DIR)
-	
 	@printf "$(ERASE)$(MOVE_UP)$(_ORANGE)$(_ORANGE)┃ Compiling : $(_WHITE)%-26s$(_ORANGE)┃$(ESC_STOP)                      \n" $<
 	@$(DRAW_PROGRESS_BAR)
 	@printf "\n"
@@ -64,7 +63,7 @@ endif
 
 project:
 	@printf "$(_ORANGE)┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n$(_R)"
-	@printf "$(_BOLD)$(_ORANGE)┃ - %20s - 42 Project - ┃$(_R)\n" $(NAME)
+	@printf "$(_ORANGE)┃$(_BOLD) - %20s - 42 Project - $(_R)$(_ORANGE)┃$(_R)\n" $(NAME)
 	@printf "$(_ORANGE)┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n$(_R)"
 
 
