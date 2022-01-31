@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phone_book.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:59:31 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/29 21:36:37 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/01/31 15:53:32 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Book::~Book( void ) {
 
 void	Book::Add(void) {
 	if (this->nb_contact >= 8) {
-		std::cout << "Limit of maximum contact reached" << std::endl;
+		std::cout << "\e[38;5;196mLimit of maximum contact reached\e[0m" << std::endl;
 		return ;
 	}
 	this->list[this->nb_contact].Add_contact();
@@ -39,14 +39,11 @@ void	Book::Search(void) {
 		i++;
 	}
 	std::cout << "\033[34mChoose an index for more informations : \033[0m";
-	int index;
-	std::cin >> index;
-	if (std::cin.fail() || index < 0 || index >= this->nb_contact) {
+	std::getline(std::cin, tmp);
+	int index = tmp[0] - '0';
+	if (tmp.size() > 1 | index < 0 || index >= this->nb_contact) {
 		std::cout << "\e[38;5;208mWrong index, go back to the menu\e[0m" << std::endl;
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
-	else {
-		this->list[index].Aff_itself();
-	}
+	else
+	 	this->list[index].Aff_itself();
 }

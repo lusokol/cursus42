@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 18:34:47 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/01/29 21:28:41 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/01/31 15:54:19 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ void	Contact::Add_contact(void) {
 		while (tmp.size() == 0) {
 			std::cout << this->info[i] << " : ";
 			std::getline(std::cin, tmp);
-			this->info[i] = tmp;
 			if (tmp.size() == 0)
-				std::cout << "You have to fill each informations" << std::endl;
+				std::cout << "\e[38;5;208mYou have to fill each informations\e[0m" << std::endl;
+			else
+				this->info[i] = tmp;
 		}
 	}
 }
@@ -59,7 +60,7 @@ void	Contact::Aff_itself_less(int index) {
 		if (i < 2)
 			putchar('|');
 	}
-	std::cout << "\e[0m" << std::endl;
+	std::cout << std::endl;
 }
 
 void	Contact::Aff_itself(void) {

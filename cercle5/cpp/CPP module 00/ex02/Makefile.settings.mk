@@ -6,17 +6,16 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/01/31 13:14:32 by lusokol          ###   ########.fr        #
+#    Updated: 2022/01/31 17:51:17 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = Phone_Book
+NAME = jesaispas
 
 # sources needed to compile
-SRC =	main.cpp \
-		phone_book.cpp \
-		contact.cpp \
+SRC =	Account.cpp \
+		tests.cpp \
 
 # path of sources (if nothing, put a '.')
 PATH_SRCS = .
