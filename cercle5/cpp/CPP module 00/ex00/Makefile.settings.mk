@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/01/27 17:52:45 by lusokol          ###   ########.fr        #
+#    Updated: 2022/02/01 16:28:09 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = megaphone
 SRC = megaphone.cpp \
 
 # path of sources
-PATH_SRCS = .
+PATH_SRCS = ./srcs
 
 # pathe of includes
 INCLUDES =	./includes/

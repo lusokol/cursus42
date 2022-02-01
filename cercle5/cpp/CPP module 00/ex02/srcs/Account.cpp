@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 16:12:01 by lusokol           #+#    #+#             */
-/*   Updated: 2022/01/31 18:38:50 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:34:19 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ Account::Account(int initial_deposit) : _amount(initial_deposit) {
 	_totalAmount += _amount;
 	_nbDeposits = 0;
 	_nbWithdrawals = 0;
-	//_totalNbDeposits += 1;
-	std::cout << " index:" << this->_accountIndex << ";amount:" << _amount << ";created" << std::endl;
+	std::cout << "\e[0m index:\e[38;5;208m" << this->_accountIndex << "\e[0m;amount:\e[38;5;208m" << _amount << "\e[0m;created" << std::endl;
 	return ;
 }
 
 Account::~Account(void) {
 	Account::_displayTimestamp();
-	std::cout << " index:" << this->_accountIndex << ";amount:" << _amount << ";closed" << std::endl;
+	std::cout << "\e[0m index:\e[38;5;208m" << this->_accountIndex << "\e[0m;amount:\e[38;5;208m" << _amount << "\e[0m;closed" << std::endl;
 	return ;
 }
 
@@ -53,39 +52,43 @@ int Account::getNbWithdrawals(void) {
 
 void Account::displayAccountsInfos(void) {
 	Account::_displayTimestamp();
-	std::cout << " accounts:" << getNbAccounts() << ";total:" << getTotalAmount() << ";deposits:" << getNbDeposits() << ";withdrawals:" << getNbWithdrawals() << std::endl;
+	std::cout << "\e[0m accounts:\e[38;5;208m" << getNbAccounts() << "\e[0m;total:\e[38;5;208m" << getTotalAmount() << "\e[0m;deposits:\e[38;5;208m" << getNbDeposits() << "\e[0m;withdrawals:\e[38;5;208m" << getNbWithdrawals() << "\e[0m" << std::endl;
 	return ;
 }
 void Account::makeDeposit(int deposit) {
 	Account::_displayTimestamp();
 	int p_amount = _amount;
 	_amount += deposit;
+	_totalAmount += deposit;
 	_nbDeposits += 1;
-	std::cout << " index:" << _accountIndex << ";p_amount:" << p_amount << ";deposit:" << deposit << ";amount:" << _amount << ";nb_deposits:" << _nbDeposits << std::endl;	return ;
+	_totalNbDeposits += 1;
+	std::cout << "\e[0m index:\e[38;5;208m" << _accountIndex << "\e[0m;p_amount:\e[38;5;208m" << p_amount << "\e[0m;deposit:\e[38;5;208m" << deposit << "\e[0m;amount:\e[38;5;208m" << _amount << "\e[0m;nb_deposits:\e[38;5;208m" << _nbDeposits << "\e[0m" << std::endl;
+	return ;
 }
-// [19920104_091532] index:0;p_amount:47;withdrawal:refused
-// [19920104_091532] index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1
+
 bool Account::makeWithdrawal(int withdrawal) {
 	Account::_displayTimestamp();
 	int p_amount = _amount;
 	if (withdrawal > _amount)
-		std::cout << " index:" << _accountIndex << ";p_amount:" << p_amount << ";withdrawal:refused" <<std::endl;
+		std::cout << "\e[0m index:\e[38;5;208m" << _accountIndex << "\e[0m;p_amount:\e[38;5;208m" << p_amount << "\e[0m;withdrawal:refused" <<std::endl;
 	else {
 		_amount -= withdrawal;
 		_nbWithdrawals += 1;
-		std::cout << " index:" << _accountIndex << ";p_amount:" << p_amount << ";withdrawal:" << withdrawal << ";amount:" << _amount << ";nb_withdrawals:" << _nbWithdrawals << std::endl;
+		_totalNbWithdrawals += 1;
+		_totalAmount -= withdrawal;
+		std::cout << "\e[0m index:\e[38;5;208m" << _accountIndex << "\e[0m;p_amount:\e[38;5;208m" << p_amount << "\e[0m;withdrawal:\e[38;5;208m" << withdrawal << "\e[0m;amount:\e[38;5;208m" << _amount << "\e[0m;nb_withdrawals:\e[38;5;208m" << _nbWithdrawals << "\e[0m" << std::endl;
 	}
 	return true;
 }
 
 int Account::checkAmount(void) const {
-	std::cout << _accountIndex << " check amount" << std::endl;
+	std::cout << _accountIndex << "\e[0m check amount" << std::endl;
 	return 0;
 }
 
 void Account::displayStatus(void) const {
 	Account::_displayTimestamp();
-	std::cout << " index:" << _accountIndex << ";amount:" << _amount << ";deposits:" << _nbDeposits << ";withdrawals:" << _nbWithdrawals << std::endl;
+	std::cout << "\e[0m index:\e[38;5;208m" << _accountIndex << "\e[0m;amount:\e[38;5;208m" << _amount << "\e[0m;deposits:\e[38;5;208m" << _nbDeposits << "\e[0m;withdrawals:\e[38;5;208m" << _nbWithdrawals << "\e[0m" << std::endl;
 	return ;
 }
 

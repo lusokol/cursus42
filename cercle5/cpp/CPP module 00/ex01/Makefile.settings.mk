@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/01/31 13:14:32 by lusokol          ###   ########.fr        #
+#    Updated: 2022/02/01 16:25:17 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,10 @@ SRC =	main.cpp \
 		contact.cpp \
 
 # path of sources (if nothing, put a '.')
-PATH_SRCS = .
+PATH_SRCS = ./srcs
 
 # pathe of includes
-INCLUDES = .
+INCLUDES = ./includes
 
 # flags for compilation
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98# -g3 -fsanitize=address
