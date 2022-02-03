@@ -6,21 +6,24 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/01/27 17:52:54 by lusokol          ###   ########.fr        #
+#    Updated: 2022/02/03 18:18:44 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = 
+NAME = BraiiiiiiinnnzzzZ
 
 # sources needed to compile
-SRC = 
+SRC =	main.cpp \
+		newZombie.cpp \
+		randomChump.cpp \
+		Zombie.cpp \
 
-# path of sources (if nothing, put a '.')
-PATH_SRCS = .
+# path of sources
+PATH_SRCS = ./srcs
 
 # pathe of includes
-INCLUDES =	
+INCLUDES =	./includes/
 
 # flags for compilation
 FLAGS = -Wall -Wextra -Werror -std=c++98# -g3 -fsanitize=address
