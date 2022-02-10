@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ZombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   humanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 18:39:03 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/10 14:56:45 by macbookpro       ###   ########.fr       */
+/*   Created: 2022/02/08 14:28:34 by macbookpro        #+#    #+#             */
+/*   Updated: 2022/02/08 17:12:39 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
-Zombie*	zombieHorde(int N, std::string name) {
-	Zombie *horde;
-	if (N > 0)
-		horde = new Zombie[N];
-	for (int i = 0; i < N; i++) {
-		horde[i].setZombie(name);
-	}
-	return (horde);
-}
+#include "Weapon.hpp"
+
+class HumanA {
+
+public:
+
+	HumanA(std::string name, Weapon &arme);
+	~HumanA();
+	void attack();
+
+private:
+	Weapon &myWeapon;
+	std::string name;
+
+};
+
+#endif

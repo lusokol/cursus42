@@ -6,18 +6,16 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/02/08 14:54:03 by macbookpro       ###   ########.fr        #
+#    Updated: 2022/02/10 14:16:16 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = weapon
+NAME = karenFilter
 
 # sources needed to compile
 SRC =	main.cpp \
-		Weapon.cpp \
-		HumanA.cpp \
-		HumanB.cpp \
+		Karen.cpp \
 
 # path of sources
 PATH_SRCS = ./srcs

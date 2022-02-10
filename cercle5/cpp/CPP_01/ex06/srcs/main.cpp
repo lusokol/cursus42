@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ZombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 18:39:03 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/10 14:56:45 by macbookpro       ###   ########.fr       */
+/*   Created: 2022/02/09 18:32:41 by macbookpro        #+#    #+#             */
+/*   Updated: 2022/02/10 14:42:32 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Karen.hpp"
 
-Zombie*	zombieHorde(int N, std::string name) {
-	Zombie *horde;
-	if (N > 0)
-		horde = new Zombie[N];
-	for (int i = 0; i < N; i++) {
-		horde[i].setZombie(name);
+int main(int ac, char **av) {
+	Karen grosse;
+	if (ac != 2) {
+		std::cout << "\e[38;5;196mInvalid format :" << std::endl << "./karenFilter [ level ]\e[0m" << std::endl;
+		return (1);
 	}
-	return (horde);
+	grosse.complain(av[1]);
 }
