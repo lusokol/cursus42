@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:26:47 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/15 19:43:07 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/16 13:41:33 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int main( void ) {
 	std::cout << GREEN << "Biggest between " << RED << c << GREEN << " and " << RED << d << GREEN << " : " << ORANGE << Fixed::max( c, d ) << STOP << std::endl;
 	std::cout << GREEN << "Biggest between " << RED << d << GREEN << " and " << RED << c << GREEN << " : " << ORANGE << Fixed::max( d, c ) << STOP << std::endl << std::endl;
 	
-	Fixed const c2(13.45f);
-	Fixed const d2(8.42f);
+	Fixed const c2( 13.45f );
+	Fixed const d2( 8.42f );
 	std::cout << GREEN << "Const variable" << std::endl;
 	std::cout << GREEN << "Smallest between " << RED << c2 << GREEN << " and " << RED << d2 << GREEN << " : " << ORANGE << Fixed::min( c2, d2 ) << STOP << std::endl;
 	std::cout << GREEN << "Smallest between " << RED << d2 << GREEN << " and " << RED << c2 << GREEN << " : " << ORANGE << Fixed::min( d2, c2 ) << STOP << std::endl;
