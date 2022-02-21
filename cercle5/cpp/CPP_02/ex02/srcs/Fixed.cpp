@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 13:47:46 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/15 19:34:57 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/16 14:02:01 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ Fixed::Fixed(Fixed const &copy) {
 
 Fixed::~Fixed(void) {
 	// DISPLAY std::cout << "Destructor called" << std::endl;
-}
-
-Fixed &Fixed::operator=(Fixed const &fixed) {
-	// DISPLAY std::cout << "Copy assignment operator called" << std::endl;
-	this->value = fixed.getRawBits();
-	return (*this);
 }
 
 int Fixed::getRawBits(void) const {
@@ -114,6 +108,14 @@ Fixed Fixed::operator--(int) {
 	Fixed tmp(*this);
 	this->value -= 1;
 	return (tmp);
+}
+
+// Assignment operator
+
+Fixed &Fixed::operator=(Fixed const &fixed) {
+	// DISPLAY std::cout << "Copy assignment operator called" << std::endl;
+	this->value = fixed.getRawBits();
+	return (*this);
 }
 
 // arithmetic operator

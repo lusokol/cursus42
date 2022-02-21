@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 13:44:54 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/15 19:35:28 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/16 14:04:22 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ public:
 	Fixed(Fixed &copy);
 	Fixed(Fixed const &copy);
 	~Fixed(void);
-	Fixed &operator=(Fixed const &fixed);
 
 	float getFloat(void) const;
 	int getRawBits(void) const;
@@ -37,20 +36,21 @@ public:
 	static Fixed max(Fixed &ref1, Fixed &ref2);
 	static Fixed max(Fixed const &ref1, Fixed const &ref2);
 	
+	Fixed &operator=(Fixed const &fixed); // a = b
 	Fixed operator++(); //++a
 	Fixed operator++(int); //a++
 	Fixed operator--(); //--a
 	Fixed operator--(int); //a--
-	Fixed operator+(Fixed const &ref) const;
-	Fixed operator-(Fixed const &ref) const;
-	Fixed operator*(Fixed const &ref) const;
-	Fixed operator/(Fixed const &ref) const;
-	bool operator==(Fixed const &ref) const;
-	bool operator!=(Fixed const &ref) const;
-	bool operator>(Fixed const &ref) const;
-	bool operator>=(Fixed const &ref) const;
-	bool operator<(Fixed const &ref) const;
-	bool operator<=(Fixed const &ref) const;
+	Fixed operator+(Fixed const &ref) const; // a + a
+	Fixed operator-(Fixed const &ref) const; // a - a
+	Fixed operator*(Fixed const &ref) const; // a * a
+	Fixed operator/(Fixed const &ref) const; // a / a
+	bool operator==(Fixed const &ref) const; // (a == a)
+	bool operator!=(Fixed const &ref) const; // (a != a)
+	bool operator>(Fixed const &ref) const;  // (a > a)
+	bool operator>=(Fixed const &ref) const; // (a >= a)
+	bool operator<(Fixed const &ref) const;  // (a < a)
+	bool operator<=(Fixed const &ref) const; // (a <= a)
 
 private:
 

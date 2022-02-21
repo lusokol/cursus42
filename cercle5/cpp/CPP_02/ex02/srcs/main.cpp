@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:26:47 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/16 13:41:33 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/16 14:03:00 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int main( void ) {
 
 	Fixed c(10.09f);
 	Fixed d(10.01f);
-
 	std::cout << std::endl << GREEN << "Comparaison :" << std::endl;
 	std::cout << GREEN << "Start value, c = " << RED << c << GREEN << " and d = " << RED << d << STOP << std::endl;
 	std::cout << GREEN << "Comparator \"==\" : " << RED << c << GREEN << GREEN << " == " << RED << d << GREEN << " -> " << ORANGE << ((c == d) ? "true" : "false") << STOP << std::endl;
