@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/01/31 13:15:11 by lusokol          ###   ########.fr        #
+#    Updated: 2022/02/21 16:50:47 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,12 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: clean all
+
+run: all
+	@./$(NAME)
+
+rerun: re
+	@./$(NAME)
 
 ########################################## colors
 
