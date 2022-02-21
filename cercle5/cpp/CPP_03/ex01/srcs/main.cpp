@@ -6,15 +6,17 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:57:55 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/21 17:16:52 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/02/21 18:59:29 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main(void) {
 {
-    ClapTrap albert(std::string("Albert"));
+    ScavTrap test("yolo");
+    ScavTrap albert(test);
         
     std::cout << std::endl << albert << std::endl;
     

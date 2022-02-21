@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:50:34 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/21 17:11:04 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/02/21 18:54:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class ClapTrap {
 public:
 
 	ClapTrap(std::string name = "ClapTrap");
-	ClapTrap(ClapTrap &copy);
+	ClapTrap(ClapTrap const &copy);
 	~ClapTrap(void);
 	
 	ClapTrap &operator=(ClapTrap const &ClapTrap);
@@ -34,7 +34,7 @@ public:
 	unsigned int getEp(void) const;
 	unsigned int getAd(void) const;
 
-private:
+protected:
 
 	std::string Name;
 	int			hp;

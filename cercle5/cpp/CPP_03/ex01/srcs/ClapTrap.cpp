@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:08:02 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/21 17:12:20 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/02/21 18:58:52 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ ClapTrap::~ClapTrap(void) {
 	std::cout << "Destructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(ClapTrap &copy) {
+ClapTrap::ClapTrap(ClapTrap const &copy) {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = copy;
 }
