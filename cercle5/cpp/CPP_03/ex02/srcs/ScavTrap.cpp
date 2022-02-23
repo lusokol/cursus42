@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 18:02:40 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 14:03:44 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 14:51:31 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap() {
     this->Name = name;
-	// this->type = std::string("5C4V-7R4P");
+	// this->type = std::string("ScavTrap");
     this->hp = 100;
     this->ep = 50;
     this->ad = 20;
-	this->type = std::string("5C4V-7R4P");
+	this->type = std::string("ScavTrap");
     std::cout << "ScavTrap constructor called" << std::endl;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &copy) : ClapTrap(copy) {
-	this->type = std::string("5C4V-7R4P");
+	this->type = std::string("ScavTrap");
 	std::cout << "ScavTrap constructor called" << std::endl;
 }
 
