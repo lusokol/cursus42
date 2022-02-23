@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:57:55 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 18:03:59 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 20:18:57 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,22 @@ int main(void) {
 
 	std::cout << std::endl << albert << std::endl << jean << std::endl << philipe << std::endl << hugue << std::endl << std::endl;
 
-	std::cout << "Étourmi a prit tarif !" << std::endl;
-
-	philipe.highFivesGuys();
+	// philipe.guardGate(); // pas ok
+	// philipe.highFivesGuys(); // ok
+	// 
+	// std::cout << std::endl;
+	// 
+	// albert.guardGate(); // ok
+	// albert.highFivesGuys(); // pas ok
+	// 
+	// std::cout << std::endl;
+	// 
+	// hugue.guardGate(); // ok
+	// hugue.highFivesGuys(); // ok
+	
+	hugue.whoAmI();
+	
+	std::cout << "\e[38;5;118mÉtourmi a prit tarif ! (c'est en FR, balec)\e[0m" << std::endl;
 	
 	std::cout << std::endl;
 }

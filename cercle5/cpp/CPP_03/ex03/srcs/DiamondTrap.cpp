@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 18:02:40 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 17:53:13 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 20:19:13 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,6 @@ void    DiamondTrap::attack(std::string const &ref) {
 	this->ScavTrap::attack(ref);
 }
 
-void	DiamondTrap::highFivesGuys(void) {
-	std::string buf;
-	std::cout << GREEN << this->type << " " << this->Name << " ask you for a high fives (y/n) : ";
-	while (1) {
-		std::cin >> buf;
-		if (std::cin.eof() == true)
-				exit(EXIT_FAILURE);
-		if (buf.size() == 1 && (buf == "y" || buf == "Y")) {
-			std::cout << ORANGE << "ヘ( ^o^)ノ＼(^_^ )" << std::endl;
-			break ;
-		}
-		else if (buf.size() == 1 && (buf == "n" || buf == "N")) {
-			std::cout << ORANGE << "( ╯﹏╰ )" << std::endl;
-			break ;
-		}
-		else {
-			std::cout << "I did not understand your answer" << std::endl << GREEN << this->type << " " << this->Name << " ask you for a high fives (y/n) : ";
-		}
-	}
-	std::cout << STOP;
+void	DiamondTrap::whoAmI(void) const {
+	std::cout << ORANGE << "My name is " << this->Name << " " << this->ClapTrap::Name << ", but just call me " << this->Name << STOP << std::endl;
 }

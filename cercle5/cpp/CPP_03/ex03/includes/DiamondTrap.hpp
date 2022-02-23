@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:58:12 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 15:43:23 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 19:54:17 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ public:
     
     void    attack(std::string const &ref);
 	void	highFivesGuys(void);
+	void	whoAmI(void) const;
 
 private:
 	std::string Name;

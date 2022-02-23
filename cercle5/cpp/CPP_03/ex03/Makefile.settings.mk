@@ -6,7 +6,7 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/02/23 17:18:15 by macbookpro       ###   ########.fr        #
+#    Updated: 2022/02/23 20:16:44 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ PATH_SRCS = ./srcs
 INCLUDES =	./includes/
 
 # flags for compilation
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98# -g3 -fsanitize=address
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98# -Wshadow -Wno-shadow # -g3 -fsanitize=address
 
 # compiler used
 CXX = c++
