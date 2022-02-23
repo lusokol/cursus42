@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:57:55 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/21 18:59:29 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/02/22 12:31:10 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,42 @@
 #include "ScavTrap.hpp"
 
 int main(void) {
-{
-    ScavTrap test("yolo");
-    ScavTrap albert(test);
+// {
+    ClapTrap jean("Jean");
+    ScavTrap albert("Albert");
         
     std::cout << std::endl << albert << std::endl;
-    
-    albert.attack(std::string("a zombie"));
-    albert.takeDamage(3);
-    
-    std::cout << albert << std::endl;
-    
-    albert.attack(std::string("a zombie"));
-    albert.takeDamage(2);
+	std::cout << std::endl << jean << std::endl;
+	
+	albert.attack(std::string("a zombie"));
+	jean.attack(std::string("a zombie"));
 
-    std::cout << albert << std::endl;
-
-    albert.beRepaired(1);
-
-    std::cout << albert << std::endl;
-
-    albert.attack(std::string("a zombie"));
-    albert.takeDamage(6);
-
-    std::cout << albert << std::endl;
+	std::cout << std::endl << albert << std::endl;
+	std::cout << std::endl << jean << std::endl;
+    // albert.attack(std::string("a zombie"));
+    // albert.takeDamage(3);
     
-    albert.attack(std::string("a zombie"));
-    albert.takeDamage(2);
+    // std::cout << albert << std::endl;
     
-    std::cout << albert << std::endl << std::endl;
-}
+    // albert.attack(std::string("a zombie"));
+    // albert.takeDamage(2);
+
+    // std::cout << albert << std::endl;
+
+    // albert.beRepaired(1);
+
+    // std::cout << albert << std::endl;
+
+    // albert.attack(std::string("a zombie"));
+    // albert.takeDamage(6);
+
+    // std::cout << albert << std::endl;
+    
+    // albert.attack(std::string("a zombie"));
+    // albert.takeDamage(2);
+    
+    // std::cout << albert << std::endl << std::endl;
+// }
 //  std::cout << std::endl << std::endl << std::endl;
 // {
 //     ClapTrap albert(std::string("Albert"));
