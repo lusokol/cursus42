@@ -6,7 +6,7 @@
 #    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/02/23 14:47:26 by macbookpro       ###   ########.fr        #
+#    Updated: 2022/02/23 17:18:15 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC =	main.cpp \
 		ClapTrap.cpp \
 		ScavTrap.cpp \
 		FragTrap.cpp \
+		DiamondTrap.cpp \
 
 # path of sources
 PATH_SRCS = ./srcs

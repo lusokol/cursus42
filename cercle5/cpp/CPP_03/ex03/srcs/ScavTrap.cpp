@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 18:02:40 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 14:51:31 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 17:16:51 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ void    ScavTrap::attack(std::string const &ref) {
 
 void	ScavTrap::guardGate(void) {
 	std::cout << ORANGE << this->type << " enter in GATE KEEPER mode" << std::endl;
+}
+
+int 	ScavTrap::getDefaultHp() const {
+	return this->defaultHp;
+}
+
+int 	ScavTrap::getDefaultEp() const {
+	return this->defaultEp;
+}
+
+int 	ScavTrap::getDefaultAd() const {
+	return this->defaultAd;
 }

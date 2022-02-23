@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:58:12 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 17:26:06 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 15:43:23 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAGTRAP_HPP
-# define FRAGTRAP_HPP
+#ifndef DIAMONDTRAP_HPP
+# define DIAMONDTRAP_HPP
 
 # include "ClapTrap.hpp"
+# include "FragTrap.hpp"
+# include "ScavTrap.hpp"
 
-class FragTrap : virtual public ClapTrap {
+class DiamondTrap : public ScavTrap, public FragTrap {
     
 public:
-    FragTrap(std::string name = "Fr49-7r4p");
-    FragTrap(FragTrap const &ref);
-    ~FragTrap(void);
+    DiamondTrap(std::string name = "D14M0ND-7R4P");
+    DiamondTrap(DiamondTrap const &ref);
+    ~DiamondTrap(void);
     
     void    attack(std::string const &ref);
 	void	highFivesGuys(void);
-	int 	getDefaultHp() const;
-	int 	getDefaultEp() const;
-	int 	getDefaultAd() const;
-	
-protected:
-	static const int defaultHp = 100;
-	static const int defaultEp = 100;
-	static const int defaultAd = 30;
+
+private:
+	std::string Name;
 };
 
 #endif

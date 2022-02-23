@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 18:02:40 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 15:22:56 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 17:16:04 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,16 @@ void	FragTrap::highFivesGuys(void) {
 		}
 	}
 	std::cout << STOP;
+}
+
+int 	FragTrap::getDefaultHp() const {
+	return this->defaultHp;
+}
+
+int 	FragTrap::getDefaultEp() const {
+	return this->defaultEp;
+}
+
+int 	FragTrap::getDefaultAd() const {
+	return this->defaultAd;
 }

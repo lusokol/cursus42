@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:58:12 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 13:47:41 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/23 17:26:12 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : virtual public ClapTrap {
     
 public:
     ScavTrap(std::string name = "5C4V-7R4P");
@@ -24,6 +24,14 @@ public:
     
     void    attack(std::string const &ref);
 	void	guardGate(void);
+	int 	getDefaultHp() const;
+	int 	getDefaultEp() const;
+	int 	getDefaultAd() const;
+
+protected:
+	static const int defaultHp = 100;
+	static const int defaultEp = 50;
+	static const int defaultAd = 20;
 };
 
 #endif
