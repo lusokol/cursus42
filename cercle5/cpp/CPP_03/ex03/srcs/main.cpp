@@ -6,7 +6,7 @@
 /*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:57:55 by lusokol           #+#    #+#             */
-/*   Updated: 2022/02/23 20:18:57 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/24 15:13:43 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int main(void) {
 	// std::cout << std::endl;
 	// 
 	// hugue.guardGate(); // ok
-	// hugue.highFivesGuys(); // ok
+	 hugue.highFivesGuys(); // ok
 	
 	hugue.whoAmI();
 	
