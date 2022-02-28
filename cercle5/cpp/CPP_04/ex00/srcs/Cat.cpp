@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:21:53 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/24 14:40:33 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/02/28 14:33:15 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 Cat::Cat(void) : Animal() {
 	Animal::type = "Cat";
+	Animal::sound = "Miaouuuuuuu 🐈";
 	std::cout << "A wild Cat has spawn" << std::endl;
 }
 
