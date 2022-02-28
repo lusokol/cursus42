@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:58:47 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/28 17:00:16 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/02/28 19:25:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_HPP
-# define WRONGANIMAL_HPP
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
 
 # include <iostream>
 
-class WrongAnimal {
+class Animal {
 
 public:
 
-	WrongAnimal(void);
-	WrongAnimal(WrongAnimal const &ref);
-	~WrongAnimal(void);
-	WrongAnimal &operator=(WrongAnimal const &ref);
+	Animal(void);
+	Animal(Animal const &ref);
+	virtual ~Animal(void);
+	Animal &operator=(Animal const &ref);
 
 	std::string getType(void) const;
 	void makeSound(void) const;

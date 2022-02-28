@@ -6,12 +6,12 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/02/28 17:08:13 by lusokol          ###   ########.fr        #
+#    Updated: 2022/02/28 19:09:28 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = Polymorphisme
+NAME = Brain
 
 # sources needed to compile
 SRC =	main.cpp \
@@ -20,6 +20,7 @@ SRC =	main.cpp \
 		Cat.cpp \
 		WrongCat.cpp \
 		WrongAnimal.cpp \
+		Brain.cpp \
 
 # path of sources
 PATH_SRCS = ./srcs
@@ -28,7 +29,7 @@ PATH_SRCS = ./srcs
 INCLUDES =	./includes/
 
 # flags for compilation
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98# -g3 -fsanitize=address
+CXXFLAGS = #-Wall -Wextra -Werror -std=c++98# -g3 -fsanitize=address
 
 # compiler used
 CXX = c++
