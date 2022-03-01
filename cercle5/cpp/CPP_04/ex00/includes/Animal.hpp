@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:58:47 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/28 14:36:53 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:54:06 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ public:
 	Animal &operator=(Animal const &ref);
 
 	std::string getType(void) const;
-	void makeSound(void) const;
+	virtual void makeSound(void) const;
 
 protected:
 
 	std::string type;
-	std::string sound;
 
 };
 

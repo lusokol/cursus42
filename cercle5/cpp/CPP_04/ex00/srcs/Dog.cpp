@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:21:53 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/01 16:55:01 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:50:44 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 Dog::Dog(void) : Animal() {
 	Animal::type = "Dog";
-	Animal::sound = "Wooof 🐶";
 	std::cout << ORANGE << "A wild Dog has spawn" << STOP << std::endl;
 }
 
@@ -32,4 +31,8 @@ Dog &Dog::operator=(Dog const &ref) {
 	this->type = ref.type;
 	std::cout << ORANGE << "Wild dog assignation operator called" << STOP << std::endl;
 	return *this;
+}
+
+void Dog::makeSound(void) const {
+	std::cout << LGREEN << "[" << this->type << "] Wooof 🐶" << STOP << std::endl;
 }

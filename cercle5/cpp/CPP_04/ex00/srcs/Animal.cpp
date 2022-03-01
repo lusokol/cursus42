@@ -6,14 +6,14 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:07:40 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/28 17:48:19 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:51:50 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
 #include "color.hpp"
 
-Animal::Animal(void) : type(std::string("Unknow animal")), sound("*strange sound from an unknow animal*") {
+Animal::Animal(void) : type(std::string("Unknow animal")) {
 	std::cout << BLUE << "A wild animal has spawn" << STOP << std::endl;
 }
 
@@ -37,5 +37,5 @@ std::string Animal::getType(void) const {
 }
 
 void Animal::makeSound(void) const {
-	std::cout << LGREEN << "[" << this->type << "] " << this->sound << STOP << std::endl;
+	std::cout << LGREEN << "[" << this->type << "] *strange sound from an unknow animal*" << STOP << std::endl;
 }

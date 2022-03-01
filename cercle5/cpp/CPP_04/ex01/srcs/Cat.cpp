@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:21:53 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/01 19:31:17 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:55:36 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 Cat::Cat(void) : Animal() {
 	Animal::type = "Cat";
-	Animal::sound = "Miaouuuuuuu 🐈";
 	this->brain = new Brain();
 	std::cout << ORANGE << "A wild Cat has spawn" << STOP << std::endl;
 }
@@ -23,7 +22,6 @@ Cat::Cat(void) : Animal() {
 Cat::Cat(Cat const &ref) : Animal(ref) {
 	std::cout << ORANGE << "A wild Cat has been duplicated" << STOP << std::endl;
 	this->brain = new Brain();
-	// this->brain = ref.brain;
 	*this = ref;
 }
 
@@ -41,7 +39,7 @@ Cat	&Cat::operator=(Cat const &ref)
 }
 
 void Cat::makeSound(void) const {
-	std::cout << LGREEN << "[" << this->type << "] " << this->sound << STOP << std::endl;
+	std::cout << LGREEN << "[" << this->type << "] Miaouuuuuuu 🐈" << STOP << std::endl;
 }
 
 void Cat::addIdea(std::string idea) {this->brain->addIdea(idea);}
