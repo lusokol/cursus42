@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:58:07 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/01 19:40:45 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:40:13 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int main(void) {
 	dog2.affIdea();
 	std::cout << STOP << std::endl << std::endl;
 	
+	// With this line, it shouldn't compile
+	// Animal test;
+
 	// std::cout << LRED << "============== Leaks ==============" << STOP << std::endl;
 	// system ("leaks Brain");
 }
