@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:58:47 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/28 18:23:22 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:47:23 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ public:
 
 	Cat(void);
 	Cat(Cat const &ref);
-	~Cat(void);
+	virtual ~Cat(void);
+	void addIdea(std::string idea);
+	void affIdea(void) const;
+	Cat	&operator=(Cat const &ref);
 
 private:
 

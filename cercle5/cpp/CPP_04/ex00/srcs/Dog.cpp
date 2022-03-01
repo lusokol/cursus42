@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:21:53 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/28 17:43:11 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:55:01 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,10 @@ Dog::Dog(Dog const &ref) {
 
 Dog::~Dog(void) {
 	std::cout << ORANGE << "The wild Dog has disappear" << STOP << std::endl;
+}
+
+Dog &Dog::operator=(Dog const &ref) {
+	this->type = ref.type;
+	std::cout << ORANGE << "Wild dog assignation operator called" << STOP << std::endl;
+	return *this;
 }

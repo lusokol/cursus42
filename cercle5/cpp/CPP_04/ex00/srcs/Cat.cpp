@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:21:53 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/02/28 17:43:59 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/01 16:55:13 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,10 @@ Cat::Cat(Cat const &ref) {
 
 Cat::~Cat(void) {
 	std::cout << ORANGE << "The wild Cat has disappear" << STOP << std::endl;
+}
+
+Cat &Cat::operator=(Cat const &ref) {
+	this->type = ref.type;
+	std::cout << ORANGE << "Wild cat assignation operator called" << STOP << std::endl;
+	return *this;
 }
