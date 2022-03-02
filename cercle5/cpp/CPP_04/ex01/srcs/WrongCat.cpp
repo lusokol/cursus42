@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:21:53 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/01 19:58:56 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/02 15:43:45 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ WrongCat	&WrongCat::operator=(WrongCat const &ref)
 }
 
 void WrongCat::makeSound(void) const {
-	std::cout << LGREEN << "[" << this->type << "] FAKE Miaouuuuuuu 🐈" << STOP << std::endl;
+	std::cout << LGREEN << "[" << this->type << "] Fake Miaouuuuuuu 🐈" << STOP << std::endl;
 }

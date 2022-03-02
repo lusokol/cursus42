@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:07:40 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/01 19:57:49 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/02 15:43:32 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ std::string WrongAnimal::getType(void) const {
 }
 
 void WrongAnimal::makeSound(void) const {
-	std::cout << LGREEN << "[" << this->type << "] *strange FAKE sound from an unknow animal*" << STOP << std::endl;
+	std::cout << LGREEN << "[" << this->type << "] *strange sound from an unknow WrongAnimal*" << STOP << std::endl;
 }
