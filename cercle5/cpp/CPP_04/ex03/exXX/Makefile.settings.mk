@@ -6,21 +6,15 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/03/02 15:57:47 by lusokol          ###   ########.fr        #
+#    Updated: 2022/02/21 16:00:16 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = PureBrain
+NAME = 
 
 # sources needed to compile
-SRC =	main.cpp \
-		Animal.cpp \
-		Dog.cpp \
-		Cat.cpp \
-		WrongCat.cpp \
-		WrongAnimal.cpp \
-		Brain.cpp \
+SRC =	
 
 # path of sources
 PATH_SRCS = ./srcs

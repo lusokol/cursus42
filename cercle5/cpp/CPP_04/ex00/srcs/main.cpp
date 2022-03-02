@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 13:58:07 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/02 14:38:55 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/02 15:55:16 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int main(void) {
 	
 	cat.makeSound();
 	dog.makeSound();
-	std::cout << "WrongCat on a WrongCat variable : " << std::endl;
+	std::cout << MAGENTA << "WrongCat on a WrongCat variable : " << STOP << std::endl;
 	wCat.makeSound();
-	std::cout << "WrongCat on a WrongAnimal variable : " << std::endl;
+	std::cout << MAGENTA << "WrongCat on a WrongAnimal variable : " << STOP << std::endl;
 	wAnimal->makeSound();
 	something.makeSound();
+	delete wAnimal;
 	std::cout << std::endl;
 }
