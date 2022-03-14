@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:08:47 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/10 16:29:00 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/03/14 15:29:50 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
+
 void aff_err(std::string str, std::exception const &except) {
     std::cerr << RED << BOLD << str << ": " << STOP << LRED << except.what() << STOP << std::endl;
 }
@@ -66,11 +68,12 @@ int main(void) {
     Bureaucrat rix("Rix", 42);
     Bureaucrat rix_bis(rix);
     Bureaucrat rax("Rax", 21);
-    rax = rix;
+
+    std::cout << std::endl;
     std::cout << ORANGE << rax << STOP << std::endl;
 	
 	Form test("waouw", 30, 123);
-	std::cout << RED << test << std::endl << STOP;
+	std::cout << ORANGE << test << std::endl << STOP;
 	rix.signForm(test);
 	rax.signForm(test);
 	

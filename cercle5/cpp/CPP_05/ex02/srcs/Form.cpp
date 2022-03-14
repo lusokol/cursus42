@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:42:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/14 14:46:41 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/14 15:53:18 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ void Form::beSigned(Bureaucrat &ref) {
 		throw Form::GradeTooLowException();
 	else
 		this->isSigned = true;
+}
+
+void	Form::execute(Bureaucrat const &executor) const {
+	if (this->isSigned == false)
+		throw Form::NotSignedException();
+	if (this->gradeToExecute < executor.getGrade())
+		throw Form::GradeTooLowException();
 }
 
 std::string	Form::getName(void) const { return this->name; }

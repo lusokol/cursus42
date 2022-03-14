@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:40:03 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/14 14:35:34 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/14 17:35:47 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ class Form {
 
 public:
 
-	//Form(void);
 	Form(std::string name = "simple form", int toSign = 150, int toExecute = 150);
 	Form(const Form &ref);
-	~Form(void);
+	virtual ~Form(void);
 	Form &operator=(const Form &ref);
 
 	std::string	getName(void) const;
@@ -33,7 +32,16 @@ public:
 	int	getGradeToSign(void) const;
 	int	getGradeToExecute(void) const;
 	void beSigned(Bureaucrat &ref);
+	virtual void do_execute(void) const = 0;
+	void execute(Bureaucrat const &executor) const;
 
+	class NotSignedException : public std::exception {
+        
+        public:
+            virtual const char* what() const throw() {
+                return ("Form isn't signed");
+            }        
+    };
 	class GradeTooLowException : public std::exception {
         
         public:

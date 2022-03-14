@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:02:36 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/14 14:45:20 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/14 15:51:57 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,20 @@ void Bureaucrat::signForm(Form &ref) {
 		return ;
 	}
 	std::cout << LGREEN << this->getName() << " signed " << ref.getName() << std::endl << STOP;
+}
+
+void	Bureaucrat::executeForm(Form const &ref) const
+{
+	try
+	{
+		ref.execute(*this);
+		std::cout << ORANGE << this->name << " executes " << ref.getName() << std::endl << STOP;
+		ref.do_execute();
+	}
+	catch (std::exception &except)
+	{
+		std::cout << RED << BOLD << this->name << " cannot execute " << ref.getName() << ": " << STOP << RED << except.what() << std::endl;
+	}
 }
 
 std::ostream	&operator<<(std::ostream &ostream, Bureaucrat const &ref)
