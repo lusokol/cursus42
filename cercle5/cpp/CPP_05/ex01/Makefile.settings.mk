@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile.settings.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
+#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/03/07 14:02:36 by macbookpro       ###   ########.fr        #
+#    Updated: 2022/03/15 14:41:21 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = Bureaucrat
+NAME = Form
 
 # sources needed to compile
 SRC =	Bureaucrat.cpp \

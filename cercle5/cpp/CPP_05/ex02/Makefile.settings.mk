@@ -6,12 +6,12 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/03/14 17:30:41 by lusokol          ###   ########.fr        #
+#    Updated: 2022/03/15 14:41:55 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = Bureaucrat
+NAME = someForms
 
 # sources needed to compile
 SRC =	Bureaucrat.cpp \

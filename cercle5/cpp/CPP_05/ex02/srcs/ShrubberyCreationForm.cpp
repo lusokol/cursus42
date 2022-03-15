@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:03:31 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/14 17:47:44 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/15 14:34:44 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void ShrubberyCreationForm::do_execute(void) const {
         file << "        ###  \\/###|/ \\/ # ###" << std::endl;
         file << "      ##_\\_#\\_\\## | #/###_/_####" << std::endl;
         file << "     ## #### # \\ #| /  #### ##/##" << std::endl;
-        file << "      __#_--###`  |{,###---###-~" << std::endl;
-        file << ORANGE << "                \\ }{" << std::endl;
+        file << "      __#_--###`  |{,###---###-~" << std::endl << ORANGE;
+        file << "                \\ }{" << std::endl;
         file << "                 }}{" << std::endl;
         file << "                 }}{" << std::endl;
         file << "                 {{}" << std::endl;
