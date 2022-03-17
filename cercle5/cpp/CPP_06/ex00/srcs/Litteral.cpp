@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Intern.hpp                                         :+:      :+:    :+:   */
+/*   Litteral.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 14:42:24 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/15 15:47:00 by lusokol          ###   ########.fr       */
+/*   Created: 2022/03/17 14:51:49 by lusokol           #+#    #+#             */
+/*   Updated: 2022/03/17 14:59:38 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERN_HPP
-# define INTERN_HPP
+#include "Litteral.hpp"
 
-# include "Form.hpp"
-# include "ShrubberyCreationForm.hpp"
-# include "PresidentialPardonForm.hpp"
-# include "RobotomyRequestForm.hpp"
+Litteral::Litteral(std::string toConvert) {
+    std::cout << "Litteral constructor called" << std::endl;
+    (void)toConvert;
+}
 
-class Intern {
-
-public:
-
-    Intern(void);
-    Intern(Intern const &ref);
-    ~Intern(void);
-    Intern &operator=(Intern const &ref);
-    Form *makeForm(std::string formName, std::string formTarget);
-
-};
-
-#endif
+Litteral::~Litteral(void) {
+    std::cout << "Litteral destructor called" << std::endl;
+}

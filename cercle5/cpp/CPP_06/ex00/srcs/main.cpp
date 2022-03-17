@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Intern.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 14:42:24 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/15 15:47:00 by lusokol          ###   ########.fr       */
+/*   Created: 2022/03/17 13:15:29 by lusokol           #+#    #+#             */
+/*   Updated: 2022/03/17 15:00:07 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERN_HPP
-# define INTERN_HPP
+#include <iostream>
+#include "color.hpp"
+#include "Litteral.hpp"
 
-# include "Form.hpp"
-# include "ShrubberyCreationForm.hpp"
-# include "PresidentialPardonForm.hpp"
-# include "RobotomyRequestForm.hpp"
-
-class Intern {
-
-public:
-
-    Intern(void);
-    Intern(Intern const &ref);
-    ~Intern(void);
-    Intern &operator=(Intern const &ref);
-    Form *makeForm(std::string formName, std::string formTarget);
-
-};
-
-#endif
+int main(int ac, char **av) {
+    if (ac != 2) {
+       std::cerr << RED << "Wrong usage :" << std::endl << av[0] << " <string to convert>" << std::endl << STOP;
+       return (1);
+    }
+    Litteral test(av[1]);
+  //  test.print();
+}
