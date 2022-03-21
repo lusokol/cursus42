@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   serialisation.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 13:15:29 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/21 16:26:27 by lusokol          ###   ########.fr       */
+/*   Created: 2022/03/21 16:32:25 by lusokol           #+#    #+#             */
+/*   Updated: 2022/03/21 16:34:24 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "color.hpp"
-#include "Litteral.hpp"
+#ifndef SERIALISATION_HPP
+# define SERIALISATION_HPP
 
-int main(int ac, char **av) {
-    if (ac != 2) {
-       std::cerr << RED << "Wrong usage :" << std::endl << av[0] << " <string to convert>" << std::endl << STOP;
-       return (1);
-    }
-    Litteral test(av[1]);
-    test.print_nb();
-}
+typdedef struct s_data {
+    std::string str
+}               Data;
+
+#endif

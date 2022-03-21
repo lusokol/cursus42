@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:37:41 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/17 19:29:58 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/21 16:20:29 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define LITTERAL_HPP
 
 #include <iostream>
+#include "color.hpp"
+#include <cmath>
+#include <iomanip>
 
 #define INTMAX 2147483647
 #define INTMIN -2147483648
@@ -33,6 +36,7 @@ public:
     bool isDouble(const char *str);
     bool isFloat(const char *str);
     bool isChar(const char *str);
+    void print_nb(void);
 
 private:
 
@@ -41,6 +45,13 @@ private:
     char _char;
     float _float;
     double _double;
+    
+    void cast_all(void);
+    void check_printable(void);
+    void print_char(void);
+    void print_int(void);
+    int char_print; // non printable : 2, printable : 1, impossible char : 0
+    int int_print;  // impossible int : 0, else 1
     std::string str;
 
 };
