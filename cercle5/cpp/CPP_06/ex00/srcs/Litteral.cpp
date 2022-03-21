@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:51:49 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/21 16:19:32 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:50:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,4 +158,19 @@ Litteral::Litteral(const char *toConvert) {
 
 Litteral::~Litteral(void) {
     //std::cout << BLUE << "Litteral destructor called" << std::endl << STOP;
+}
+
+Litteral::Litteral(Litteral const &ref) {
+	*this = ref;
+}
+
+Litteral &Litteral::operator=(Litteral const &ref) {
+	if (this != &ref) {
+		this->type = ref.type;
+		this->_char = ref._char;
+		this->_int = ref._int;
+		this->_float = ref._float;
+		this->_double = ref._double;
+	}
+	return (*this);
 }

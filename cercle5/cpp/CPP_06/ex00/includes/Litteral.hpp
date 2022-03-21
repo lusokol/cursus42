@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 13:37:41 by lusokol           #+#    #+#             */
-/*   Updated: 2022/03/21 16:20:29 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:47:28 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ public:
     bool isFloat(const char *str);
     bool isChar(const char *str);
     void print_nb(void);
+    Litteral &operator=(Litteral const &ref);
 
 private:
 
