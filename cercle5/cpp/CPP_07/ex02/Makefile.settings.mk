@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile.settings.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
+#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/02/21 16:00:16 by lusokol          ###   ########.fr        #
+#    Updated: 2022/03/29 16:57:24 by macbookpro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # The name of the binary
-NAME = 
+NAME = Array
 
 # sources needed to compile
-SRC =	
+SRC =	main.cpp \
 
 # path of sources
 PATH_SRCS = ./srcs
