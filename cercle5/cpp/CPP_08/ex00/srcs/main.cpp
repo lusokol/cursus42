@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:15:04 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/03/31 15:21:14 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/04/04 16:29:24 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include "color.hpp"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
+
 #define ARRAY_SIZE(x) sizeof(x) / sizeof(*x)
 
-int main(void) {
+int tryToFind(int val) {
 
 
 	int array[] = { -44, -86, -62, -1, -17, -58, -37, -55, 5, -22, -25, -49,
@@ -34,34 +38,23 @@ int main(void) {
 		-24, 69, 65, -41, -88, 98, -94, 29, -46 };
 
 	std::vector<int> vec(array, array + ARRAY_SIZE(array));
-	//try {
-		int val = -1;
+	try {
 		std::vector<int>::const_iterator result_vec = easyfind(vec, val);
-		std::cout << val << " found in vector at index " << result_vec - vec.begin() << std::endl;
-	//} catch (std::exception &except) {
-		// std::cerr << except.what() << std::endl;
-		// return (EXIT_FAILURE);
-	// }
-	
-	//std::list<int>	lst;
+		int index = result_vec - vec.begin();
+		std::cout << BLUE << val << LGREEN << " found in vector at index " << BLUE << index << LGREEN << " [" << array[index] << "]" << std::endl << STOP;
+	} catch (std::exception &except) {
+		std::cerr << RED << except.what() << " : " << val << std::endl << STOP;
+		return (1);
+	}
+	return (0);
+}
 
-	// lst.push_back(3);
-	// lst.push_back(8);
-	// lst.push_back(7);
-	// lst.push_back(2);
-	// lst.push_back(5);
-	// lst.push_back(9);
-	
-	// std::vector<int>::iterator result = easyfind(lst, 1);
-	// easyfind(lst, 1);
-	// std::cout << "searching 1 : " << result - lst.begin() << std::endl;
-
-	// std::cout << "searching 2 : " << easyfind(lst, 2) - lst.begin() << std::endl;
-	// std::cout << "searching 3 : " << easyfind(lst, 3) - lst.begin() << std::endl;
-	// std::cout << "searching 4 : " << easyfind(lst, 4) - lst.begin() << std::endl;
-	// std::cout << "searching 5 : " << easyfind(lst, 5) - lst.begin() << std::endl;
-	// std::cout << "searching 6 : " << easyfind(lst, 6) - lst.begin() << std::endl;
-	// std::cout << "searching 7 : " << easyfind(lst, 7) - lst.begin() << std::endl;
-	// std::cout << "searching 8 : " << easyfind(lst, 8) - lst.begin() << std::endl;
-	// std::cout << "searching 9 : " << easyfind(lst, 9) - lst.begin() << std::endl;
+int main(void) {
+	srand (time(NULL));
+	int randNbr;
+	for (int i = 0; i < 10; i++) {
+		randNbr = rand() % 300 - 150;
+		tryToFind(randNbr);
+	}
+	return 0;
 }
