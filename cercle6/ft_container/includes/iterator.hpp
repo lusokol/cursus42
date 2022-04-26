@@ -3,17 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/04/18 13:42:35 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/04/25 11:12:09 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iterator>
-#include <cstddef>
+#include <type_traits>
 
-class Integers
+template <typename Iterator>
+struct iterator_traits {
+	typedef typename Iterator::difference_type difference_type;
+	typedef typename Iterator::value_type value_type;
+	typedef typename Iterator::pointer pointer;
+	typedef typename Iterator::reference reference;
+	typedef typename Iterator::iterator_category iterator_category;
+}
+
+template <typename Traits>
+struct iterator_traits<Traits *> {
+	typedef ptrdiff_t difference_type;
+	typedef Traits value_type;
+	typedef Traits * pointer;
+	typedef Traits & reference;
+	typedef std::random_access_iterator_tag iterator_category;
+}
+
+template <typename Traits>
+struct iterator_traits<Traits * const> {
+	typedef ptrdiff_t difference_type;
+	typedef Traits value_type;
+	typedef const Traits* pointer;
+	typedef const Traits& reference;
+	typedef std::random_access_iterator_tag iterator_category;
+}
+
+template <typename T>
+class Iterator {
+	public:
+		typedef T*                        pointer;
+        typedef T&                        reference;
+
+		Iterator(void): _ptr(0) {}
+		Iterator(pointer ptr): _ptr(ptr) {}
+		template <typename U>
+			Iterator(Iterator<U> & ref) : _ptr(ref._ptr) {}
+		~Iterator(void) {}
+		Iterator &operator=(Iterator<T> const &ref) { this->_ptr = ref._ptr; return (*this); }
+		Iterator &operator=(pointer ptr) { this->_ptr = ptr; return (*this); }
+		friend bool operator==(const Iterator &a, const Iterator &b) { return a._ptr == b._ptr; };
+        friend bool operator!=(const Iterator &a, const Iterator &b) { return a._ptr != b._ptr; };
+		reference operator*() const { return *_ptr; }
+        pointer operator->() { return _ptr; }
+		Iterator &operator++()
+        {
+            _ptr++;
+            return *this;
+        }
+        Iterator operator++(int)
+        {
+            Iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+		Iterator &operator--()
+        {
+            _ptr--;
+            return *this;
+        }
+        Iterator operator--(int)
+        {
+            Iterator tmp = *this;
+            --(*this);
+            return tmp;
+        }
+	private:
+		T *_ptr;
+		typedef iterator_traits<T> _traits;
+};
+
+/*class Integers
 {
 public:
     struct Iterator
@@ -51,4 +122,4 @@ public:
 
 private:
     int m_data[200];
-};
+};*/
