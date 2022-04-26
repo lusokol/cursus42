@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:02:23 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/04/21 15:18:09 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/04/26 15:05:24 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include <vector>
 #include <iostream>
 
+//namespace ft;
+
 int main() {
 	int test[5];
 	for (int i = 0; i < 5; i++) {test[i] = i + 1;}
 	//ca fonctionne 
-	Iterator<int> it1;
+	ft::Iterator<int> it1;
 	it1 = &test[0];	
-	Iterator<int> ite1;
+	ft::Iterator<int> ite1;
 	ite1 = &test[5];
 	while (it1 != ite1)
 	{
@@ -30,8 +32,8 @@ int main() {
 	std::cout << std::endl;
 	
 	// ca fonctionne
-	Iterator<int> it2(&test[0]);	
-	Iterator<int> ite2(&test[5]);
+	ft::Iterator<int> it2(&test[0]);	
+	ft::Iterator<int> ite2(&test[5]);
 	while (it2 != ite2)
 	{
 		std::cout << "iterator : " << *it2 << std::endl;
@@ -40,8 +42,8 @@ int main() {
 	std::cout << std::endl;
 
 	// wtf ca fonctionne pas
-	Iterator<int> it3 = &test[0];	
-	Iterator<int> ite3 = &test[5];
+	ft::Iterator<int> it3 = &test[0];	
+	ft::Iterator<int> ite3 = &test[5];
 	while (it3 != ite3)
 	{
 		std::cout << "iterator : " << *it3 << std::endl;
