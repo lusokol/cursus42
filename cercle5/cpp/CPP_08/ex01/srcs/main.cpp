@@ -6,12 +6,13 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:05:24 by lusokol           #+#    #+#             */
-/*   Updated: 2022/04/04 17:15:41 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/04/05 14:56:14 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "color.hpp"
 #include "Span.hpp"
+#include <iostream>
 
 int main(void) {
     std::cout << BLUE << "Creation of array step by step" << STOP << std::endl;
