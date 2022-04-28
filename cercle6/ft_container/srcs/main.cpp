@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:02:23 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/04/27 15:27:23 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/04/28 15:02:06 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@
 
 //namespace ft;
 
+void test_it(ft::Iterator<int> it, ft::Iterator<int> ite) {
+	while (it != ite)
+	{
+		std::cout << "iterator : " << *it1 << std::endl;
+		it1++;
+	}
+}
+
 int main() {
 	int test[5];
-	for (int i = 0; i < 10; i += 2) {test[i/2] = i;}
+	for (int i = 0; i < 5; i++) {test[i] = i;}
 	ft::Iterator<int> it1;
 	it1 = &test[0];	
 	ft::Iterator<int> ite1;

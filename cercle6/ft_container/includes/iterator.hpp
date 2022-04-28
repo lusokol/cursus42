@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/04/27 15:14:33 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/04/28 14:59:06 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft {
         typedef Traits value_type;
         typedef Traits * pointer;
         typedef Traits & reference;
-        typedef random_access_iterator_tag iterator_category;
+        typedef std::random_access_iterator_tag iterator_category;
     };
 
     template <typename Traits>
@@ -48,7 +48,7 @@ namespace ft {
         typedef Traits value_type;
         typedef const Traits* pointer;
         typedef const Traits& reference;
-        typedef random_access_iterator_tag iterator_category;
+        typedef std::random_access_iterator_tag iterator_category;
     };
 
     template <typename T>
@@ -65,38 +65,46 @@ namespace ft {
             typedef typename _traits::reference         reference;
             typedef typename _traits::iterator_category iterator_category;
 
+            //================= constructor / copy / destructor =================//
             Iterator(void): _ptr(0) {}
             Iterator(pointer ptr): _ptr(ptr) {}
             template <typename U>
                 Iterator(Iterator<U> & ref) : _ptr(ref._ptr) {}
             ~Iterator(void) {}
-            Iterator &operator=(Iterator<T> const &ref) { this->_ptr = ref._ptr; return (*this); }
-            Iterator &operator=(pointer ptr) { this->_ptr = ptr; return (*this); }
-            friend bool operator==(const Iterator &a, const Iterator &b) { return a._ptr == b._ptr; };
-            friend bool operator!=(const Iterator &a, const Iterator &b) { return a._ptr != b._ptr; };
+
+            //============================ operator =============================//
+            bool operator==(const Iterator &a, const Iterator &b) { return a._ptr == b._ptr; };
+            bool operator!=(const Iterator &a, const Iterator &b) { return a._ptr != b._ptr; };
             reference operator*() const { return *_ptr; }
             pointer operator->() { return _ptr; }
-            Iterator &operator++()
-            {
+            Iterator &operator=(Iterator<T> const &ref) {
+                this->_ptr = ref._ptr;
+                return (*this);
+            }
+            Iterator &operator=(pointer ptr) {
+                this->_ptr = ptr;
+                return (*this);
+            }
+            Iterator &operator++() {
                 _ptr++;
                 return *this;
             }
-            Iterator operator++(int)
-            {
+            Iterator operator++(int) {
                 Iterator tmp = *this;
                 ++(*this);
                 return tmp;
             }
-            Iterator &operator--()
-            {
-                _ptr--;
+            Iterator &operator--() {
+                this->_ptr--;
                 return *this;
             }
-            Iterator operator--(int)
-            {
+            Iterator operator--(int) {
                 Iterator tmp = *this;
                 --(*this);
                 return tmp;
+            }
+            Iterator operator+(difference_type n) const {
+                return (this)
             }
     };
     #endif
@@ -127,8 +135,8 @@ public:
             ++(*this);
             return tmp;
         }
-        friend bool operator==(const Iterator &a, const Iterator &b) { return a.m_ptr == b.m_ptr; };
-        friend bool operator!=(const Iterator &a, const Iterator &b) { return a.m_ptr != b.m_ptr; };
+        /* friend */ bool operator==(const Iterator &a, const Iterator &b) { return a.m_ptr == b.m_ptr; };
+        /* friend */ bool operator!=(const Iterator &a, const Iterator &b) { return a.m_ptr != b.m_ptr; };
 
     private:
         pointer m_ptr;
