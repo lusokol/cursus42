@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/04/27 15:12:20 by lusokol          ###   ########.fr        #
+#    Updated: 2022/04/28 17:25:31 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,10 @@ MAKEFLAGS += --no-print-directory
 
 BEGIN = 0
 NO_RECURS = 0
+UNAME_S = Linux
+#$(shell uname)
+LINUX = Linux
+MAC = Darwin
 
 PROGRESS_BAR = -------------------------------------
 FILLING_CHAR = █
@@ -48,8 +52,11 @@ all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(PATH_SRCS)/%.cpp
 ifeq ($(NO_RECURS), 0)
+ifeq ($(UNAME_S), $(LINUX))
 	$(eval NB_FILE_TO_COMPILE ?= $(shell make NO_RECURS=1 --dry-run --debug=b | grep "does not\|Must remake" | grep -o "[\`'].*\.o'" | sort | uniq | wc -l))
-#$(eval NB_FILE_TO_COMPILE ?= $(shell make NO_RECURS=1 --dry-run --debug=b | grep "does not\|Must remake" | grep -o "\`.*\.o'" | sort | uniq | wc -l))
+else
+	$(eval NB_FILE_TO_COMPILE ?= $(shell make NO_RECURS=1 --dry-run --debug=b | grep "does not\|Must remake" | grep -o "\`.*\.o'" | sort | uniq | wc -l))
+endif
 endif
 	if [ '$(BEGIN)' -eq '0' ]; then $(eval BEGIN = 1) make project; printf "\n"; fi;
 	mkdir -p $(OBJ_DIR)

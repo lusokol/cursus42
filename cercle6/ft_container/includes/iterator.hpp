@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/04/28 14:59:06 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/04/28 16:48:29 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ namespace ft {
             ~Iterator(void) {}
 
             //============================ operator =============================//
-            bool operator==(const Iterator &a, const Iterator &b) { return a._ptr == b._ptr; };
-            bool operator!=(const Iterator &a, const Iterator &b) { return a._ptr != b._ptr; };
+            friend bool operator==(const Iterator &a, const Iterator &b) { return a._ptr == b._ptr; };
+            friend bool operator!=(const Iterator &a, const Iterator &b) { return a._ptr != b._ptr; };
             reference operator*() const { return *_ptr; }
             pointer operator->() { return _ptr; }
             Iterator &operator=(Iterator<T> const &ref) {
@@ -103,8 +103,19 @@ namespace ft {
                 --(*this);
                 return tmp;
             }
+
+            
             Iterator operator+(difference_type n) const {
-                return (this)
+                return Iterator(this->_ptr + n);
+            }
+            Iterator operator-(difference_type n) const {
+                return Iterator(this->_ptr - n);
+            }
+            difference_type operator+(Iterator &ref)  {
+                return (this->_ptr + ref._ptr);
+            }
+            difference_type operator-(Iterator &ref)  {
+                return (this->_ptr - ref._ptr);
             }
     };
     #endif
@@ -135,8 +146,8 @@ public:
             ++(*this);
             return tmp;
         }
-        /* friend */ bool operator==(const Iterator &a, const Iterator &b) { return a.m_ptr == b.m_ptr; };
-        /* friend */ bool operator!=(const Iterator &a, const Iterator &b) { return a.m_ptr != b.m_ptr; };
+        friend bool operator==(const Iterator &a, const Iterator &b) { return a.m_ptr == b.m_ptr; };
+        friend bool operator!=(const Iterator &a, const Iterator &b) { return a.m_ptr != b.m_ptr; };
 
     private:
         pointer m_ptr;
