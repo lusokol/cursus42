@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/02 18:32:10 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/05/03 17:50:49 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 
 namespace ft {
 
-    struct input_iterator_tag { };
+   /*  struct input_iterator_tag { };
     struct output_iterator_tag { };
     struct forward_iterator_tag : public input_iterator_tag { };
     struct bidirectional_iterator_tag : public forward_iterator_tag { };
-    struct random_access_iterator_tag : public bidirectional_iterator_tag { };
+    struct random_access_iterator_tag : public bidirectional_iterator_tag { }; */
 
     template <typename Iterator>
     struct iterator_traits {
