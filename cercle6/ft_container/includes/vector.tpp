@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:07:52 by lusokol           #+#    #+#             */
-/*   Updated: 2022/04/18 13:24:50 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/03 13:53:20 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <limits>
 #include <type_traits>
 
-namespace std {
+namespace ft {
     
     template <class T, class Alloc = std::allocator<T> >
     class vector {
@@ -44,13 +44,14 @@ namespace std {
                 size_type _dataCounter;
                 T *_data;
 
-            // iterators
+            
+        //┌───────────────────────────────────┐
+        //│ CONSTRUCTOR                       │
+        //└───────────────────────────────────┘
 
-            // constructor
+            explicit vector (const allocator_type& alloc = allocator_type()): _capacity(0), _dataCounter(0), _data(0) { (void)alloc; }
 
-            vector (const allocator_type& alloc = allocator_type()): _capacity(0), _dataCounter(0), _data(0) { (void)alloc; }
-
-            vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _dataCounter(0) {
+            explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _dataCounter(0) {
                 _capacity = n;
                 _data = _myAlloc.allocate(n);
                 for (; _dataCounter < n: _dataCounter++) {
@@ -59,16 +60,33 @@ namespace std {
             }
             
             template <class InputIterator>
-            vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-     
-     
-     
-     
-     
-     
-     
-     
-            vector (const vector& x);
+            explicit vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
+                int distance = std::distance(first,last); 
+                int i = 0;
+                this->_capacity = distance;
+                _data = _myAlloc.allocate(distance);
+                while (first != last) {
+                    this->_data[i++] = *first;
+                    this->_dataCounter++;
+                }
+            }
+
+            explicit vector (const vector& x) : _capacity(x._capacity), _dataCounter(x._dataCounter) {
+                this->_data = _myAlloc.allocate(this->_capacity);
+                for (int i = 0; i < this->_capacity; i++) {
+                    this->_data[i] = x._data[i];
+                }
+            }
+            
+        //┌───────────────────────────────────┐
+        //│ DESTRUCTOR                        │
+        //└───────────────────────────────────┘
+        
+            ~vector() {
+                if (this->_capacity > 0) {
+                    this->data.deallocate();
+                }
+            }
     }    
 }
 
