@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:07:52 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/03 13:53:20 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/03 15:14:22 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,17 @@ namespace ft {
                 this->_capacity = distance;
                 _data = _myAlloc.allocate(distance);
                 while (first != last) {
-                    this->_data[i++] = *first;
+                    this->_myAlloc.construct(this->_data + this->_dataCounter, *first);
                     this->_dataCounter++;
+                    first++;
                 }
             }
 
-            explicit vector (const vector& x) : _capacity(x._capacity), _dataCounter(x._dataCounter) {
+            explicit vector (const vector& x) : _capacity(x._capacity), _dataCounter(0) {
                 this->_data = _myAlloc.allocate(this->_capacity);
                 for (int i = 0; i < this->_capacity; i++) {
-                    this->_data[i] = x._data[i];
+                    this->_myAlloc.construct(this->_data + this->_dataCounter, x._data + this->_dataCounter);
+                    this->_dataCounter++;
                 }
             }
             
@@ -87,7 +89,48 @@ namespace ft {
                     this->data.deallocate();
                 }
             }
-    }    
+        
+        //┌───────────────────────────────────┐
+        //│ ITERATOR                          │
+        //└───────────────────────────────────┘
+
+            typedef ft::Iterator<T> iterator;
+            typedef ft::Iterator<T const> const_iterator;
+            typedef ft::ReverseIterator<T> reverse_iterator;
+            typedef ft::ReverseIterator<T const> const_reverse_iterator;
+
+        private:
+        
+            template <typename ite_type>
+            ite_type takeFirst(void) {
+                if (this->_dataCounter > 0)
+                    return (ite_type(this->_data[0]));
+                else
+                    return (NULL);
+            }
+            
+            template <typename ite_type>
+            ite_type takeLast(void) {
+                if (this->_dataCounter > 0)
+                    return (ite_type(this->_data[this->_dataCounter - 1]));
+                else
+                    return (NULL);
+            }
+        
+        public:
+        
+            iterator begin() { return (takeFirst<iterator>()); };
+            const_iterator begin() const { return (takeFirst<const_iterator>()); };
+
+            iterator end() { return (takeLast<iterator>() + 1); };
+            const_iterator end() { return (takeLast<const_iterator>() + 1); };
+
+            reverse_iterator rbegin() { return (takeLast<reverse_iterator>()); };
+            const_reverse_iterator rbegin() const { return (takeLast<const_reverse_iterator>()); };
+
+            reverse_iterator rend() { return (takeFirst<reverse_iterator>() + 1); };
+            const_reverse_iterator rend() { return (takeFirst<const_reverse_iterator>() + 1); };
+    };
 }
 
 #endif
