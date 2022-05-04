@@ -242,7 +242,24 @@ namespace ft {
 				}
 			}
 
-			//iterator insert (iterator position, const value_type& val);
+		private:
+
+			void fill_until(iterator it, iterator position, pointer tmp) {
+				while (it != position && it != this->end()) {
+
+				}
+			}
+
+		public:
+
+			iterator insert (iterator position, const value_type& val) {
+				pointer tmp;
+				if (this->_dataCounter == this->_capacity)
+					this->reserve(this->_dataCounter + 1);
+				tmp = this->_myAlloc.allocate(this->capacity());
+				iterator it = this->begin();
+				fill_until(it, position, iterator(&tmp) + );
+			}
 			//void insert (iterator position, size_type n, const value_type& val);
 			//template <class InputIterator>
 			//void insert (iterator position, InputIterator first, InputIterator last);
@@ -257,7 +274,16 @@ namespace ft {
 				this->_dataCounter--;
 			}
 
-			//iterator erase (iterator first, iterator last){}
+			iterator erase (iterator first, iterator last) {
+				int distance = std::distance(first, last);
+				for (iterator it = first; it != last; it++)
+					this->myAlloc.destroy(it);
+				while (first != this->end() && first + distance != this->end()) {
+					this->_myAlloc.constuct(first, *(first + distance));
+					first++;
+				}
+				this->_dataCounter -= distance;
+			}
 
 		private:
 
