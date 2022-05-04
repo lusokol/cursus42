@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile.settings.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
+#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/04/19 15:45:40 by macbookpro       ###   ########.fr        #
+#    Updated: 2022/05/04 15:59:40 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
