@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:07:52 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/03 18:23:28 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/04 15:55:25 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "iterator.hpp"
 #include "enable_if.tpp"
 #include "is_integral.tpp"
+#include "lexicographical_compare.tpp"
 
 namespace ft {
     
@@ -102,7 +103,7 @@ namespace ft {
             }
         
         //┌───────────────────────────────────┐
-        //│ ITERATOR                          │
+        //│ ITERATORS                         │
         //└───────────────────────────────────┘
 
             typedef ft::Iterator<T> iterator;
@@ -141,6 +142,89 @@ namespace ft {
 
             reverse_iterator rend() { return (takeFirst<reverse_iterator>() + 1); };
             const_reverse_iterator rend() const { return (takeFirst<const_reverse_iterator>() + 1); };
+        
+        //┌───────────────────────────────────┐
+        //│ CAPACITY                          │
+        //└───────────────────────────────────┘
+
+            size_type size() const { return (this->_dataCounter); };
+            size_type max_size() const { return (this->_myAlloc.max_size()); }
+            
+            void resize (size_type n, value_type val = value_type()) {
+                if (n < this->_dataCounter) {
+                    for (int i = 0; i + n < this->_dataCounter) {
+                        this->_myAlloc.destroy(this->_data + n + i);
+                        this->_dataCounter--;
+                    }
+                }
+                else {
+                    if (n > this->_capacity)
+                        this->reverve(n);
+                    while (n > this->_dataCounter) {
+                        this->_myAlloc.construct(this->_data + this->_dataCounter, val);
+                        this->_dataCounter++;
+                    }
+                }
+            }
+            
+            size_type capacity() const { return (this->_capacity); }
+
+            bool empty() const { return ((this->_dataCounter == 0) ? true : false); }
+
+            void reserve (size_type n) {
+                pointer array;
+                size_type nb_element = this->_dataCounter;
+                size_type new_capacity = this->_capacity;
+                while (n > new_capacity)
+                    new_capacity *= 2;
+                if (new_capacity > this->max_size())
+					throw std::length_error("vector::reserve");
+                if (new_capacity != this->_capacity) {
+                    array = this->_myAlloc.allocate(size);
+                    std::uninitialized_copy(this->begin(), this->end(), array);
+                    this->clear();
+                    this->_myAlloc.deallocate(this->_data, this->_capacity);
+                    this->_data = array;
+                    this->_capacity = new_capacity;
+                }
+            }
+
+        //┌───────────────────────────────────┐
+        //│ ELEMENT ACCESS                    │
+        //└───────────────────────────────────┘
+
+            reference operator[] (size_type n) { return (this->_data[n]); }
+            const_reference operator[] (size_type n) const { return (this->_data[n]); }
+            
+            reference at(size_type n) {
+                if (n >= this->size())
+					throw std::out_of_range("vector::at");
+                return (this->_data[n]);
+            }
+            const_reference at(size_type n) const {
+                if (n >= this->size())
+					throw std::out_of_range("vector::at");
+                return (this->_data[n]);
+            }
+
+            reference front() { return (this->_data[0]); }
+            const_reference front() const { return (this->_data[0]); }
+
+            reference back() { return (this->_data[this->_dataCounter]); }
+            const_reference back() const { return (this->_data[this->_dataCounter]); }
+
+        //┌───────────────────────────────────┐
+        //│ MODIFIERS                         │
+        //└───────────────────────────────────┘
+
+            void clear() {
+                if (this->_capacity > 0) {
+                    for (size_type i = 0; i < this->_dataCounter; i++) {
+                        this->_myAlloc.destroy(this->_data + i);
+                    }
+                    this->_dataCounter = 0;
+                }
+            };
     };
 }
 
