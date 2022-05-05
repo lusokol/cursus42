@@ -1,0 +1,106 @@
+Test constructor : The contents of fifth are: 16 2 77 29
+The contents of fifth are: 16 2 77 29
+
+Test operator = : Size of foo: 0, Size of bar: 3
+Size of foo: 0
+Size of bar: 3
+
+Test begin : myvector contains: 1 2 3 4 5
+myvector contains: 1 2 3 4 5
+
+Test end : myvector contains: 1 2 3 4 5
+myvector contains: 1 2 3 4 5
+
+Test rbegin : myvector contains: 5 4 3 2 1
+myvector contains: 5 4 3 2 1
+
+Test rend : 5 4 3 2 1
+myvector contains: 5 4 3 2 1
+
+Test size : 0. size: 0, 1. size: 10, 2. size: 20, 3. size: 19
+0. size: 0
+1. size: 10
+2. size: 20
+3. size: 19
+
+Test max_size : size: 100, capacity: 128, max_size: 1073741823
+size: 100
+capacity: 128
+max_size: 2305843009213693951
+
+Test resize : myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0
+myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0
+
+Test capacity : size: 100, capacity: 128, max_size: 1073741823
+size: 100
+capacity: 128
+max_size: -1
+
+Test empty : total: 55
+total: 55
+
+Test reserve : making foo grow:
+capacity changed: 1
+capacity changed: 2
+capacity changed: 4
+capacity changed: 8
+capacity changed: 16
+capacity changed: 32
+capacity changed: 64
+capacity changed: 128
+making bar grow:
+capacity changed: 100
+making foo grow:
+capacity changed: 1
+capacity changed: 2
+capacity changed: 4
+capacity changed: 8
+capacity changed: 16
+capacity changed: 32
+capacity changed: 64
+capacity changed: 128
+making bar grow:
+capacity changed: 100
+
+Test operator[] : myvector contains: 9 8 7 6 5 4 3 2 1 0
+myvector contains: 9 8 7 6 5 4 3 2 1 0
+
+Test at : myvector contains: 0 1 2 3 4 5 6 7 8 9
+myvector contains: 0 1 2 3 4 5 6 7 8 9
+
+Test front : myvector.front() is now 62
+myvector.front() is now 62
+
+Test back : myvector contains: 10 9 8 7 6 5 4 3 2 1 0
+myvector contains: 10 9 8 7 6 5 4 3 2 1 0
+
+Test assign : Size of first: 7
+Size of second: 5
+Size of third: 3
+Size of first: 7
+Size of second: 5
+Size of third: 3
+
+Test push back : myvector stores 6 numbers.
+Please enter some integers (enter 0 to end):
+myvector stores 6 numbers.
+
+Test pop back : The elements of myvector add up to 600
+The elements of myvector add up to 600
+
+Test insert : myvector contains: 501 502 503 300 300 400 400 200 100 100 100
+myvector contains: 501 502 503 300 300 400 400 200 100 100 100
+
+Test erase : myvector contains: 4 5 7 8 9 10
+myvector contains: 4 5 7 8 9 10
+
+Test swap : foo contains: 200 200 200 200 200
+bar contains: 100 100 100 
+foo contains: 200 200 200 200 200
+bar contains: 100 100 100
+
+Test clear : myvector contains: 100 200 300
+myvector contains: 1101 2202
+myvector contains: 100 200 300
+myvector contains: 1101 2202
+

@@ -16,7 +16,7 @@
 #include <memory>
 #include <iostream>
 #include <limits>
-#include <type_traits>
+//#include <type_traits>
 #include "iterator.hpp"
 #include "enable_if.tpp"
 #include "is_integral.tpp"
@@ -50,17 +50,17 @@ namespace ft {
 
 			
 		//┌───────────────────────────────────┐
-		//│ CONSTRUCTOR					   │
+		//│ CONSTRUCTOR					      │
 		//└───────────────────────────────────┘
 
 		public:
-			explicit vector (const allocator_type& alloc = allocator_type()): _capacity(0), _dataCounter(0), _data(0), _myAlloc(alloc) {}
+			explicit vector (const allocator_type& alloc = allocator_type()): _myAlloc(alloc) , _capacity(0), _dataCounter(0), _data(0) {}
 
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _myAlloc(alloc), _dataCounter(0) {
-				_capacity = n * 2;
-				_data = _myAlloc.allocate(n);
-				for (; _dataCounter < n; _dataCounter++) {
-					_myAlloc.construct(_data + _dataCounter, val);
+				this->_capacity = n;
+				this->_data = this->_myAlloc.allocate(n);
+				for (; this->_dataCounter < n; this->_dataCounter++) {
+					this->_myAlloc.construct(this->_data + this->_dataCounter, val);
 				}
 			}
 			
@@ -68,11 +68,11 @@ namespace ft {
 			explicit vector (InputIterator first,
 							InputIterator last,
 							const allocator_type& alloc = allocator_type(),
-							typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) : _myAlloc(alloc)
+							typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) : _myAlloc(alloc), _dataCounter(0)
 			{
 				int distance = std::distance(first, last); 
 				this->_capacity = distance;
-				_data = _myAlloc.allocate(distance);
+				this->_data = this->_myAlloc.allocate(distance);
 				while (first != last) {
 					this->_myAlloc.construct(this->_data + this->_dataCounter, *first);
 					this->_dataCounter++;
@@ -83,8 +83,8 @@ namespace ft {
 			explicit vector (const vector& x) : _capacity(x._capacity), _dataCounter(0) {
 				this->_myAlloc = x._myAlloc;
 				this->_data = _myAlloc.allocate(this->_capacity);
-				for (int i = 0; i < this->_capacity; i++) {
-					this->_myAlloc.construct(this->_data + this->_dataCounter, x._data + this->_dataCounter);
+				for (size_type i = 0; i < this->_capacity; i++) {
+					this->_myAlloc.construct(this->_data + this->_dataCounter, *(x._data + this->_dataCounter));
 					this->_dataCounter++;
 				}
 			}
@@ -152,14 +152,19 @@ namespace ft {
 			
 			void resize (size_type n, value_type val = value_type()) {
 				if (n < this->_dataCounter) {
-					for (int i = 0; i + n < this->_dataCounter; i++) {
-						this->_myAlloc.destroy(this->_data + n + i);
+					iterator tmp(this->begin() + n);
+					while (tmp != this->end()) {
+						this->_myAlloc.destroy(&*tmp);
 						this->_dataCounter--;
 					}
+					/* for (int i = 0; i + n < this->end(); i++) {
+						this->_myAlloc.destroy(this->_data + n + i);
+						this->_dataCounter--;
+					} */
 				}
 				else {
 					if (n > this->_capacity)
-						this->reverve(n);
+						this->reserve(n);
 					while (n > this->_dataCounter) {
 						this->_myAlloc.construct(this->_data + this->_dataCounter, val);
 						this->_dataCounter++;
@@ -169,19 +174,20 @@ namespace ft {
 			
 			size_type capacity() const { return (this->_capacity); }
 
-			bool empty() const { return ((this->_dataCounter == 0) ? true : false); }
+			bool empty() const { return (this->_dataCounter == 0); }
 
 			void reserve (size_type n) {
 				pointer array;
 				size_type nb_element = this->_dataCounter;
-				size_type new_capacity = this->_capacity;
+				size_type new_capacity = this->_capacity == 0 ? n : this->_capacity;
 				while (n > new_capacity)
 					new_capacity *= 2;
 				if (new_capacity > this->max_size())
 					throw std::length_error("vector::reserve");
 				if (new_capacity != this->_capacity) {
 					array = this->_myAlloc.allocate(new_capacity);
-					std::uninitialized_copy(this->begin(), this->end(), array);
+					if (this->_dataCounter > 0)
+						std::uninitialized_copy(this->begin(), this->end(), array);
 					this->clear();
 					this->_dataCounter = nb_element;
 					this->_myAlloc.deallocate(this->_data, this->_capacity);
@@ -226,7 +232,7 @@ namespace ft {
 			
 			void	assign(size_type n, T const &val) {
 				this->clear();
-				this->insert(this->_start, n, val);
+				this->insert(this->begin(), n, val);
 			}
 
 			void push_back (const value_type& val) {
@@ -238,51 +244,93 @@ namespace ft {
 
 			void pop_back() {
 				if (this->_dataCounter > 0) {
-					this->erase(this->_data[this->_dataCounter - 1]);
+					this->_myAlloc.destroy(this->_data + this->_dataCounter - 1);
+					this->_dataCounter--;
 				}
 			}
 
-		private:
+		public: //private
 
-			void fill_until(iterator it, iterator position, pointer tmp) {
-				while (it != position && it != this->end()) {
-
+			void fill_until(iterator it, iterator ite, iterator position, iterator &tmp) {
+				while (it != position && it != ite) {
+					this->_myAlloc.construct(&*tmp, *it);
+					it++;
+					tmp++;
 				}
+			}
+
+			void insert_base(iterator position, int n, const value_type& val) {
+				if (this->_dataCounter == this->_capacity)
+					this->reserve(this->_dataCounter + n);
+				if (position != this->end()) {
+					pointer tmp = this->_myAlloc.allocate(this->capacity());
+					iterator it = this->begin();
+					iterator it_tmp = tmp;
+					fill_until(it, this->end(), position, it_tmp);
+					for (; n > 0; n--)
+						this->_myAlloc.construct(&*it_tmp++, val);
+					fill_until(it, this->end(), position, it_tmp);
+				}
+				else
+					for (; n > 0; n--)
+						this->push_back(val);
+				this->_dataCounter += n;
 			}
 
 		public:
 
 			iterator insert (iterator position, const value_type& val) {
-				pointer tmp;
-				if (this->_dataCounter == this->_capacity)
-					this->reserve(this->_dataCounter + 1);
-				tmp = this->_myAlloc.allocate(this->capacity());
-				iterator it = this->begin();
-				fill_until(it, position, iterator(&tmp) + );
+				insert_base(position, 1, val);
+				return (this->begin() + std::distance(this->begin(), position));
 			}
-			//void insert (iterator position, size_type n, const value_type& val);
-			//template <class InputIterator>
-			//void insert (iterator position, InputIterator first, InputIterator last);
+			
+			void insert (iterator position, size_type n, const value_type& val) {
+				insert_base(position, n, val);
+			}
+			template <class InputIterator>
+			void insert (iterator position, 
+						InputIterator first,
+						InputIterator last,
+						typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) {
+				if (this->_dataCounter == this->_capacity)
+					this->reserve(this->_dataCounter + std::distance(first, last));
+				if (position != this->end()) {
+					pointer tmp = this->_myAlloc.allocate(this->capacity());
+					iterator it = this->begin();
+					iterator it_tmp = tmp;
+					fill_until(it, this->end(), position, it_tmp);
+					while (first != last)
+						this->_myAlloc.construct(&*it_tmp++, *(first)++);
+					fill_until(it, this->end(), position, it_tmp);
+				}
+				else
+					while (first != last)
+						this->push_back(*(first)++);
+				this->_dataCounter += std::distance(first, last);
+			}
 		
 			iterator erase(iterator position) {
-				
+				int ret = std::distance(this->begin(), position);
 				while (position != this->end() && position + 1 != this->end()) {
-					this->_myAlloc.destroy(position);
-					this->_myAlloc.constuct(position, *(position + 1));
+					this->_myAlloc.destroy(&*position);
+					this->_myAlloc.construct(&*position, *(position + 1));
 					position++;
 				}
 				this->_dataCounter--;
+				return (iterator(this->begin()) + ret);
 			}
 
-			iterator erase (iterator first, iterator last) {
+			iterator erase(iterator first, iterator last) {
+				int ret = std::distance(this->begin(), first);
 				int distance = std::distance(first, last);
 				for (iterator it = first; it != last; it++)
-					this->myAlloc.destroy(it);
+					this->_myAlloc.destroy(&*it);
 				while (first != this->end() && first + distance != this->end()) {
-					this->_myAlloc.constuct(first, *(first + distance));
+					this->_myAlloc.construct(&*first, *(first + distance));
 					first++;
 				}
 				this->_dataCounter -= distance;
+				return (iterator(this->begin()) + ret);
 			}
 
 		private:
