@@ -80,12 +80,11 @@ namespace ft {
 				}
 			}
 
-			explicit vector (const vector& x) : _capacity(x._capacity), _dataCounter(0) {
-				this->_myAlloc = x._myAlloc;
+			explicit vector (const vector& x) : _myAlloc(x._myAlloc), _capacity(x._capacity), _dataCounter(0), _data(0) {
+				// this->_myAlloc = x._myAlloc;
 				this->_data = _myAlloc.allocate(this->_capacity);
-				for (size_type i = 0; i < this->_capacity; i++) {
-					this->_myAlloc.construct(this->_data + this->_dataCounter, *(x._data + this->_dataCounter));
-					this->_dataCounter++;
+				for (size_type i = 0; i < x._dataCounter; i++) {
+					this->push_back(*(x._data + this->_dataCounter));
 				}
 			}
 			
@@ -217,8 +216,8 @@ namespace ft {
 			reference front() { return (this->_data[0]); }
 			const_reference front() const { return (this->_data[0]); }
 
-			reference back() { return (this->_data[this->_dataCounter]); }
-			const_reference back() const { return (this->_data[this->_dataCounter]); }
+			reference back() { return (this->_data[this->_dataCounter - 1]); }
+			const_reference back() const { return (this->_data[this->_dataCounter - 1]); }
 
 		//┌───────────────────────────────────┐
 		//│ MODIFIERS						 │
@@ -253,6 +252,7 @@ namespace ft {
 
 			void fill_until(iterator it, iterator ite, iterator position, iterator &tmp) {
 				while (it != position && it != ite) {
+					// std::cout << "inside" << std::endl;
 					this->_myAlloc.construct(&*tmp, *it);
 					it++;
 					tmp++;
@@ -260,53 +260,47 @@ namespace ft {
 			}
 
 			void insert_base(iterator position, int n, const value_type& val) {
-				if (this->_dataCounter == this->_capacity)
-					this->reserve(this->_dataCounter + n);
-				if (position != this->end()) {
-					pointer tmp = this->_myAlloc.allocate(this->capacity());
-					iterator it = this->begin();
-					iterator it_tmp = tmp;
-					fill_until(it, this->end(), position, it_tmp);
-					for (; n > 0; n--)
-						this->_myAlloc.construct(&*it_tmp++, val);
-					fill_until(it, this->end(), position, it_tmp);
+				ft::vector<T> cpy(*this);
+				size_type diff = std::distance(this->begin(), position);
+				//this->reserve(this->_dataCounter + n);
+				this->clear();
+				size_type index = 0;
+				for (; index < diff; index++)
+					this->push_back(cpy[index]);
+				for (int i = 0; i < n; i++)
+					this->push_back(val);
+				for (; index < cpy.size(); index++) {
+					this->push_back(cpy[index]);
 				}
-				else
-					for (; n > 0; n--)
-						this->push_back(val);
-				this->_dataCounter += n;
 			}
 
 		public:
 
 			iterator insert (iterator position, const value_type& val) {
+				difference_type tmp = std::distance(this->begin(), position);
 				insert_base(position, 1, val);
-				return (this->begin() + std::distance(this->begin(), position));
+				return (this->begin() + tmp);
 			}
 			
 			void insert (iterator position, size_type n, const value_type& val) {
 				insert_base(position, n, val);
 			}
+
 			template <class InputIterator>
 			void insert (iterator position, 
 						InputIterator first,
 						InputIterator last,
 						typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) {
-				if (this->_dataCounter == this->_capacity)
-					this->reserve(this->_dataCounter + std::distance(first, last));
-				if (position != this->end()) {
-					pointer tmp = this->_myAlloc.allocate(this->capacity());
-					iterator it = this->begin();
-					iterator it_tmp = tmp;
-					fill_until(it, this->end(), position, it_tmp);
-					while (first != last)
-						this->_myAlloc.construct(&*it_tmp++, *(first)++);
-					fill_until(it, this->end(), position, it_tmp);
-				}
-				else
-					while (first != last)
-						this->push_back(*(first)++);
-				this->_dataCounter += std::distance(first, last);
+				ft::vector<T> cpy(*this);
+				size_type diff = std::distance(this->begin(), position);
+				this->clear();
+				size_type index = 0;
+				for (; index < diff; index++)
+					this->push_back(cpy[index]);
+				for (; first != last; first++)
+					this->push_back(*first);
+				for (; index < cpy.size(); index++)
+					this->push_back(cpy[index]);
 			}
 		
 			iterator erase(iterator position) {
@@ -360,8 +354,13 @@ namespace ft {
 					this->_dataCounter = 0;
 				}
 			};
-
 	};
+
+	template <class T, class Alloc>
+  	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
+		  x.swap(y);
+	  }
+
 }
 
 #endif

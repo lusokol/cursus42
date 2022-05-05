@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:16:05 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/05 17:14:15 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/05 20:26:04 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,16 +306,23 @@ std::cout << "Test assign : Size of first: 7\nSize of second: 5\nSize of third: 
   __VECTOR::vector<int> second;
   __VECTOR::vector<int> third;
 
+	// std::cout << "try 1" << std::endl; getwchar();
   first.assign (7,100);             // 7 ints with a value of 100
-
+	// std::cout << "try 1.2" << std::endl; getwchar();
+	// for (ft::Iterator<int> it = first.begin(); it != first.end(); it++)
+		// std::cout << "it didtance : " << std::distance(first.begin(), first.end()) << std::endl;
+	// std::cout << "try 2" << std::endl; getwchar();
   __VECTOR::vector<int>::iterator it;
   it=first.begin()+1;
 
+	// std::cout << "try 3 distance : " << std::distance(it, first.end()-1) << std::endl; getwchar();
   second.assign (it,first.end()-1); // the 5 central values of first
 
+	// std::cout << "try 4" << std::endl; getwchar();
   int myints[] = {1776,7,4};
   third.assign (myints,myints+3);   // assigning from array.
 
+	// std::cout << "try 5" << std::endl; getwchar();
   std::cout << "Size of first: " << int (first.size()) << '\n';
   std::cout << "Size of second: " << int (second.size()) << '\n';
   std::cout << "Size of third: " << int (third.size()) << '\n';
@@ -362,13 +369,29 @@ std::cout << "Test pop back : The elements of myvector add up to 600" << std::en
 //////////////////////////////////////////////
 std::cout << "Test insert : myvector contains: 501 502 503 300 300 400 400 200 100 100 100" << std::endl;
 {
-   __VECTOR::vector<int> myvector (3,100);
+  __VECTOR::vector<int> myvector (3,100);
   __VECTOR::vector<int>::iterator it;
 
   it = myvector.begin();
   it = myvector.insert ( it , 200 );
 
+
+
+for (__VECTOR::vector<int>::iterator it2=myvector.begin(); it2<myvector.end(); it2++)
+    std::cout << ' ' << *it2;
+  std::cout << " size : " << myvector.size() << '\n';
+
+
+
   myvector.insert (it,2,300);
+
+
+
+for (__VECTOR::vector<int>::iterator it2=myvector.begin(); it2<myvector.end(); it2++)
+    std::cout << ' ' << *it2;
+  std::cout << " size : " << myvector.size() << '\n';
+
+
 
   // "it" no longer valid, get a new one:
   it = myvector.begin();
@@ -380,7 +403,7 @@ std::cout << "Test insert : myvector contains: 501 502 503 300 300 400 400 200 1
   myvector.insert (myvector.begin(), myarray, myarray+3);
 
   std::cout << "myvector contains:";
-  for (it=myvector.begin(); it< (myvector.end()); it++)
+  for (it=myvector.begin(); it<myvector.end(); it++)
     std::cout << ' ' << *it;
   std::cout << '\n';
 }
