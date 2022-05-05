@@ -354,6 +354,10 @@ namespace ft {
 					this->_dataCounter = 0;
 				}
 			};
+
+			allocator_type get_allocator() const { return (this->_myAlloc); }
+
+
 	};
 
 	template <class T, class Alloc>
