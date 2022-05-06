@@ -6,13 +6,17 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:16:05 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/05 20:26:04 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/06 14:50:24 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.tpp"
 #include <vector>
 #define __VECTOR ft
+
+bool mypredicate (int i, int j) {
+  return (i==j);
+}
 
 int main(void) {
 
@@ -474,4 +478,24 @@ std::cout << "Test clear : myvector contains: 100 200 300\nmyvector contains: 11
 }
   std::cout << std::endl;
 
+//////////////////////////////////////////////
+std::cout << "Test operator (comparaison) : The contents of both sequences are equal.\nThe contents of both sequence differ." << std::endl;
+{
+	int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
+  std::vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
+
+  // using default comparison:
+  if ( std::equal (myvector.begin(), myvector.end(), myints) )
+    std::cout << "The contents of both sequences are equal.\n";
+  else
+    std::cout << "The contents of both sequences differ.\n";
+
+  myvector[3]=81;                                 // myvector: 20 40 60 81 100
+
+  // using predicate comparison:
+  if ( std::equal (myvector.begin(), myvector.end(), myints, mypredicate) )
+    std::cout << "The contents of both sequences are equal.\n";
+  else
+    std::cout << "The contents of both sequences differ.\n";
+}
 }
