@@ -139,14 +139,14 @@ namespace ft {
 
 			typedef ft::Iterator<T> iterator;
 			typedef ft::Iterator<T const> const_iterator;
-			typedef ft::ReverseIterator<T> reverse_iterator;
-			typedef ft::ReverseIterator<T const> const_reverse_iterator;
+			typedef ft::ReverseIterator<iterator> reverse_iterator;
+			typedef ft::ReverseIterator<const_iterator> const_reverse_iterator;
 
 		private:
 		
 			template <typename ite_type>
 			ite_type takeFirst(void) {
-					return (_data);
+					return (ite_type(_data));
 			}
 			
 			template <typename ite_type>
@@ -156,7 +156,7 @@ namespace ft {
 			
 			template <typename ite_type>
 			ite_type takeFirst(void) const {
-					return (_data);
+					return (ite_type(_data));
 			}
 			
 			template <typename ite_type>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/06 20:15:33 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/10 12:12:54 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ namespace ft {
             typedef typename _traits::reference         reference;
             typedef typename _traits::iterator_category iterator_category;
 
-			pointer base(void) const { return (this->_ptr); }
+			pointer const &base(void) const { return (this->_ptr); }
 
             //================= constructor / copy / destructor =================//
             Iterator(void): _ptr(0) {}
@@ -208,8 +208,8 @@ namespace ft {
     class ReverseIterator {        
 
 		private:
-            T *_ptr;
-            typedef iterator_traits<T *> _traits;
+            T _ptr;
+            typedef iterator_traits<T> _traits;
             
         public:
             typedef typename _traits::difference_type   difference_type;
@@ -219,33 +219,41 @@ namespace ft {
             typedef typename _traits::iterator_category iterator_category;
 			typedef T iterator_type;
 
-			pointer base(void) const { return (this->_ptr); }
+			T base(void) const { return (this->_ptr); }
 
             //================= constructor / copy / destructor =================//
             ReverseIterator(void): _ptr(0) {}
-            ReverseIterator(pointer ptr): _ptr(ptr) {}
+            ReverseIterator(iterator_type ptr): _ptr(ptr) {}
             template <typename U>
                 ReverseIterator(ReverseIterator<U> const &ref) : _ptr(ref.base()) {}
-            template <typename U>
-                ReverseIterator(Iterator<U> const &ref) : _ptr(ref.base()) {}
+            //template <typename U>
+            //    ReverseIterator(Iterator<U> const &ref) : _ptr(ref.base()) {}
             ~ReverseIterator(void) {}
 
             //============================ operator =============================//
             friend bool operator==(const ReverseIterator &a, const ReverseIterator &b) { return a._ptr == b._ptr; };
             friend bool operator!=(const ReverseIterator &a, const ReverseIterator &b) { return a._ptr != b._ptr; };
-            reference operator*() const { return *_ptr; }
-            pointer operator->() { return _ptr; }
+            reference operator*() const {
+				iterator_type tmp = this->_ptr;
+				--tmp;
+				return *tmp;
+			}
+            pointer operator->() {
+				iterator_type tmp = this->_ptr;
+				--tmp;
+				return &*tmp;
+			}
 			//ReverseIterator operator=(const ReverseIterator& a){_ptr = a._ptr; return (*this);}
-            ReverseIterator &operator=(ReverseIterator<T> const &ref) {
-                this->_ptr = ref.base();
-                return (*this);
-            }
-            ReverseIterator &operator=(pointer ptr) {
-                this->_ptr = ptr;
-                return (*this);
-            }
+            //ReverseIterator &operator=(ReverseIterator<T> const &ref) {
+            //    this->_ptr = ref.base();
+            //    return (*this);
+            //}
+            //ReverseIterator &operator=(pointer ptr) {
+            //    this->_ptr = ptr;
+            //    return (*this);
+            //}
             ReverseIterator &operator++() {
-                (this->_ptr)--;
+                --(this->_ptr);
                 return *this;
             }
             ReverseIterator operator++(int) {
@@ -254,7 +262,7 @@ namespace ft {
                 return tmp;
             }
             ReverseIterator &operator--() {
-                (this->_ptr)++;
+                ++(this->_ptr);
                 return *this;
             }
             ReverseIterator operator--(int) {
@@ -265,16 +273,16 @@ namespace ft {
 
             
             ReverseIterator operator+(difference_type n) const {
-                return ReverseIterator((this->_ptr) - n);
+                return (ReverseIterator(this->_ptr - n));
             }
             ReverseIterator operator-(difference_type n) const {
-                return ReverseIterator((this->_ptr) + n);
+                return (ReverseIterator(this->_ptr + n));
             }
             difference_type operator+(ReverseIterator<T> const &ref) const {
-                return (this->base() - ref.base());
+                return (this->_ptr + ref._ptr);
             }
             difference_type operator-(ReverseIterator<T> const &ref) const {
-                return (this->base() + ref.base());
+                return (ref._ptr - this->_ptr);
             }
 			ReverseIterator operator+=(difference_type n) {
 				this->_ptr -= n;
@@ -298,8 +306,11 @@ namespace ft {
 				return (this->_ptr <= ref._ptr);
 			}
 			reference operator[](difference_type n) const {
-				return *(this->_ptr - n);
+				return *(this->_ptr - n - 1);
 			}
+			// operator	ReverseIterator<T const>(void) const {
+			// 	return (ReverseIterator<T const>(this->_ptr));
+			// }
     };;
 
 	template <typename Iter1, typename Iter2>
