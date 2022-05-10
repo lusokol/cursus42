@@ -80,7 +80,7 @@ namespace ft {
 				}
 			}
 
-			explicit vector (const vector& x) : _myAlloc(x._myAlloc), _capacity(x._capacity), _dataCounter(0), _data(NULL) {
+			vector (vector<T, Alloc> const &x) : _myAlloc(x._myAlloc), _capacity(x._capacity), _dataCounter(0), _data(NULL) {
 				// this->_myAlloc = x._myAlloc;
 				this->_data = _myAlloc.allocate(this->_capacity);
 				for (size_type i = 0; i < x._dataCounter; i++) {
@@ -185,7 +185,7 @@ namespace ft {
 			size_type size() const { return (this->_dataCounter); };
 			size_type max_size() const { return (this->_myAlloc.max_size()); }
 			
-			void resize (size_type n, value_type val = value_type()) {
+			void resize (size_type n, value_type const &val = value_type()) {
 				if (n < this->_dataCounter) {
 					iterator tmp(this->begin() + n);
 					while (tmp != this->end()) {
