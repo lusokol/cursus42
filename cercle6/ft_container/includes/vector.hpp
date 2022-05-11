@@ -56,19 +56,22 @@ namespace ft {
 		public:
 			explicit vector (const allocator_type& alloc = allocator_type()): _myAlloc(alloc) , _capacity(0), _dataCounter(0), _data(NULL) {}
 
-			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _myAlloc(alloc), _dataCounter(0) {
-				this->_capacity = n;
-				this->_data = this->_myAlloc.allocate(n);
-				for (; this->_dataCounter < n; this->_dataCounter++) {
-					this->_myAlloc.construct(this->_data + this->_dataCounter, val);
-				}
+			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _myAlloc(alloc), _capacity(0), _dataCounter(0), _data(NULL) {
+				//std::cout << "yolo" << std::endl;
+				//this->_data = this->_myAlloc.allocate(n);
+				this->assign(n, val);
+				// this->_capacity = n;
+				// this->_data = this->_myAlloc.allocate(n);
+				// for (; this->_dataCounter < n; this->_dataCounter++) {
+				// 	this->_myAlloc.construct(this->_data + this->_dataCounter, val);
+				// }
 			}
 			
 			template <class InputIterator>
 			explicit vector (InputIterator first,
 							InputIterator last,
 							const allocator_type& alloc = allocator_type(),
-							typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) : _myAlloc(alloc), _dataCounter(0)
+							typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) : _myAlloc(alloc), _capacity(0), _dataCounter(0), _data(NULL)
 			{
 				int distance = std::distance(first, last); 
 				this->_capacity = distance;
@@ -81,15 +84,11 @@ namespace ft {
 			}
 
 			vector (vector<T, Alloc> const &x) : _myAlloc(x._myAlloc), _capacity(x._capacity), _dataCounter(0), _data(NULL) {
-				// this->_myAlloc = x._myAlloc;
-				this->_data = _myAlloc.allocate(this->_capacity);
-				for (size_type i = 0; i < x._dataCounter; i++) {
-					// pointer tmp;
-					// this->_myAlloc.construct(tmp, x._data + this->_dataCounter);
-					this->push_back(*(x._data + this->_dataCounter));
-					// this->push_back(*(x._data + this->_dataCounter));
-					//				this->_myAlloc.construct(this->_data + this->_dataCounter, val);
-				}
+				//this->_data = this->_myAlloc.allocate(this->_capacity);
+				this->assign(x.begin(), x.end());
+				// for (size_type i = 0; i < x._dataCounter; i++) {
+				// 	this->push_back(*(x._data + this->_dataCounter));
+				// }
 			}
 			
 
@@ -123,7 +122,8 @@ namespace ft {
 					//std::cout << "int for, I = " << i << std::endl;
 					//}
 					// std::cout << "before clear" << std::endl;
-					this->clear();
+					if (this->_dataCounter > 0)
+						this->clear();
 					// std::cout << "before free" << std::endl;
 					if (this->_data != NULL) {
 						this->_myAlloc.deallocate((this->_data), this->_capacity);
@@ -212,27 +212,35 @@ namespace ft {
 			bool empty() const { return (this->_dataCounter == 0); }
 
 			void reserve (size_type n) {
-				pointer array;
-				size_type nb_element = this->_dataCounter;
-				size_type new_capacity = this->_capacity == 0 ? n : this->_capacity;
-				while (n > new_capacity)
-					new_capacity *= 2;
-				if (new_capacity > this->max_size())
-					throw std::length_error("vector::reserve");
-				if (new_capacity != this->_capacity) {
-					array = this->_myAlloc.allocate(new_capacity);
-					if (this->_dataCounter > 0)
-						std::uninitialized_copy(this->begin(), this->end(), array);
-					this->clear();
-					this->_dataCounter = nb_element;
-					this->_myAlloc.deallocate(this->_data, this->_capacity);
-					this->_data = array;
-					this->_capacity = new_capacity;
+				if (n > this->_capacity) {
+					pointer array;
+					size_type nb_element = this->_dataCounter;
+
+					size_type new_capacity = this->_capacity == 0 ? n : this->_capacity;
+					if (n > new_capacity)
+						new_capacity = n;
+					if (new_capacity > this->max_size())
+						throw std::length_error("vector::reserve");
+					std::cout << "=== new capacity : " << new_capacity << std::endl;
+					std::cout << "=== old capacity : " << this->_capacity << std::endl;
+					if (new_capacity > this->_capacity) {
+						array = this->_myAlloc.allocate(new_capacity);
+						if (this->_dataCounter > 0)
+							std::uninitialized_copy(this->begin(), this->end(), array);
+						this->clear();
+						this->_dataCounter = nb_element;
+						this->_myAlloc.deallocate(this->_data, this->_capacity);
+						this->_data = array;
+						this->_capacity = new_capacity;
+						std::cout << "========================================" << std::endl;
+						std::cout << "new capacity : " << new_capacity << std::endl;
+						std::cout << "========================================" << std::endl;
+					}
 				}
 			}
 
 		//┌───────────────────────────────────┐
-		//│ ELEMENT ACCESS					│
+		//│ ELEMENT ACCESS					  │
 		//└───────────────────────────────────┘
 
 			reference operator[] (size_type n) { return (this->_data[n]); }
@@ -271,8 +279,11 @@ namespace ft {
 			}
 
 			void push_back (const value_type& val) {
-				if (this->_dataCounter == this->_capacity)
+				std::cout << "=== old capacity ( in push back ) : " << this->_capacity << std::endl;
+				if (this->_dataCounter == this->_capacity) {
+					std::cout << "=== start reserve from push back : " << this->_capacity << std::endl;
 					this->reserve(this->_dataCounter + 1);
+				}
 				this->_myAlloc.construct(this->_data + this->_dataCounter, val/* value_type(val) */);
 				this->_dataCounter++;
 			}
@@ -330,26 +341,20 @@ namespace ft {
 					cpy.push_back(this->_data[index]);
 				}
 				this->swap(cpy);
-				/* ft::vector<T> cpy(*this);
-				size_type diff = std::distance(this->begin(), position);
-				this->clear();
-				size_type index = 0;
-				for (; index < diff; index++)
-					this->push_back(cpy[index]);
-				for (; first != last; first++)
-					this->push_back(*first);
-				for (; index < cpy.size(); index++)
-					this->push_back(cpy[index]); */
 			}
 		
 			iterator erase(iterator position) {
 				int ret = std::distance(this->begin(), position);
-				while (position != this->end() && position + 1 != this->end()) {
-					this->_myAlloc.destroy(&*position);
-					this->_myAlloc.construct(&*position, *(position + 1));
-					position++;
+				if (position + 1 == this->end())
+					this->pop_back();
+				else {
+					while (position != this->end() && position + 1 != this->end()) {
+						this->_myAlloc.destroy(&*position);
+						this->_myAlloc.construct(&*position, *(position + 1));
+						position++;
+					}
+					this->_dataCounter--;
 				}
-				this->_dataCounter--;
 				return (iterator(this->begin()) + ret);
 			}
 
@@ -392,7 +397,8 @@ namespace ft {
 					}
 					this->_dataCounter = 0;
 				} */
-				this->erase(this->begin(), this->end());
+				if (this->_data)
+					this->erase(this->begin(), this->end());
 			};
 
 			allocator_type get_allocator() const { return (this->_myAlloc); }
