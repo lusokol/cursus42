@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/04/28 17:25:31 by lusokol          ###   ########.fr        #
+#    Updated: 2022/05/12 15:44:14 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,18 @@ run: all
 rerun: re
 	./$(NAME)
 
+add_g3:
+	$(eval CXXFLAGS = $(CXXFLAGS) -g3)
+
+add_sanitize:
+	$(eval CXXFLAGS = $(CXXFLAGS) -fsanitize=address)
+
+debug: add_g3 add_sanitize rerun
+
+leaks:  add_g3 re
+	printf "$(_BOLD)$(_GREEN)$(NAME) execute with valgrind ...$(_R)\n"
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) --s
+	
 ########################################## colors
 
 _WHITE = \e[97m

@@ -60,10 +60,10 @@ namespace ft {
 				//std::cout << "yolo" << std::endl;
 				//this->_data = this->_myAlloc.allocate(n);
 				this->assign(n, val);
-				// this->_capacity = n;
+				// this->https://github.com/Mazoise/42TESTERS-CONTAINERS.git_capacity = n;
 				// this->_data = this->_myAlloc.allocate(n);
 				// for (; this->_dataCounter < n; this->_dataCounter++) {
-				// 	this->_myAlloc.construct(this->_data + this->_dataCounter, val);
+				// 	this->_myAlloc.cons // truct(this->_data + this->_dataCounter, val);
 				// }
 			}
 			
@@ -77,6 +77,7 @@ namespace ft {
 				this->_capacity = distance;
 				this->_data = this->_myAlloc.allocate(distance);
 				while (first != last) {
+					// std::cerr << " === construct ===" << std::endl;
 					this->_myAlloc.construct(this->_data + this->_dataCounter, *first);
 					this->_dataCounter++;
 					first++;
@@ -109,27 +110,13 @@ namespace ft {
 		//└───────────────────────────────────┘
 		
 			~vector() {
-				// std::cout << std::endl;
-				// std::cout << "sizeof(t): " << sizeof(T) << std::endl;
-				// std::cout << "size: " << this->size() << std::endl;
-				// std::cout << "data counter: " << this->_dataCounter << std::endl;
-				// std::cout << "capacity: " << this->capacity() << std::endl;
-				// std::cout << "max_size: " << this->max_size() << std::endl;
-				// this->clear();
 				if (this->_capacity > 0) {
-					//for (size_type i = 0; i < this->_dataCounter; i++) {
-					//	this->_myAlloc.destroy(this->_data + i);
-					//std::cout << "int for, I = " << i << std::endl;
-					//}
-					// std::cout << "before clear" << std::endl;
 					if (this->_dataCounter > 0)
 						this->clear();
-					// std::cout << "before free" << std::endl;
 					if (this->_data != NULL) {
 						this->_myAlloc.deallocate((this->_data), this->_capacity);
 						this->_data = NULL;
 					}
-					// std::cout << "after free" << std::endl;
 				}
 			}
 		
@@ -189,11 +176,12 @@ namespace ft {
 				if (n < this->_dataCounter) {
 					iterator tmp(this->begin() + n);
 					while (tmp != this->end()) {
+						// std::cerr << " === destroy ===" << std::endl;
 						this->_myAlloc.destroy(&*tmp);
 						this->_dataCounter--;
 					}
 					/* for (int i = 0; i + n < this->end(); i++) {
-						this->_myAlloc.destroy(this->_data + n + i);
+						this->_myAlloc.des //troy(this->_data + n + i);
 						this->_dataCounter--;
 					} */
 				}
@@ -201,6 +189,7 @@ namespace ft {
 					if (n > this->_capacity)
 						this->reserve(n);
 					while (n > this->_dataCounter) {
+						// std::cerr << " === construct ===" << std::endl;
 						this->_myAlloc.construct(this->_data + this->_dataCounter, val);
 						this->_dataCounter++;
 					}
@@ -216,13 +205,13 @@ namespace ft {
 					pointer array;
 					size_type nb_element = this->_dataCounter;
 
-					size_type new_capacity = this->_capacity == 0 ? n : this->_capacity;
-					if (n > new_capacity)
-						new_capacity = n;
+					size_type new_capacity = this->_capacity < n ? n : this->_capacity;
+					// if (n > new_capacity)
+					// 	new_capacity = n;
 					if (new_capacity > this->max_size())
 						throw std::length_error("vector::reserve");
-					std::cout << "=== new capacity : " << new_capacity << std::endl;
-					std::cout << "=== old capacity : " << this->_capacity << std::endl;
+					// std::cout << "=== new capacity : " << new_capacity << std::endl;
+					// std::cout << "=== old capacity : " << this->_capacity << std::endl;
 					if (new_capacity > this->_capacity) {
 						array = this->_myAlloc.allocate(new_capacity);
 						if (this->_dataCounter > 0)
@@ -232,9 +221,9 @@ namespace ft {
 						this->_myAlloc.deallocate(this->_data, this->_capacity);
 						this->_data = array;
 						this->_capacity = new_capacity;
-						std::cout << "========================================" << std::endl;
-						std::cout << "new capacity : " << new_capacity << std::endl;
-						std::cout << "========================================" << std::endl;
+						// std::cout << "========================================" << std::endl;
+						// std::cout << "new capacity : " << new_capacity << std::endl;
+						// std::cout << "========================================" << std::endl;
 					}
 				}
 			}
@@ -279,17 +268,21 @@ namespace ft {
 			}
 
 			void push_back (const value_type& val) {
-				std::cout << "=== old capacity ( in push back ) : " << this->_capacity << std::endl;
-				if (this->_dataCounter == this->_capacity) {
-					std::cout << "=== start reserve from push back : " << this->_capacity << std::endl;
-					this->reserve(this->_dataCounter + 1);
+				// std::cout << "=== old capacity ( in push back ) : " << this->_capacity << std::endl;
+				if (this->_dataCounter >= this->_capacity) {
+					// std::cout << "=== start reserve from push back : " << this->_capacity << std::endl;
+					this->reserve((this->_capacity == 0) ? 1 : this->_capacity * 2);
 				}
+				// std::cerr << " === construct ===" << std::endl;
 				this->_myAlloc.construct(this->_data + this->_dataCounter, val/* value_type(val) */);
+			// (void)val;
+			// std::cout << "pouet" << std::endl;
 				this->_dataCounter++;
 			}
 
 			void pop_back() {
 				if (this->_dataCounter > 0) {
+					// std::cerr << " === destroy ===" << std::endl;
 					this->_myAlloc.destroy(this->_data + this->_dataCounter - 1);
 					this->_dataCounter--;
 				}
@@ -349,7 +342,9 @@ namespace ft {
 					this->pop_back();
 				else {
 					while (position != this->end() && position + 1 != this->end()) {
+						// std::cerr << " === destroy ===" << std::endl;
 						this->_myAlloc.destroy(&*position);
+						// std::cerr << " === construct ===" << std::endl;
 						this->_myAlloc.construct(&*position, *(position + 1));
 						position++;
 					}
@@ -361,9 +356,12 @@ namespace ft {
 			iterator erase(iterator first, iterator last) {
 				int ret = std::distance(this->begin(), first);
 				int distance = std::distance(first, last);
-				for (iterator it = first; it != last; it++)
+				for (iterator it = first; it != last; it++) {
+					// std::cerr << " === destroy ===" << std::endl;
 					this->_myAlloc.destroy(&*it);
+				}
 				while (first != this->end() && first + distance != this->end()) {
+					// std::cerr << " === construct ===" << std::endl;
 					this->_myAlloc.construct(&*first, *(first + distance));
 					first++;
 				}
@@ -393,7 +391,7 @@ namespace ft {
 			void clear() {
 				/* if (this->_capacity > 0) {
 					for (size_type i = 0; i < this->_dataCounter; i++) {
-						this->_myAlloc.destroy(this->_data + i);
+						this->_myAlloc.des// troy(this->_data + i);
 					}
 					this->_dataCounter = 0;
 				} */
