@@ -61,7 +61,7 @@ namespace ft {
 				//this->_data = this->_myAlloc.allocate(n);
 				this->assign(n, val);
 				// this-> 
-				_capacity = n;
+				//_capacity = n;
 				// this->_data = this->_myAlloc.allocate(n);
 				// for (; this->_dataCounter < n; this->_dataCounter++) {
 				// 	this->_myAlloc.cons // truct(this->_data + this->_dataCounter, val);
@@ -91,10 +91,10 @@ namespace ft {
 				for (size_type i = 0; i < x._dataCounter; i++) {
 					this->push_back(*(x._data + this->_dataCounter));
 				}
-				std::cout << "capacity x : " << x._capacity << std::endl;
-				std::cout << "capacity this : " << this->_capacity << std::endl;
-				std::cout << "size x : " << x._dataCounter << std::endl;
-				std::cout << "size this : " << this->_dataCounter << std::endl;
+				// std::cout << "capacity x : " << x._capacity << std::endl;
+				// std::cout << "capacity this : " << this->_capacity << std::endl;
+				// std::cout << "size x : " << x._dataCounter << std::endl;
+				// std::cout << "size this : " << this->_dataCounter << std::endl;
 			}
 			
 
@@ -181,9 +181,10 @@ namespace ft {
 				if (n < this->_dataCounter) {
 					iterator tmp(this->begin() + n);
 					while (tmp != this->end()) {
+						this->pop_back();
 						// std::cerr << " === destroy ===" << std::endl;
-						this->_myAlloc.destroy(&*tmp);
-						this->_dataCounter--;
+						// this->_myAlloc.destroy(&*tmp);
+						// this->_dataCounter--;
 					}
 					/* for (int i = 0; i + n < this->end(); i++) {
 						this->_myAlloc.des //troy(this->_data + n + i);
@@ -191,12 +192,13 @@ namespace ft {
 					} */
 				}
 				else {
-					if (n > this->_capacity)
+					if (n > this->_capacity * 2)
 						this->reserve(n);
 					while (n > this->_dataCounter) {
 						// std::cerr << " === construct ===" << std::endl;
-						this->_myAlloc.construct(this->_data + this->_dataCounter, val);
-						this->_dataCounter++;
+						this->push_back(val);
+						//this->_myAlloc.construct(this->_data + this->_dataCounter, val);
+						//this->_dataCounter++;
 					}
 				}
 			}
@@ -210,7 +212,12 @@ namespace ft {
 					pointer array;
 					size_type nb_element = this->_dataCounter;
 
-					size_type new_capacity = this->_capacity < n ? n : this->_capacity;
+					// size_type new_capacity = this->_capacity < n ? n : this->_capacity;
+					// new_capacity = this->_capacity == 0 ? n : this->_capacity;
+					size_type new_capacity = n;
+					// new_capacity = this->_capacity == 0 ? n : this->_capacity;
+					// while (new_capacity < n)
+					// 	new_capacity *= 2;
 					// if (n > new_capacity)
 					// 	new_capacity = n;
 					if (new_capacity > this->max_size())
@@ -223,7 +230,7 @@ namespace ft {
 							std::uninitialized_copy(this->begin(), this->end(), array);
 						this->clear();
 						this->_dataCounter = nb_element;
-						this->_myAlloc.deallocate(this->_data, this->_capacity);
+					this->_myAlloc.deallocate(this->_data, this->_capacity);
 						this->_data = array;
 						this->_capacity = new_capacity;
 						// std::cout << "========================================" << std::endl;
@@ -299,6 +306,8 @@ namespace ft {
 				ft::vector<T> cpy;
 				size_type diff = std::distance(this->begin(), position);
 				//this->clear();
+				if (this->_dataCounter + n > this->_capacity * 2)
+					this->reserve(n + this->_dataCounter);
 				size_type index = 0;
 				for (; index < diff; index++)
 					cpy.push_back(this->_data[index]);
@@ -353,6 +362,7 @@ namespace ft {
 						this->_myAlloc.construct(&*position, *(position + 1));
 						position++;
 					}
+					this->_myAlloc.destroy(&*position);
 					this->_dataCounter--;
 				}
 				return (iterator(this->begin()) + ret);
@@ -367,7 +377,9 @@ namespace ft {
 				}
 				while (first != this->end() && first + distance != this->end()) {
 					// std::cerr << " === construct ===" << std::endl;
+					// this->_myAlloc.destroy(this->begin() + ret++);
 					this->_myAlloc.construct(&*first, *(first + distance));
+					this->_myAlloc.destroy(&*(first + distance));
 					first++;
 				}
 				this->_dataCounter -= distance;

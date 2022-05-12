@@ -6,13 +6,12 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2022/05/12 18:23:57 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/12 19:52:12 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test_utils.hpp"
 #include "vector.hpp"
-// #include "VECTOR_UC.HPP"
 #include <vector>
 
 #ifndef STD
@@ -25,7 +24,7 @@ using namespace NAMESPACE;
 
 int main()
 {
-/* 	vector<int>			test(3, 3);
+	vector<int>			test(3, 3);
 
 	cout << "self assignation test\n";
 	vector<vector<int> >	self_assign;
@@ -50,7 +49,6 @@ int main()
 		cout << '\n';
 	}
 	vector<vector<int> > MIKE(BOB);
-
 	// CTORs
 	cout << "\nCTORS\n";
 	cout << "Empty is empty ? " << std::boolalpha << JOHN.empty() << '\n';
@@ -62,8 +60,9 @@ int main()
 
 	// RESIZE
 	size_t	bob_resize = 2;
-	cout << "\nRESIZE\n";
+	cout << "\nRESIZE from " << BOB.size() << std::endl;
 	BOB.resize(bob_resize);
+return 0;
 	cout << "Size of JOHN " << JOHN.size() << std::endl;
 	if (JOHN.capacity() >= JOHN.size())
 		cout << "Capacity of JOHN is sufficient\n";
@@ -248,41 +247,20 @@ int main()
 		cout << insert_bis[i].back() << ' ';
 	cout << '\n';
 
- */
+
 	//ERASE
-	cout << "\nERASE ==========================================================================================================================================================================================================================================================\n";
+	cout << "\nERASE\n";
 	vector<vector<int> >	erase_in_me;
-	// for (int i = 0; i < 15; i++)
-	// {
-	// 	cout << "before vector" << std::endl;
-	// 	vector<int>	j(1, i);
-	// 	cout << "before pb" << std::endl;
-	// 	erase_in_me.push_back(j);
-	// 	cout << "after pb" << std::endl << std::endl;
-	// }
-
-	erase_in_me.push_back(vector<int>(1, 0));
-	erase_in_me.push_back(vector<int>(1, 1));
-	erase_in_me.push_back(vector<int>(1, 2));
-	erase_in_me.push_back(vector<int>(1, 3));
-	erase_in_me.push_back(vector<int>(1, 4));
-	erase_in_me.push_back(vector<int>(1, 5));
-	erase_in_me.push_back(vector<int>(1, 6));
-	erase_in_me.push_back(vector<int>(1, 7));
-	erase_in_me.push_back(vector<int>(1, 8)); //lui
-	erase_in_me.push_back(vector<int>(1, 9));
-	erase_in_me.push_back(vector<int>(1, 10));
-	erase_in_me.push_back(vector<int>(1, 11));
-	erase_in_me.push_back(vector<int>(1, 12));
-	erase_in_me.push_back(vector<int>(1, 13));
-	erase_in_me.push_back(vector<int>(1, 14)); //lui
-
-	cout << "\nafter pushback ==========================================================================================================================================================================================================================================================\n";
+	for (int i = 0; i < 15; i++)
+	{
+		vector<int>	j(1, i);
+		erase_in_me.push_back(j);
+	}
 	for (size_t i = 0; i < erase_in_me.size(); i++)
 		cout << erase_in_me.at(i).front() << ' ';
 	cout << '\n';
 
-	erase_in_me.erase(erase_in_me.begin() + 7); // la aussi
+	erase_in_me.erase(erase_in_me.begin() + 7);
 	for (size_t i = 0; i < erase_in_me.size(); i++)
 		cout << erase_in_me.at(i).front() << ' ';
 	cout << '\n';
@@ -290,10 +268,9 @@ int main()
 	for (size_t i = 0; i < erase_in_me.size(); i++)
 		cout << erase_in_me.at(i).front() << ' ';
 	cout << '\n';
-	cout << "\nERASE end ==========================================================================================================================================================================================================================================================\n";
 
 	//SWAP
-/* 	cout << "\nSWAP\n";
+	cout << "\nSWAP\n";
 	john_reserve = 4;
 	JOHN.reserve(john_reserve);
 	BOB.swap(MIKE);
@@ -406,7 +383,7 @@ int main()
 		cout << (*it).front() << " ";
 	cout << '\n';
 
-	cout << std::endl; */
+	cout << std::endl;
 	return (0);
 }
 
