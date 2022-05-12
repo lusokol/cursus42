@@ -60,7 +60,8 @@ namespace ft {
 				//std::cout << "yolo" << std::endl;
 				//this->_data = this->_myAlloc.allocate(n);
 				this->assign(n, val);
-				// this->https://github.com/Mazoise/42TESTERS-CONTAINERS.git_capacity = n;
+				// this-> 
+				_capacity = n;
 				// this->_data = this->_myAlloc.allocate(n);
 				// for (; this->_dataCounter < n; this->_dataCounter++) {
 				// 	this->_myAlloc.cons // truct(this->_data + this->_dataCounter, val);
@@ -85,11 +86,15 @@ namespace ft {
 			}
 
 			vector (vector<T, Alloc> const &x) : _myAlloc(x._myAlloc), _capacity(x._capacity), _dataCounter(0), _data(NULL) {
-				//this->_data = this->_myAlloc.allocate(this->_capacity);
-				this->assign(x.begin(), x.end());
-				// for (size_type i = 0; i < x._dataCounter; i++) {
-				// 	this->push_back(*(x._data + this->_dataCounter));
-				// }
+				this->_data = this->_myAlloc.allocate(this->_capacity);
+				//this->assign(x.begin(), x.end());
+				for (size_type i = 0; i < x._dataCounter; i++) {
+					this->push_back(*(x._data + this->_dataCounter));
+				}
+				std::cout << "capacity x : " << x._capacity << std::endl;
+				std::cout << "capacity this : " << this->_capacity << std::endl;
+				std::cout << "size x : " << x._dataCounter << std::endl;
+				std::cout << "size this : " << this->_dataCounter << std::endl;
 			}
 			
 

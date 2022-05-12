@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/05/12 15:40:34 by lusokol          ###   ########.fr        #
+#    Updated: 2022/05/12 18:23:11 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = ft_container
 
 # sources needed to compile
-SRC =	main3.cpp \
+SRC =	main4.cpp \
 
 # path of sources
 PATH_SRCS = ./srcs
