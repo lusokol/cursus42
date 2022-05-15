@@ -85,9 +85,11 @@ namespace ft {
 				}
 			}
 
-			vector (vector<T, Alloc> const &x) : _myAlloc(x._myAlloc), _capacity(x._capacity), _dataCounter(0), _data(NULL) {
-				this->_data = this->_myAlloc.allocate(this->_capacity);
+			vector (vector<T, Alloc> const &x) : _myAlloc(x._myAlloc), _capacity(x._dataCounter), _dataCounter(0), _data(NULL) {
+				//std::cout << "capacity : " << x._dataCounter << std::endl;
+				this->_data = this->_myAlloc.allocate(x._dataCounter);
 				//this->assign(x.begin(), x.end());
+				//this->_data = this->_myAlloc.allocate(x._capacity);
 				for (size_type i = 0; i < x._dataCounter; i++) {
 					this->push_back(*(x._data + this->_dataCounter));
 				}
@@ -209,6 +211,7 @@ namespace ft {
 
 			void reserve (size_type n) {
 				if (n > this->_capacity) {
+					//std::cout << "n = " << n << std::endl;
 					pointer array;
 					size_type nb_element = this->_dataCounter;
 
@@ -306,8 +309,14 @@ namespace ft {
 				ft::vector<T> cpy;
 				size_type diff = std::distance(this->begin(), position);
 				//this->clear();
-				if (this->_dataCounter + n > this->_capacity * 2)
-					this->reserve(n + this->_dataCounter);
+				//std::cout << "insert_base, _datacounter :" << _dataCounter << " n : " << n << " _capacity : " << _capacity << std::endl;
+				if (this->_dataCounter + n >= this->_capacity * 2)
+					cpy.reserve(this->_dataCounter + n); // datacounter + n
+				else if (this->_dataCounter + n >= this->_capacity)
+					cpy.reserve(this->_dataCounter * 2); //capacity
+				else
+					cpy.reserve(this->_capacity); //capacity
+					// cpy.reserve((this->_dataCounter + n )* 2); //capacity
 				size_type index = 0;
 				for (; index < diff; index++)
 					cpy.push_back(this->_data[index]);
@@ -322,12 +331,14 @@ namespace ft {
 		public:
 
 			iterator insert (iterator position, const value_type& val) {
+				//std::cout << "insert" << std::endl;
 				difference_type tmp = std::distance(this->begin(), position);
 				insert_base(position, 1, val);
 				return (this->begin() + tmp);
 			}
 			
 			void insert (iterator position, size_type n, const value_type& val) {
+				//std::cout << "insert2" << std::endl;
 				insert_base(position, n, val);
 			}
 
@@ -338,7 +349,14 @@ namespace ft {
 						typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = NULL) {
 				ft::vector<T> cpy;
 				size_type diff = std::distance(this->begin(), position);
+				size_type n = std::distance(first, last);
 				//this->clear();
+				if (this->_dataCounter + n >= this->_capacity * 2)
+					cpy.reserve(this->_dataCounter + n); // datacounter + n
+				else if (this->_dataCounter + n >= this->_capacity)
+					cpy.reserve((this->_dataCounter + n )* 2); //capacity
+				else
+					cpy.reserve(this->_capacity); //capacity
 				size_type index = 0;
 				for (; index < diff; index++)
 					cpy.push_back(this->_data[index]);
