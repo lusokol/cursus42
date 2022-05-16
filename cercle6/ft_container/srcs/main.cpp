@@ -6,13 +6,17 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:16:05 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/11 18:23:06 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/16 14:53:12 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #include <vector>
-#define __VECTOR ft
+#ifndef STD
+# define __VECTOR ft
+#else
+# define __VECTOR std
+#endif
 
 bool mypredicate (int i, int j) {
   return (i==j);
@@ -20,7 +24,12 @@ bool mypredicate (int i, int j) {
 
 int main(void) {
 
-	
+//std::cout << "namespace : " << __VECTOR << std::endl;
+#ifndef STD
+	std::cout << "namespace ft\n" << std::endl;
+#else
+	std::cout << "namespace std\n" << std::endl;
+#endif
 std::cout << "Test constructor : The contents of fifth are: 16 2 77 29" << std::endl;
 {
     // constructors used in the same order as described above:
@@ -497,5 +506,13 @@ std::cout << "Test operator (comparaison) : The contents of both sequences are e
     std::cout << "The contents of both sequences are equal.\n";
   else
     std::cout << "The contents of both sequences differ.\n";
+}
+
+{
+	__VECTOR::vector<int> test;
+	for (int i = 0; i < 10000000; i++)
+		test.push_back(1);
+	for (int i = 0; i < 10000000; i++)
+		test.pop_back();
 }
 }
