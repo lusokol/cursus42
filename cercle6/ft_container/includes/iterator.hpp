@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/10 12:12:54 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/05/17 15:21:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 #include <iostream>
 
 namespace ft {
-
-   /*  struct input_iterator_tag { };
-    struct output_iterator_tag { };
-    struct forward_iterator_tag : public input_iterator_tag { };
-    struct bidirectional_iterator_tag : public forward_iterator_tag { };
-    struct random_access_iterator_tag : public bidirectional_iterator_tag { }; */
 
     template <typename Iterator>
     struct iterator_traits {
@@ -135,8 +129,10 @@ namespace ft {
 			bool operator>(Iterator &ref) {
 				return (this->_ptr > ref._ptr);
 			}
+			 
 			friend bool operator<(const   Iterator& a, const   Iterator& b) { return (a._ptr < b._ptr); };
 			friend bool operator>(const   Iterator& a, const   Iterator& b) { return (a._ptr > b._ptr); };
+			
 			bool operator<=(Iterator &ref) {
 				return (this->_ptr <= ref._ptr);
 			}

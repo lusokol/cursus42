@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/04/28 17:25:31 by lusokol          ###   ########.fr        #
+#    Updated: 2022/05/16 15:00:55 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,10 @@ OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.cpp=.o))
 MAKEFLAGS += --no-print-directory
 
 BEGIN = 0
+TIME1 = 0
+TIME2 = 0
 NO_RECURS = 0
 UNAME_S = Linux
-#$(shell uname)
 LINUX = Linux
 MAC = Darwin
 
@@ -98,6 +99,29 @@ run: all
 
 rerun: re
 	./$(NAME)
+
+add_g3:
+	$(eval CXXFLAGS = $(CXXFLAGS) -g3)
+
+add_sanitize:
+	$(eval CXXFLAGS = $(CXXFLAGS) -fsanitize=address)
+
+debug: add_g3 add_sanitize rerun
+
+leaks:  add_g3 re
+ifeq ($(UNAME_S), $(LINUX))
+	printf "$(_BOLD)$(_GREEN)$(NAME) execute with valgrind ...$(_R)\n"
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) --s
+else
+	printf "$(_RED)Valgrind deprecated on Macos...\e[0m\n"
+endif
+
+########################################## ft_container
+
+add_stdvector:
+	$(eval CXXFLAGS = $(CXXFLAGS) -D STD)
+
+std: add_stdvector re
 
 ########################################## colors
 

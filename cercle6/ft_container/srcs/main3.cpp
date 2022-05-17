@@ -6,27 +6,20 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:55:10 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/06 17:21:19 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/12 19:46:51 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.tpp"
+#include "vector.hpp"
 #include <iostream>
 #include <vector>
 
 #define __VECTOR ft
+using namespace ft;
 
 int main() {
-	__VECTOR::vector<int> test(3, 10);
-	
-	__VECTOR::vector<int>::iterator it = test.begin();
-	__VECTOR::vector<int>::iterator ite = test.end();
+	vector<int> test(3,3);
+vector<vector<int> > BOB(5, test);
+return 0;
 
-	
-	std::cout << "size : " << test.size() << std::endl;
-	std::cout << "ite (" << &*ite << ")" << std::endl;
-	for (; it != ite; ++it)
-		std::cout << *it << " (" << &*it << ")" << std::endl;
-	std::cout << *it << " (" << &*it << ")" << std::endl;
-	return (0);
 }
