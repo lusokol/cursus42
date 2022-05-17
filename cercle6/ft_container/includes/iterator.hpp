@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/16 15:55:41 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/17 15:21:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,10 @@ namespace ft {
 			bool operator>(Iterator &ref) {
 				return (this->_ptr > ref._ptr);
 			}
+			 
 			friend bool operator<(const   Iterator& a, const   Iterator& b) { return (a._ptr < b._ptr); };
 			friend bool operator>(const   Iterator& a, const   Iterator& b) { return (a._ptr > b._ptr); };
+			
 			bool operator<=(Iterator &ref) {
 				return (this->_ptr <= ref._ptr);
 			}
