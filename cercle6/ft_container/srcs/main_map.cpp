@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/18 13:13:16 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/18 18:59:30 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int main(void) {
 	// yolo.insert(10);
 	// yolo.insert(11);
 	
-	yolo.aff_tree(0, yolo.getNode(), 0);
+	yolo.print_tree(yolo.getNode());
 	std::cout << std::endl;
 	return 0;
 }
