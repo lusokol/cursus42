@@ -6,16 +6,22 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/18 18:59:30 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/18 20:06:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.hpp"
 #include <iostream>
 
+#include <stdlib.h>
+#include <time.h>  
+
 int main(void) {
 	ft::map<int> yolo;
-
+	srand (time(NULL));
+	
+	for (int i = 0; i < 150; i++)
+		yolo.insert(rand() % 1000 + 1);
 	// yolo.insert(6);
 	// yolo.insert(3);
 	// yolo.insert(7);
@@ -49,32 +55,32 @@ int main(void) {
 	// yolo.insert(730);
 	// yolo.insert(840);
 	// yolo.insert(550);
-
-	yolo.insert(7);
-	yolo.insert(3);
+	/* yolo.insert(0);
 	yolo.insert(1);
-	yolo.insert(0);
 	yolo.insert(2);
-	yolo.insert(5);
+	yolo.insert(3);
 	yolo.insert(4);
+	yolo.insert(5);
 	yolo.insert(6);
+	yolo.insert(7);
 	yolo.insert(8);
-	yolo.insert(10);
 	yolo.insert(9);
-	yolo.insert(11);
-	
-	// yolo.insert(0);
-	// yolo.insert(1);
-	// yolo.insert(2);
-	// yolo.insert(3);
-	// yolo.insert(4);
-	// yolo.insert(5);
-	// yolo.insert(6);
+	yolo.insert(10);
+	yolo.insert(11); */
+
 	// yolo.insert(7);
+	// yolo.insert(3);
+	// yolo.insert(1);
+	// yolo.insert(0);
+	// yolo.insert(2);
+	// yolo.insert(5);
+	// yolo.insert(4);
+	// yolo.insert(6);
 	// yolo.insert(8);
+	// yolo.insert(100);
 	// yolo.insert(9);
-	// yolo.insert(10);
 	// yolo.insert(11);
+	
 	
 	yolo.print_tree(yolo.getNode());
 	std::cout << std::endl;

@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/18 18:51:06 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/18 19:26:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,22 @@ namespace ft {
 		public:
 
 			map(void) : root(NULL) {}
-			~map(void) {}
+			~map(void) {
+				this->clear(root);
+			}
 
 			node *getNode(void) { return root; }
 
 		private:
+
+			void clear(node *actual) {
+				if (actual->right)
+					clear(actual->right);
+				if (actual->left)
+					clear(actual->left);
+				this->_myAlloc.destroy(actual);
+				this->_myAlloc.deallocate(actual, 1);
+			}
 
 			node *new_node(T val, node *parent) {
 				node *tmp;
@@ -73,33 +84,6 @@ namespace ft {
 				root = insert_bis(this->getNode(), val, NULL);
 			}
 
-			// void aff_tree(node *actual) {
-			// 	if (!actual)
-			// 		return ;
-			// 	if (actual->left)
-			// 		aff_tree(actual->left);
-			// 	else {
-			// 		std::cout << actual->value << " ";
-			// 		return ;
-			// 	}
-			// 	std::cout << actual->value << " ";
-			// 	if (actual->right)
-			// 		aff_tree(actual->right);
-			// 	else {
-			// 		std::cout << actual->value << " ";
-			// 		return ;
-			// 	}
-			// 	return ;
-			// }
-
-			/* void aff_tree(node *actual) {
-				std::cout << actual->value << "\t";
-				if (actual->left)
-					aff_tree(actual->left);
-				if (actual->right)
-					aff_tree(actual->right);
-			} */
-			
 			//////////////////////////////// display binary tree ///////////////////////////////
 			#include "map_display.hpp"
 			////////////////////////////////// end of display /////////////////////////////////
