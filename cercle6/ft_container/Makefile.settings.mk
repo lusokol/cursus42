@@ -23,7 +23,7 @@ PATH_SRCS = ./srcs
 INCLUDES =	./includes/
 
 # flags for compilation
-CXXFLAGS = -Wall -Wextra -Werror# -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror# -fsanitize=address# -std=c++98
 
 # compiler used
 CXX = c++

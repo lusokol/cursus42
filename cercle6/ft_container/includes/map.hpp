@@ -102,22 +102,22 @@ namespace ft {
 			}
 
 			node *getUncle(node *x) {
-				if (this->getParent && this->getGP(x)->right == this->getParent(x))
+				if (this->getParent(x) && this->getGP(x)->right == this->getParent(x))
 					return (this->getGP(x)->left);
-				else if (this->getParent && this->getGP(x)->left == this->getParent(x))
-					return (this->getGP(x)->right;
+				else if (this->getParent(x) && this->getGP(x)->left == this->getParent(x))
+					return (this->getGP(x)->right);
 				else
 					return NULL;
 			}
 
 			bool is_leftGP(node *x) {
-				if (getParent() == getGP(x)->left)
+				if (getParent(x) == getGP(x)->left)
 					return true;
 				return false;
 			}
 
 			bool is_leftP(node *x) {
-				if (getParent()->left == x)
+				if (getParent(x)->left == x)
 					return true;
 				return false;
 			}
@@ -128,9 +128,11 @@ namespace ft {
 			
 			void insert_fix(void) {
 				
-				while (!this->last->is_black && !getParent(last)->is_black) { // 1
-					if (is_leftGP(last)) {									  // 2
+				while (last && !this->last->is_black && !getParent(last)->is_black) { // 1
+					if (is_leftGP(last)) {	
+						//std::cout << "5" << std::endl;								  // 2
 						if (getUncle(last) && !getUncle(last)->is_black) {    // 2.a)
+							//std::cout << "1" << std::endl;
 							getUncle(last)->is_black = true;
 							getParent(last)->is_black = true;
 							getGP(last)->is_black = false;
@@ -138,12 +140,37 @@ namespace ft {
 						}
 						else {
 							if (!is_leftP(last)) {
-							last = getParent(last);
-							this->rotate_left(last);
+								//std::cout << "2" << std::endl;
+								last = getParent(last);
+								this->rotate_left(last);
+							}
+							getParent(last)->is_black = true;
+							getGP(last)->is_black = false;
+							this->rotate_right(getGP(last));
 						}
 					}
-				}
-				
+					else {
+						//std::cout << "6" << std::endl;
+						if (getUncle(last) && !getUncle(last)->is_black) {
+							//std::cout << "3" << std::endl;
+							getUncle(last)->is_black = true;
+							getParent(last)->is_black = true;
+							getGP(last)->is_black = false;
+							last = getGP(last);
+						}
+						else {
+							if (is_leftP(last)) {
+								//std::cout << "4" << std::endl;
+								last = getParent(last);
+								rotate_right(last);
+							}
+							getParent(last)->is_black = true;
+							getGP(last)->is_black = false;
+							rotate_left(getGP(last));
+						}
+					}
+					getNode()->is_black = true;
+				//std::cout << "last value : " << last->value << std::endl;
 				/* if (x->left) {
 					if (!x->is_black && !x->left->is_black)
 						x->left->is_black = true;
@@ -154,6 +181,7 @@ namespace ft {
 						x->right->is_black = true;
 					insert_fix(x->right);
 				} */
+				}
 			}
 
 			void insert(T val) {

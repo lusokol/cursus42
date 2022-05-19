@@ -60,7 +60,7 @@ int main(void) {
 	// yolo.insert(730);
 	// yolo.insert(840);
 	// yolo.insert(550);
-	/* yolo.insert(0);
+/* 	yolo.insert(0);
 	yolo.insert(1);
 	yolo.insert(2);
 	yolo.insert(3);
