@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/18 20:06:21 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/19 17:01:52 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@
 int main(void) {
 	ft::map<int> yolo;
 	srand (time(NULL));
-	
-	for (int i = 0; i < 150; i++)
+	std::cout << "How much random node do you want ?" << std::endl;
+	int nb;
+	std::cin >> nb;
+	for (int i = 0; i < nb; i++)
 		yolo.insert(rand() % 1000 + 1);
+	yolo.print_tree(yolo.getNode());
+	std::cout << std::endl;
+
 	// yolo.insert(6);
 	// yolo.insert(3);
 	// yolo.insert(7);
@@ -81,8 +86,64 @@ int main(void) {
 	// yolo.insert(9);
 	// yolo.insert(11);
 	
+	// yolo.insert(4);
+	// yolo.insert(2);
+	// yolo.insert(1); // for right rotation
+	// yolo.insert(5);
+	// yolo.insert(3);
 	
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
+	// yolo.insert(2);
+	// yolo.insert(1);
+	// yolo.insert(4); // for left rotation
+	// yolo.insert(3);
+	// yolo.insert(5);
+
+	// yolo.insert(6);
+	// yolo.insert(4);
+	// yolo.insert(8);
+	// yolo.insert(2);
+	// yolo.insert(5);
+	// yolo.insert(7);
+	// yolo.insert(9);
+	// yolo.insert(1);
+	// yolo.insert(3);
+
+	// yolo.insert(12);
+	// yolo.insert(234);
+	// yolo.insert(2);
+	// yolo.insert(23);
+	// yolo.insert(13);
+	// yolo.insert(54);
+
+	// yolo.insert(3);
+	// yolo.insert(5);
+	// yolo.insert(4);
+	
+	// yolo.print_tree(yolo.getNode());
+
+	// ////////////////////////////////////
+	// yolo.rotate_right_left(yolo.getNode());
+	////////////////////////////////////
+	// std::cout << std::endl;
+	// yolo.rotate_left(yolo.getNode()->left);
+	
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// yolo.rotate_right(yolo.getNode());
+	////////////////////////////////////
+	
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+
+	
+	// yolo.print_tree(yolo.getNode());
+	// yolo.rotate_right(yolo.getNode()->left);
+	// std::cout << std::endl;
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// yolo.rotate_left(yolo.getNode()->left);
+	// std::cout << std::endl;
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
 	return 0;
 }
