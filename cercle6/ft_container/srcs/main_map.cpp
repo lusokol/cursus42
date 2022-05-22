@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_map.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/19 17:01:52 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/22 11:23:20 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 int main(void) {
 	ft::map<int> yolo;
-	srand (time(NULL));
-	std::cout << "How much random node do you want ?" << std::endl;
-	int nb;
-	std::cin >> nb;
-	for (int i = 0; i < nb; i++)
-		yolo.insert(rand() % 1000 + 1);
+	// srand (time(NULL));
+	// std::cout << "How much random node do you want ?" << std::endl;
+	// int nb;
+	// std::cin >> nb;
+	// for (int i = 0; i < nb; i++)
+	// 	yolo.insert(rand() % 1000 + 1);
+	for (int i = 0; i < 1000; i++)
+		yolo.insert(i);
 	yolo.print_tree(yolo.getNode());
 	std::cout << std::endl;
 

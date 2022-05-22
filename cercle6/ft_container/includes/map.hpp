@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/19 19:14:57 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:52:10 by macbookpro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,6 @@ namespace ft {
 		
 		public:
 
-			/* bool check_violation(void) {
-				if (root->is_black == false)
-					return 1;
-				return 0;
-			} */
-
 			node *getParent(node *x) {
 				if (x->parent)
 					return x->parent;
@@ -121,26 +115,19 @@ namespace ft {
 					return true;
 				return false;
 			}
-
-			/* void check_node(node *x) {
-				if (!this->getParent(x)->is_black)
-			} */
 			
 			void insert_fix(void) {
 				
 				while (last && !this->last->is_black && !getParent(last)->is_black) { // 1
 					if (is_leftGP(last)) {	
-						//std::cout << "5" << std::endl;								  // 2
-						if (getUncle(last) && !getUncle(last)->is_black) {    // 2.a)
-							//std::cout << "1" << std::endl;
+						if (getUncle(last) && !getUncle(last)->is_black) {
 							getUncle(last)->is_black = true;
 							getParent(last)->is_black = true;
 							getGP(last)->is_black = false;
-							last = getGP(last);								  // 2.b)
+							last = getGP(last);
 						}
 						else {
 							if (!is_leftP(last)) {
-								//std::cout << "2" << std::endl;
 								last = getParent(last);
 								this->rotate_left(last);
 							}
@@ -150,9 +137,7 @@ namespace ft {
 						}
 					}
 					else {
-						//std::cout << "6" << std::endl;
 						if (getUncle(last) && !getUncle(last)->is_black) {
-							//std::cout << "3" << std::endl;
 							getUncle(last)->is_black = true;
 							getParent(last)->is_black = true;
 							getGP(last)->is_black = false;
@@ -170,17 +155,6 @@ namespace ft {
 						}
 					}
 					getNode()->is_black = true;
-				//std::cout << "last value : " << last->value << std::endl;
-				/* if (x->left) {
-					if (!x->is_black && !x->left->is_black)
-						x->left->is_black = true;
-					insert_fix(x->left);
-				}
-				if (x->right) {
-					if (!x->is_black && !x->right->is_black)
-						x->right->is_black = true;
-					insert_fix(x->right);
-				} */
 				}
 			}
 
@@ -263,6 +237,15 @@ namespace ft {
 					this->rotate_left(p);
 			}
 
+			void delete_node(node *p) {
+				node *x;
+				int color = p->is_black;
+				if (p->left != NULL) {
+					x = p->right;
+					if (this->is_leftP()) 
+				}
+			}
+			
 			//////////////////////////////// display binary tree ///////////////////////////////
 			#include "map_display.hpp"
 			////////////////////////////////// end of display /////////////////////////////////
