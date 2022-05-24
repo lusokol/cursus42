@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/22 14:52:10 by macbookpro       ###   ########.fr       */
+/*   Updated: 2022/05/24 14:01:51 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,12 +237,45 @@ namespace ft {
 					this->rotate_left(p);
 			}
 
-			void delete_node(node *p) {
+			private:
+
+				node *minimum(node *p) {
+					while (p && p->left)
+						p = p->left;
+					return p;
+				}
+				
+				node *maximum(node *p) {
+					while (p && p->right)
+						p = p->right;
+					return p;
+				}
+
+			public:
+
+			void delete_node(node *del) {
 				node *x;
-				int color = p->is_black;
-				if (p->left != NULL) {
-					x = p->right;
-					if (this->is_leftP()) 
+				int color = del->is_black;
+				if (del->left != NULL) {
+					x = del->right;
+					if (this->is_leftP(del))
+						del->parent->left = x;
+					else
+						del->parent->right = x;
+					x->parent = del->parent;
+					// delete del ?
+				}
+				else if (del->right != NULL) {
+					x = del->left;
+					if (this->is_leftP(del))
+						del->parent->left = x;
+					else
+						del->parent->right = x;
+					x->parent = del->parent;
+					// delete del ?
+				}
+				else {
+					node *y = minimum(del);
 				}
 			}
 			
