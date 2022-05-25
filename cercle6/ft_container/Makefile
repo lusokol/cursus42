@@ -6,7 +6,7 @@
 #    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/07 15:08:42 by macbookpro        #+#    #+#              #
-#    Updated: 2022/05/16 15:00:55 by lusokol          ###   ########.fr        #
+#    Updated: 2022/05/25 11:28:06 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,4 +141,4 @@ ERASE_ALL = $(ESC_SEQ)M
 
 ##########################################
 
-.PHONY: all clean fclean re project
+.PHONY: all clean fclean re leaks debug
