@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/25 19:17:54 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/25 19:32:58 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ namespace ft {
 		typedef rbt_node<T> node;
 		typedef rbt_node<T> *node_ptr;
 		typedef T value_type;
+		//typedef Compare
 
 		private:
 			Allocator _myAlloc;			

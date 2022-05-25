@@ -6,89 +6,92 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/25 18:18:56 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/25 20:18:48 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rbt.hpp"
+#include "map.hpp"
+#include "pair.hpp"
 #include <iostream>
 
 #include <stdlib.h>
 #include <time.h>  
 
 int main(void) {
-	ft::rbt<int> yolo;
+	ft::map<int, std::string> yolo;
+	ft::pair<ft::map<int, int>:iterator, bool> p;
 	// srand (time(NULL));
 	// std::cout << "How much random node do you want ?" << std::endl;
 	// int nb;
 	// std::cin >> nb;
 	// for (int i = 0; i < nb; i++)
 	// 	yolo.insert(rand() % 1000 + 1);
-	for (int i = 0; i < 15; i++)
-		yolo.insert(i);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
-	yolo.delete_node(yolo.getNode()->left);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
-	// return 0;
-	yolo.delete_node(yolo.getNode()->right);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
-	yolo.delete_node(yolo.getNode()->right);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
-	yolo.delete_node(yolo.getNode()->right);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
-	yolo.delete_node(yolo.getNode()->right);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	return 0;
+	for (int i = 33; i < 48; i++)
+		yolo.insert(make_pair(i, std::string("test")));
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode()->left);
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// // return 0;
+	// yolo.delete_node(yolo.getNode()->right);
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode()->right);
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode()->right);
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode()->right);
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 	
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 	
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 	
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 
-	yolo.delete_node(yolo.getNode());
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.delete_node(yolo.getNode());
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 	
-	yolo.insert(3);
-	yolo.print_tree(yolo.getNode());
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// yolo.insert(3);
+	// yolo.print_tree(yolo.getNode());
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 
 	// yolo.delete_node(yolo.getNode());
 	// yolo.print_tree(yolo.getNode());

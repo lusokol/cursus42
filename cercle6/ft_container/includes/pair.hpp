@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:10:15 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/25 14:40:21 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/25 20:02:06 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 namespace ft {
 
-    template <typedef T1, typedef T2>
+    template <typename T1, typename T2>
     struct pair {
         typedef T1 first_type;
         typedef T2 second_type;
@@ -37,7 +37,7 @@ namespace ft {
             }
             return (*this);
         }
-    }
+    };
 
     template <class T1, class T2>
     bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return (lhs.first == rhs.first && lhs.second == rhs.second); };
@@ -60,8 +60,8 @@ namespace ft {
     // * /////////////////////// MAKE PAIR ////////////////////// * //
 
     template <class T1, class T2>
-    pair<T1,T2> make_pair (T1 x, T2 y) {
-        return (pair<T, U>(first, second));
+    pair<T1,T2> make_pair (T1 first, T2 second) {
+        return (pair<T1, T2>(first, second));
     }
 
 
