@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:54:53 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/25 20:07:01 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 14:39:42 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ namespace ft {
 			_myAlloc(allocT), 
 			_key_comp(comp),
 			_value_comp(comp),
-			_rbt(_myAlloc, _value_comp) {}
+			_rbt(/* _myAlloc, _value_comp */) {}
 
 			/* template <class InputIterator>
  			map (InputIterator first, InputIterator last,
@@ -87,7 +87,7 @@ namespace ft {
 
 			// * // MODIFIERS // * //
 			
-			ft::pair</* std::iterator<T> */int,char> insert (const value_type& val) {
+			void /* ft::pair<int,char> */ insert (const value_type& val) {
 				return (this->_rbt.insert(val));
 			}
 

@@ -6,12 +6,14 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:10:15 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/25 20:02:06 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 15:07:38 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAIR_HPP
 # define PAIR_HPP
+
+#include <iostream>
 
 namespace ft {
 
@@ -26,17 +28,21 @@ namespace ft {
         pair(void) : first(first_type()), second(second_type()) {}
         
         template <class First, class Second>
-        pair (const pair<First,Second> & p) : first(p.first), second(p.second) {}
+        pair (pair<First,Second> const &p) : first(p.first), second(p.second) {}
         
-        pair (const first_type & a, const second_type & b) : first(a), second(b) {}
+        pair (first_type const &a, second_type const &b) : first(a), second(b) {}
 
-        pair &operator=(pair const &ref) {
+        /* pair    &operator=(pair const &ref) {
             if (this != &ref) {
                 this->first = ref.first;
                 this->second = ref.second;
             }
             return (*this);
-        }
+        } */
+
+        operator pair<T1 const, T2 const>(void) const {
+			return (pair<T1 const, T2 const>(this->first, this->second));
+		}
     };
 
     template <class T1, class T2>
@@ -56,6 +62,14 @@ namespace ft {
 
     template <class T1, class T2>
     bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(lhs < rhs); }
+
+    // * /////////////////////// DEBUG ////////////////////// * //
+
+	template <typename T, typename U>
+	std::ostream	&operator<<(std::ostream &ostream, pair<T, U> const &rhs) {
+		ostream << "key(" << rhs.first << ") :" << rhs.second;
+		return (ostream);
+	}    
 
     // * /////////////////////// MAKE PAIR ////////////////////// * //
 

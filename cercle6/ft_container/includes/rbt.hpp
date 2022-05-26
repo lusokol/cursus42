@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/25 19:32:58 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 15:01:55 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace ft {
 		bool is_black:1;
 		T value;
 
-		rbt_node(int val) : parent(NULL), left(NULL), right(NULL), is_black(false), value(val) {}
+		rbt_node(T val) : parent(NULL), left(NULL), right(NULL), is_black(false), value(val) {}
 		~rbt_node(void) {}
 	};
 
@@ -66,7 +66,7 @@ namespace ft {
 
 		private:
 
-			void clear(node_ptr actual) {
+			void clear(node *actual) {
 				if (actual == nil)
 					return ;
 				if (actual->right != nil)
@@ -78,7 +78,7 @@ namespace ft {
 			}
 
 			node_ptr new_node(T val, node_ptr parent, bool is_black) {
-				node *tmp;
+				node_ptr tmp;
 				tmp = _myAlloc.allocate(1);
 				_myAlloc.construct(tmp, val); 
 				tmp->parent = parent;

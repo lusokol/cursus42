@@ -6,11 +6,12 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/25 20:18:48 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 15:07:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.hpp"
+#include "rbt.hpp"
 #include "pair.hpp"
 #include <iostream>
 
@@ -18,18 +19,18 @@
 #include <time.h>  
 
 int main(void) {
-	ft::map<int, std::string> yolo;
-	ft::pair<ft::map<int, int>:iterator, bool> p;
+	ft::rbt<ft::pair<int, std::string> > yolo;
+	// ft::pair<int, int> p;
 	// srand (time(NULL));
 	// std::cout << "How much random node do you want ?" << std::endl;
 	// int nb;
 	// std::cin >> nb;
 	// for (int i = 0; i < nb; i++)
 	// 	yolo.insert(rand() % 1000 + 1);
-	return 0;
-	for (int i = 33; i < 48; i++)
-		yolo.insert(make_pair(i, std::string("test")));
-	// yolo.print_tree(yolo.getNode());
+	for (int i = 0; i < 10; i++)
+		yolo.insert(ft::make_pair<int, std::string>(i, std::string("test")));
+	yolo.print_tree(yolo.getNode());
+	std::cout << std::endl;
 	// std::cout << std::endl;
 	// std::cout << std::endl;
 	// yolo.delete_node(yolo.getNode()->left);
