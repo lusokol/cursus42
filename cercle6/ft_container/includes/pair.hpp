@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:10:15 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/26 15:07:38 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 18:17:48 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ namespace ft {
 
 	template <typename T, typename U>
 	std::ostream	&operator<<(std::ostream &ostream, pair<T, U> const &rhs) {
-		ostream << "key(" << rhs.first << ") :" << rhs.second;
+		ostream << "key(" << rhs.first << "):" << rhs.second;
 		return (ostream);
 	}    
 

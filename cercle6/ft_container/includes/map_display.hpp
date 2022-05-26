@@ -3,7 +3,7 @@
 // You can change those define
 
 #define __NODE node // name of your strucure/class which contain your node
-#define __VALUE value // name of your value variable in your structure/class ---> could be something like "value.first" if you use pair
+#define __VALUE value // name of your value variable in your structure/class ---> probably something like "value.first" if you use pair
 #define __SIZE 5 // size between nodes (only for display)
 #define __ROOT root // name of your tree's root variable
 #define __IS_BLACK is_black // name of the bool variable for the color of nodes (invert the condition of line 94 is necessary)

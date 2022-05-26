@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/26 15:01:55 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 19:07:54 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,47 @@ namespace ft {
 		bool is_black:1;
 		T value;
 
+		rbt_node(void) : parent(NULL), left(NULL), right(NULL), is_black(false), value(T()) {}
 		rbt_node(T val) : parent(NULL), left(NULL), right(NULL), is_black(false), value(val) {}
+		rbt_node(rbt_node const &ref) : parent(ref.parent), left(ref.left), right(ref.right), is_black(ref.is_black), value(ref.value) {
+			
+		}
+		// rbt_node(void) : parent(NULL), left(NULL), right(NULL), is_black(false), value(0) {}
 		~rbt_node(void) {}
+
+		rbt_node &operator=(rbt_node const &ref) {
+			if (this != &ref) {
+				this->value = ref.data;
+				this->is_black = ref.color;
+				this->parent = ref.parent;
+				this->left = ref.left;
+				this->right = ref.right;
+			}
+			return (*this);
+		}
 	};
 
-	template <class T, class Allocator = std::allocator<rbt_node<T> >, typename Compare = std::less<T> >
+	template <class T, class Allocator/*  = std::allocator<rbt_node<T> >*/, typename Compare = std::less<T> >
 	class rbt {
 		
 		typedef rbt_node<T> node;
 		typedef rbt_node<T> *node_ptr;
 		typedef T value_type;
-		//typedef Compare
+		typedef typename Allocator::template rebind<rbt_node<value_type> >::other allocator_type;
+		typedef Compare compare_type;
 
 		private:
-			Allocator _myAlloc;			
+			allocator_type _myAlloc;			
 			node *root;
-			node *nil;
+			node_ptr nil;
+			compare_type _compare;
 		
 		public:
 
-			rbt(void) : root(NULL) {
-				this->nil = new_node(T(), NULL, true);
+			rbt(allocator_type const &alloc = allocator_type(), compare_type const &compare = compare_type()) : _myAlloc(alloc), root(NULL), _compare(compare) {
+				// this->nil = new_node(T(), NULL, true);
+				this->nil = _myAlloc.allocate(1);
+				_myAlloc.construct(this->nil, node());
 				this->nil->right = this->nil;
 				this->nil->left = this->nil;
 				this->nil->parent = this->nil;

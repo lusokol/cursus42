@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/26 15:07:54 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/26 18:35:53 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 #include <time.h>  
 
 int main(void) {
-	ft::rbt<ft::pair<int, std::string> > yolo;
+	ft::map<int, std::string> yolo;
+	// ft::rbt<ft::pair<int, std::string> > yolo;
 	// ft::pair<int, int> p;
 	// srand (time(NULL));
 	// std::cout << "How much random node do you want ?" << std::endl;
@@ -29,7 +30,7 @@ int main(void) {
 	// 	yolo.insert(rand() % 1000 + 1);
 	for (int i = 0; i < 10; i++)
 		yolo.insert(ft::make_pair<int, std::string>(i, std::string("test")));
-	yolo.print_tree(yolo.getNode());
+	yolo.print_tree();
 	std::cout << std::endl;
 	// std::cout << std::endl;
 	// std::cout << std::endl;
