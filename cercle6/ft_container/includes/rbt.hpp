@@ -6,18 +6,133 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/26 19:07:54 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/27 15:38:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBT_HPP
 # define RBT_HPP
 
-#include <iostream>
+# include <iostream>
 # include <memory>
 # include <vector>
+# include "iterator.hpp"
 
 namespace ft {
+
+	template <typename T, typename Node>
+    class MapIterator {
+        
+        public:
+			typedef T * pointer;
+			typedef T & reference;
+			typedef T const * const_pointer;
+			typedef T const & const_reference;
+			typedef T value_type;
+			typedef Node * node_ptr;
+			typedef std::ptrdiff_t difference_type;
+			typedef std::bidirectional_iterator_tag iterator_category;
+			typedef Node *node_ptr;
+        
+		private:
+            node_ptr _current;
+            node_ptr _root;
+            node_ptr _nil;
+			
+		public:
+
+			pointer const &base(void) const { return (this->_ptr); }
+
+            //================= constructor / copy / destructor =================//
+            MapIterator(void): _current(NULL), _root(NULL), _nil(NULL) {}
+            MapIterator(node_ptr current, node_ptr root, node_ptr nil): _current(current), _root(root), _nil(nil) {}
+            template <typename U>
+                MapIterator(MapIterator<U> const &ref) : _current(ref.current), _root(ref.root), _nil(ref.nil) {}
+            ~MapIterator(void) {}
+
+            //============================ operator =============================//
+            friend bool operator==(const MapIterator &a, const MapIterator &b) { return a._current == b._current; };
+            friend bool operator!=(const MapIterator &a, const MapIterator &b) { return a._current != b._current; };
+            reference operator*() const { return *(_current->value); }
+            pointer operator->() { return &this->operator*(); }
+            MapIterator &operator=(MapIterator<T, Node> const &ref) {
+                this->_current = ref._current;
+                this->_root = ref._root;
+                this->_nil = ref._nil;
+                return (*this);
+            }
+            MapIterator &operator++() {
+                _current = this->_next(this->current);
+                return *this;
+            }
+            MapIterator operator++(int) {
+                MapIterator tmp(this->_current, this->_root, this->_nil);
+				_current = this->_next(this->current);
+                return tmp;
+            }
+            MapIterator &operator--() {
+                _current = this->_prev(this->current);
+                return *this;
+            }
+            MapIterator operator--(int) {
+                MapIterator tmp(this->_current, this->_root, this->_nil);
+				_current = this->_prev(this->current);
+                return tmp;
+            }
+
+		private:
+			
+			node_ptr	_max(node_ptr node) {
+				if (node != this->_nil)
+					while (node->right != this->_nil)
+						node = node->right;
+				return (node);
+			}
+
+			node_ptr	_min(node_ptr node) {
+				if (node != this->_nil)
+					while (node->left != this->_nil)
+						node = node->left;
+				return (node);
+			}
+
+			node_ptr	_next(node_ptr node) {
+				if (node->right != this->_nil)
+					return (this->_min(node->right));
+				node_ptr parent = node->parent;
+				while (parent != this->_nil && node == parent->right) {
+					node = parent;
+					parent = parent->parent;
+				}
+				return (parent);
+			}
+
+			node_ptr	_prev(node_ptr node) {
+				if (node->left != this->_nil)
+					return (this->_max(node->left));
+				node_ptr parent = node->parent;
+				while (parent != this->_nil && node == parent->left) {
+					node = parent;
+					parent = parent->parent;
+				}
+				return (parent);
+			}
+
+    };
+
+	// Forward iterator requirements
+
+	template <typename T, typename U>
+	bool	operator==(MapIterator<T> const &lhs,
+	MapIterator<U> const &rhs) {
+		return (lhs.base() == rhs.base());
+	}
+
+	template <typename T, typename U>
+	bool	operator!=(MapIterator<T> const &lhs,
+	MapIterator<U> const &rhs) {
+		return (lhs.base() != rhs.base());
+	}
 
 	template <typename T>
 	class	rbt_node {
@@ -35,7 +150,6 @@ namespace ft {
 		rbt_node(rbt_node const &ref) : parent(ref.parent), left(ref.left), right(ref.right), is_black(ref.is_black), value(ref.value) {
 			
 		}
-		// rbt_node(void) : parent(NULL), left(NULL), right(NULL), is_black(false), value(0) {}
 		~rbt_node(void) {}
 
 		rbt_node &operator=(rbt_node const &ref) {
@@ -68,12 +182,12 @@ namespace ft {
 		public:
 
 			rbt(allocator_type const &alloc = allocator_type(), compare_type const &compare = compare_type()) : _myAlloc(alloc), root(NULL), _compare(compare) {
-				// this->nil = new_node(T(), NULL, true);
 				this->nil = _myAlloc.allocate(1);
 				_myAlloc.construct(this->nil, node());
 				this->nil->right = this->nil;
 				this->nil->left = this->nil;
 				this->nil->parent = this->nil;
+				this->nil->is_black = true;
 				root = this->nil;
 			}
 			~rbt(void) {
@@ -191,7 +305,25 @@ namespace ft {
 				root->is_black = true;
 			}
 
+			node_ptr search(value_type val) const {
+				node_ptr current = root;
+				while (current != nil) {
+					if (_compare(value, current->value))
+						current = current->left;
+					else if (_compare(current->value, value))
+						current = current->right;
+					else
+						break ;
+				}
+				return current;
+			}
+
 			void insert(T val) {
+				/* node_ptr tmp = root;
+				while (tmp != nil && tmp->value->first != val->first) {
+					if (tmp)
+				} */
+
 				node *z = new_node(val, nil, false);
 				node *y = nil;
 				node *x = root;
@@ -211,7 +343,8 @@ namespace ft {
 					y->right = z;
 				z->left = nil;
 				z->right = nil;
-				z->is_black = false;
+				if (z != nil)
+					z->is_black = false;
 				insert_fix(z);
 			}
 

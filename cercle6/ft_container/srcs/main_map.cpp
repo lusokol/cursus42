@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/26 18:35:53 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:18:51 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int main(void) {
 	// std::cin >> nb;
 	// for (int i = 0; i < nb; i++)
 	// 	yolo.insert(rand() % 1000 + 1);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++) {
 		yolo.insert(ft::make_pair<int, std::string>(i, std::string("test")));
+	}
 	yolo.print_tree();
 	std::cout << std::endl;
 	// std::cout << std::endl;
