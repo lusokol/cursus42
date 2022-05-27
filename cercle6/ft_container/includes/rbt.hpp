@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/27 15:38:21 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:04:43 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ namespace ft {
 			typedef Node * node_ptr;
 			typedef std::ptrdiff_t difference_type;
 			typedef std::bidirectional_iterator_tag iterator_category;
-			typedef Node *node_ptr;
         
 		private:
             node_ptr _current;
@@ -46,8 +45,7 @@ namespace ft {
             //================= constructor / copy / destructor =================//
             MapIterator(void): _current(NULL), _root(NULL), _nil(NULL) {}
             MapIterator(node_ptr current, node_ptr root, node_ptr nil): _current(current), _root(root), _nil(nil) {}
-            template <typename U>
-                MapIterator(MapIterator<U> const &ref) : _current(ref.current), _root(ref.root), _nil(ref.nil) {}
+            MapIterator(MapIterator const &ref) : _current(ref.current), _root(ref.root), _nil(ref.nil) {}
             ~MapIterator(void) {}
 
             //============================ operator =============================//
@@ -120,7 +118,7 @@ namespace ft {
 
     };
 
-	// Forward iterator requirements
+	/* // Forward iterator requirements
 
 	template <typename T, typename U>
 	bool	operator==(MapIterator<T> const &lhs,
@@ -132,7 +130,7 @@ namespace ft {
 	bool	operator!=(MapIterator<T> const &lhs,
 	MapIterator<U> const &rhs) {
 		return (lhs.base() != rhs.base());
-	}
+	} */
 
 	template <typename T>
 	class	rbt_node {
@@ -172,16 +170,18 @@ namespace ft {
 		typedef T value_type;
 		typedef typename Allocator::template rebind<rbt_node<value_type> >::other allocator_type;
 		typedef Compare compare_type;
+		typedef std::size_t size_type;
 
 		private:
 			allocator_type _myAlloc;			
 			node *root;
 			node_ptr nil;
 			compare_type _compare;
+			size_type size;
 		
 		public:
 
-			rbt(allocator_type const &alloc = allocator_type(), compare_type const &compare = compare_type()) : _myAlloc(alloc), root(NULL), _compare(compare) {
+			rbt(allocator_type const &alloc = allocator_type(), compare_type const &compare = compare_type()) : _myAlloc(alloc), root(NULL), _compare(compare), size(0) {
 				this->nil = _myAlloc.allocate(1);
 				_myAlloc.construct(this->nil, node());
 				this->nil->right = this->nil;
@@ -198,7 +198,30 @@ namespace ft {
 
 			node_ptr getNode(void) { return root; }
 
+			typedef MapIterator<T, rbt_node<T> > iterator;
+			typedef MapIterator<T const, rbt_node<T> > const_iterator;
+			typedef ft::ReverseIterator<iterator> reverse_iterator;
+			typedef ft::ReverseIterator<const_iterator> const_reverse_iterator;
+
+			iterator begin(void) { return (iterator(this->minimum(root), this->root, this->nil)); }
+			const_iterator begin(void) const { return (const_iterator(this->minimum(root), this->root, this->nil)); }
+			
+			iterator end(void) { return (iterator(this->maximum(root), this->root, this->nil)); }
+			const_iterator end(void) const {	return (const_iterator(this->maximum(root), this->root, this->nil)); }
+
+			reverse_iterator rbegin(void) { return (reverse_iterator(this->end())); }
+			const_reverse_iterator rbegin(void) const { return (const_reverse_iterator(this->end())); }
+			
+			reverse_iterator rend(void) { return (reverse_iterator(this->begin())); }
+			const_reverse_iterator rend(void) const {	return (const_reverse_iterator(this->begin())); }
+
 		private:
+
+			size_type size(void) const { return (size); }
+			size_type size(void) const { return (_myAlloc.max_size()); }
+
+			bool empty() const { return (root == nil); }
+
 
 			void clear(node *actual) {
 				if (actual == nil)
@@ -305,7 +328,7 @@ namespace ft {
 				root->is_black = true;
 			}
 
-			node_ptr search(value_type val) const {
+			node_ptr search(value_type value) const {
 				node_ptr current = root;
 				while (current != nil) {
 					if (_compare(value, current->value))
@@ -323,7 +346,9 @@ namespace ft {
 				while (tmp != nil && tmp->value->first != val->first) {
 					if (tmp)
 				} */
-
+				// TODO check if key exist
+				// TODO if not : add size
+				size++;
 				node *z = new_node(val, nil, false);
 				node *y = nil;
 				node *x = root;
@@ -528,8 +553,11 @@ namespace ft {
 					y->left->parent = y;
 					y->is_black = z->is_black;
 				}
-				_myAlloc.destroy(&z);
-				_myAlloc.deallocate(z, 1);
+				if (z != nil) {
+					size--;
+					_myAlloc.destroy(&z);
+					_myAlloc.deallocate(z, 1);
+				}
 				if (y_original_color == true)
 					deleteFix(x);
 			}

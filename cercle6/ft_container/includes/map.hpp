@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:54:53 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/27 14:18:35 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:08:56 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ namespace ft {
 			typedef typename allocator_type::const_reference const_reference;
 			typedef typename allocator_type::pointer pointer;
 			typedef typename allocator_type::const_pointer const_pointer;
-			// TODO typedef iterator
-			// TODO typedef const_iterator
-			// TODO typedef reverse_iterator
-			// TODO typedef const_reverse_iterator
+			typedef typename tree_type::iterator iterator;
+			typedef typename tree_type::const_iterator const_iterator;
+			typedef ReverseIterator<iterator> reverse_iterator;
+			typedef ReverseIterator<const_iterator> const_reverse_iterator;
 			typedef std::ptrdiff_t difference_type;
 			typedef std::size_t size_type;
 
@@ -98,6 +98,10 @@ namespace ft {
 			// TODO iterator
 			// ? template <class InputIterator>
   			// ? void insert (InputIterator first, InputIterator last);
+
+			iterator find (const key_type& k) { return (_rbt->search(k));}
+			const_iterator find (const key_type& k) const { return (_rbt->search(k)); }
+
 
 			//! A NE PAS LAISSER
 			void print_tree(void) {
