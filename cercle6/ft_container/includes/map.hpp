@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:54:53 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/27 20:08:56 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/30 19:08:33 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "pair.hpp"
 # include "rbt.hpp"
+# include "lexicographical_compare.tpp"
 
 namespace ft {
 
@@ -74,34 +75,109 @@ namespace ft {
 			_value_comp(comp),
 			_rbt(_myAlloc, _value_comp) {}
 
-			/* template <class InputIterator>
- 			map (InputIterator first, InputIterator last,
-    		const key_compare& comp = key_compare(),
-    		const allocator_type& alloc = allocator_type()); */
+			template <class InputIterator>
+ 			map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : 
+			_myAlloc(alloc), 
+			_key_comp(comp),
+			_value_comp(comp),
+			_rbt(_myAlloc, _value_comp)
+			{
+				 this->insert(first, last);
+			}
 
-			/* map (const map& x) {
-				
-			} */
+			map (const map& x) : _myAlloc(x._myAlloc), _key_comp(x._key_comp), _value_comp(x._value_comp), _rbt(_myAlloc, _key_comp) {
+				this->insert(x.begin(), x.end());
+			}
 
 			~map(void) {}
 
+			map<key_type, value_type, key_compare, allocator_type> &operator=(map<key_type, value_type, key_compare, allocator_type> const &ref) {
+				this->_rbt = ref._rbt;
+				this->_myAlloc = ref._myAlloc;
+				this->_key_comp = ref._key_comp;
+				this->_value_comp = ref._value_comp;
+				return (*this);
+			}
+
 			// * // MODIFIERS // * //
 			
-			void /* ft::pair<int,char> */ insert (const value_type& val) {
-				this->_rbt.insert(val);
+			ft::pair<iterator, bool> insert (const value_type& val) {
+				return (this->_rbt.insert(this->end(), val));
 				// return (this->_rbt.insert(val));
 			}
 
-			// TODO hint
-			// ? iterator insert (iterator position, const value_type& val);
+			iterator insert (iterator position, const value_type& val) {
+				return (this->_rbt.insert(position, val).first);
+			}
 
-			// TODO iterator
-			// ? template <class InputIterator>
-  			// ? void insert (InputIterator first, InputIterator last);
+			template <class InputIterator>
+			void insert (InputIterator first, InputIterator last) {
+				for (; first != last; ++first)
+					this->_rbt.insert(this->end(), *first);
+			}
 
-			iterator find (const key_type& k) { return (_rbt->search(k));}
-			const_iterator find (const key_type& k) const { return (_rbt->search(k)); }
+			iterator begin(void) { return this->_rbt.begin(); }
+			const_iterator begin(void) const { return this->_rbt.begin(); }
+			
+			iterator end(void) { return this->_rbt.end(); }
+			const_iterator end(void) const { return this->_rbt.end(); }
 
+			reverse_iterator rbegin(void) { return this->_rbt.rbegin(); }
+			const_reverse_iterator rbegin(void) const { return this->_rbt.rbegin(); }
+			
+			reverse_iterator rend(void) { return this->_rbt.rend(); }
+			const_reverse_iterator rend(void) const { return this->_rbt.rend(); }
+
+			iterator find (const key_type& k) { return (this->_rbt.find(ft::make_pair(k, mapped_type())));}
+			const_iterator find (const key_type& k) const { return (this->_rbt.find(ft::make_pair(k, mapped_type()))); }
+
+			bool empty() const { return (this->_rbt.empty()); }
+			size_type size() const { return (this->_rbt.size()); }
+			size_type max_size() const { return (this->_rbt.max_size()); }
+
+			size_type count (const key_type& k) const {
+				return (this->_rbt.find(ft::make_pair(k, mapped_type())) != this->end());
+			}
+
+			iterator lower_bound (const key_type& k) { return (this->_rbt.lower_bound(ft::make_pair(k, mapped_type()))); }
+			const_iterator lower_bound (const key_type& k) const { return (this->_rbt.lower_bound(ft::make_pair(k, mapped_type()))); }
+			
+			iterator upper_bound (const key_type& k) { return (this->_rbt.upper_bound(ft::make_pair(k, mapped_type()))); }
+			const_iterator upper_bound (const key_type& k) const { return (this->_rbt.upper_bound(ft::make_pair(k, mapped_type()))); }
+
+			pair<const_iterator, const_iterator> equal_range (const key_type& k) const {
+				const_iterator it = upper_bound(k);
+				const_iterator ite = lower_bound(k);
+				return (ft::make_pair<const_iterator, const_iterator>(ite, it));
+			}
+			
+			pair<iterator, iterator> equal_range (const key_type& k) {
+				iterator it = upper_bound(k);
+				iterator ite = lower_bound(k);
+				return (ft::make_pair<iterator, iterator>(ite, it));
+			}
+			
+			key_compare key_comp() const { return (this->_key_comp); }
+			value_compare value_comp() const { return (this->_value_comp); }
+			
+			mapped_type& operator[] (const key_type& k) {
+				//std::cout << "pair : " << ft::make_pair(k, mapped_type()) << std::endl;
+				// std::cout << "K = " << k << std::endl;
+				iterator it = this->find(k);
+				if (it == this->end())
+					it = this->insert(ft::make_pair(k, mapped_type())).first;
+				return (it->second);
+			}
+
+			void clear() { this->_rbt.clear_call(); }
+
+			void erase (iterator position) { this->_rbt.erase(position); }
+			size_type erase (const key_type& k);
+			void erase (iterator first, iterator last);
+
+			void swap(map<Key, T, Compare, allocator_type> &m) {
+				this->_rbt.swap(m._rbt);
+			}
 
 			//! A NE PAS LAISSER
 			void print_tree(void) {
@@ -110,6 +186,50 @@ namespace ft {
 			//! ////////////////
 
 	};
+
+	
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	bool	operator==(map<Key, T, Compare, Allocator> const &lhs,
+	map<Key, T, Compare, Allocator> const &rhs) {
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	bool	operator<(map<Key, T, Compare, Allocator> const &lhs,
+	map<Key, T, Compare, Allocator> const &rhs) {
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	bool	operator!=(map<Key, T, Compare, Allocator> const &lhs,
+	map<Key, T, Compare, Allocator> const &rhs) {
+		return (!(lhs == rhs));
+	}
+
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	bool	operator>(map<Key, T, Compare, Allocator> const &lhs,
+	map<Key, T, Compare, Allocator> const &rhs) {
+		return (rhs < lhs);
+	}
+
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	bool	operator<=(map<Key, T, Compare, Allocator> const &lhs,
+	map<Key, T, Compare, Allocator> const &rhs) {
+		return (!(rhs < lhs));
+	}
+
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	bool	operator>=(map<Key, T, Compare, Allocator> const &lhs,
+	map<Key, T, Compare, Allocator> const &rhs) {
+		return (!(lhs < rhs));
+	}
+
+	template <typename Key, typename T, typename Compare, typename Allocator>
+	void swap(map<Key, T, Compare, Allocator> &lhs, map<Key, T, Compare, Allocator> &rhs) {
+		lhs.swap(rhs);
+	}
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 12:43:21 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/27 14:42:57 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/30 18:23:36 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft {
 			T base(void) const { return (this->_ptr); }
 
             //================= constructor / copy / destructor =================//
-            ReverseIterator(void): _ptr(0) {}
+            ReverseIterator(void): _ptr() {}
             ReverseIterator(iterator_type ptr): _ptr(ptr) {}
             template <typename U>
                 ReverseIterator(ReverseIterator<U> const &ref) : _ptr(ref.base()) {}
@@ -76,12 +76,12 @@ namespace ft {
             //============================ operator =============================//
             friend bool operator==(const ReverseIterator &a, const ReverseIterator &b) { return a._ptr == b._ptr; };
             friend bool operator!=(const ReverseIterator &a, const ReverseIterator &b) { return a._ptr != b._ptr; };
-            reference operator*() const {
+            reference operator*(void) const {
 				iterator_type tmp = this->_ptr;
 				--tmp;
 				return *tmp;
 			}
-            pointer operator->() {
+            pointer operator->(void) const {
 				iterator_type tmp = this->_ptr;
 				--tmp;
 				return &*tmp;

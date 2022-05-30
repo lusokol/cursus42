@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:27:30 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/27 14:18:51 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/30 17:32:38 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <stdlib.h>
 #include <time.h>  
+	#include <list>
 
 int main(void) {
 	ft::map<int, std::string> yolo;
@@ -28,11 +29,68 @@ int main(void) {
 	// std::cin >> nb;
 	// for (int i = 0; i < nb; i++)
 	// 	yolo.insert(rand() % 1000 + 1);
-	for (int i = 0; i < 10; i++) {
-		yolo.insert(ft::make_pair<int, std::string>(i, std::string("test")));
-	}
+	// for (int i = 0; i < 10; i++) {
+	// yolo.insert(ft::pair<int, std::string>(42, std::string("test")));
+	// yolo.insert(ft::pair<int, std::string>(25, std::string("test")));
+	// yolo.insert(ft::pair<int, std::string>(80, std::string("test")));
+	// yolo.insert(ft::pair<int, std::string>(12, std::string("test")));
+	// yolo.insert(ft::pair<int, std::string>(27, std::string("test")));
+	// yolo.insert(ft::pair<int, std::string>(90, std::string("test")));
+	yolo[42] = "test";
+	yolo[25] = "test";
+	yolo[80] = "test";
+	yolo[12] = "test";
+	yolo[27] = "test";
+	yolo[90] = "test";
 	yolo.print_tree();
-	std::cout << std::endl;
+	// }
+	// yolo.print_tree();
+	// std::cout << std::endl;
+
+// #include "../containers_test/srcs/map/common.hpp"
+// #define TESTED_NAMESPACE ft
+
+// #define T1 int
+// #define T2 int
+// typedef _pair<const T1, T2> T3;
+
+// int		main(void)
+// {
+// 	std::list<T3> lst;
+// 	unsigned int lst_size = 7;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(T3(lst_size - i, i));
+
+// 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+// 	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
+
+// 	TESTED_NAMESPACE::map<T1, T2> mp_range(it, --(--ite));
+// 	for (int i = 0; it != ite; ++it)
+// 		it->second = ++i * 5;
+
+// 	it = mp.begin(); ite = --(--mp.end());
+// 	TESTED_NAMESPACE::map<T1, T2> mp_copy(mp);
+// 	for (int i = 0; it != ite; ++it)
+// 		it->second = ++i * 7;
+
+// 	std::cout << "\t-- PART ONE --" << std::endl;
+// 	printSize(mp);
+// 	printSize(mp_range);
+// 	printSize(mp_copy);
+
+// 	mp = mp_copy;
+// 	mp_copy = mp_range;
+// 	mp_range.clear();
+
+// 	std::cout << "\t-- PART TWO --" << std::endl;
+// 	printSize(mp);
+// 	std::cout << "\t-- PART THREE --" << std::endl;
+// 	printSize(mp_range);
+// 	std::cout << "\t-- PART FOUR --" << std::endl;
+// 	printSize(mp_copy);
+// 	return (0);
+// }
+
 	// std::cout << std::endl;
 	// std::cout << std::endl;
 	// yolo.delete_node(yolo.getNode()->left);
@@ -234,5 +292,5 @@ int main(void) {
 	// std::cout << std::endl;
 	// yolo.print_tree(yolo.getNode());
 	// std::cout << std::endl;
-	return 0;
+	// return 0;
 }
