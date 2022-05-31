@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:54:53 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/30 19:08:33 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/31 16:19:15 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,22 @@ namespace ft {
 			void clear() { this->_rbt.clear_call(); }
 
 			void erase (iterator position) { this->_rbt.erase(position); }
-			size_type erase (const key_type& k);
-			void erase (iterator first, iterator last);
+			
+			size_type erase (const key_type& k) {
+				size_type ret = this->count(k);
+				if (ret > 0)
+					this->_rbt.erase(this->find(k));
+				return ret;
+			}
+			
+			void erase (iterator first, iterator last) {
+				iterator it;
+				while (first != last) {
+					it = first;
+					++first;
+					this->_rbt.erase(it);
+				}
+			}
 
 			void swap(map<Key, T, Compare, allocator_type> &m) {
 				this->_rbt.swap(m._rbt);

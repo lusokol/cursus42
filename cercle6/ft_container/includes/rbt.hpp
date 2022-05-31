@@ -6,7 +6,7 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:31:39 by macbookpro        #+#    #+#             */
-/*   Updated: 2022/05/30 19:45:57 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:53:21 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -667,8 +667,8 @@ namespace ft {
 					y->left->parent = y;
 					y->is_black = z->is_black;
 				}
-				tree_size--;
 				if (z != nil) {
+					tree_size--;
 					_myAlloc.destroy(z);
 					_myAlloc.deallocate(z, 1);
 				}
