@@ -1,15 +1,20 @@
-#!/bin/zsh
+#!/usr/bin
 make re
 mv ./ft_container ./ft_container_ft
 make std
 mv ./ft_container ./ft_container_std
 
 echo "=================== std ==================="
-time -p ./ft_container_std > std.out
+basetime=$(date +%s%N)
+./ft_container_std > std.txt
+echo "runtime: $(echo "scale=5;($(date +%s%N) - ${basetime})/(1*10^09)" | bc) seconds"
 echo "=================== ft ==================="
-time -p ./ft_container_ft > ft.out
+basetime=$(date +%s%N)
+./ft_container_ft > ft.txt
+echo "runtime: $(echo "scale=5;($(date +%s%N) - ${basetime})/(1*10^09)" | bc) seconds"
+
 
 echo "=================== diff ==================="
-diff std.out ft.out
+diff --text std.txt ft.txt
 
-rm std.out ft.out ft_container_ft ft_container_std
+#rm std.out ft.out ft_container_ft ft_container_std

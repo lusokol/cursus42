@@ -6,11 +6,15 @@
 /*   By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:40:19 by lusokol           #+#    #+#             */
-/*   Updated: 2022/05/06 13:38:17 by lusokol          ###   ########.fr       */
+/*   Updated: 2022/05/31 17:50:28 by lusokol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 namespace ft {
+
+#ifndef LEXICOGRAPHICAL_COMPARE_TPP
+# define LEXICOGRAPHICAL_COMPARE_TPP
+
 
 template <class InputIterator1, class InputIterator2>
   bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
@@ -46,5 +50,7 @@ template <class InputIterator1, class InputIterator2, class BinaryPredicate>
   }
   return true;
 }
+
+#endif
 
 }

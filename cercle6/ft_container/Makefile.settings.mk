@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile.settings.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbookpro <macbookpro@student.42.fr>      +#+  +:+       +#+         #
+#    By: lusokol <lusokol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 21:06:11 by rotrojan          #+#    #+#              #
-#    Updated: 2022/05/17 18:16:06 by macbookpro       ###   ########.fr        #
+#    Updated: 2022/05/31 19:05:05 by lusokol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = ft_container
 
 # sources needed to compile
-SRC =	main_map.cpp \
+SRC =	main2.cpp \
 
 # path of sources
 PATH_SRCS = ./srcs
